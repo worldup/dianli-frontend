@@ -1,0 +1,8 @@
+route uri=/action/login methods=POST handler=action redirect=200@/index.html redirect=401@/pub/login.html
+route uri=/action/logout methods=GET|POST handler=action redirect=200@/pub/login.html
+
+route uri=/action handler=action
+
+route uri=/ extensions=jst,asp handler=jst
+
+route uri=/
