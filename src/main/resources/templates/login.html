@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>配电站智能监测平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="alternate icon" type="image/png" th:href="@{/assets/img/favorite.jpg}" href="../static/assets/img/favorite.jpg"/>
+    <link rel="stylesheet" th:href="@{/assets/css/amazeui.min.css}" href="../static/assets/css/amazeui.min.css"/>
+
+</head>
+<body>
+
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <h2>系统登录</h2>
+        <hr> </hr>
+        <form name="form" th:action="@{/login}" action="/login" method="POST" class="am-form">
+            <label for="username">用户名:</label>
+            <input type="text" name="username" id="username" value=""/>
+            <br/>
+            <label for="password">密码:</label>
+            <input type="password" name="password" id="password" value=""/>
+            <br/>
+            <p th:if="${param.error}" class="am-alert am-alert-warning">用户名或密码错误,请重试</p>
+            <div class="am-cf">
+                <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl"/>
+            </div>
+        </form>
+        <hr> </hr>
+        <p>© 2016 上海欧忆智能网络</p>
+    </div>
+</div>
+</body>
+</html>

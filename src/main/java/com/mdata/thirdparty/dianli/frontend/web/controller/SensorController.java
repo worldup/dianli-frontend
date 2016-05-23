@@ -22,4 +22,16 @@ public class SensorController {
     public void test2(){
         sensorService.test2();
     }
+    @RequestMapping("/chart/temperature")
+    public String temperature(){
+        return "/chart/temperature";
+    }
+    @RequestMapping("/chart/threephase")
+    public String threephase(){
+        return "/chart/threephase";
+    }
+    @RequestMapping("/chart/humidity")
+    public String humidity(){
+        return "/chart/humidity";
+    }
 }

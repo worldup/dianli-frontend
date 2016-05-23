@@ -25,7 +25,7 @@ import java.util.Properties;
 /**
  * Created by administrator on 16/5/14.
  */
-@Controller
+
 public class LoginController   {
     @RequestMapping(method ={RequestMethod.POST} ,value = "/login")
     @ResponseBody
