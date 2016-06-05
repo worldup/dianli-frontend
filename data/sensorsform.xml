@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SensorsForm version="1.0.2">
+	<Sensor id="Temperature" name="温度" modelNo="0x05">
+		<Filter level="0" type="0x05"/>
+		<Entry name="温度" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="2"/>
+	</Sensor>
+	<Sensor id="Humidity" name="湿度" modelNo="0x40">
+		<Filter level="0" type="0x40"/>
+		<Entry name="湿度" id="Humidity" type="相对湿度" unit="%RH" upperValue="100" lowerValue="0" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="3"/>
+	</Sensor>
+	<Sensor id="SoilMoisture" name="土壤容积含水率" modelNo="0x6A">
+		<Filter level="0" type="0x6A"/>
+		<Entry name="含水率" id="Moisture" type="含水率" unit="%RH" upperValue="100" lowerValue="0" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="3"/>
+	</Sensor>
+	<Sensor id="WaterLevel" name="水位" modelNo="0x42">
+		<Filter level="0" type="0x42"/>
+		<Entry name="水位" id="WaterLevel" type="水位" unit="m" upperValue="60" lowerValue="0" changeValue="0.01" abnormalValue="0.1" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Water" name="水浸" modelNo="0x43">
+		<Filter level="0" type="0x43"/>
+		<Entry name="水浸" id="Water" type="水浸" dataType="Boolean" unit="" upperValue="1" lowerValue="0" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="4"/>
+	</Sensor>
+	<Sensor id="Magnistor" name="磁控开关" modelNo="0x45">
+		<Filter level="0" type="0x45"/>
+		<Entry name="磁开关" id="Switch" type="开关" dataType="Boolean" unit="" upperValue="1" lowerValue="0" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="InfraredAlarm" name="红外接近感知" modelNo="0x47">
+		<Filter level="0" type="0x47"/>
+		<Entry name="红外接近" id="Alarm" type="警报" dataType="Boolean" unit="" upperValue="1" lowerValue="0" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Shake" name="震动感知" modelNo="0x50">
+		<Filter level="0" type="0x50"/>
+		<Entry name="震动" id="Shake" type="震动" dataType="Boolean" unit="" upperValue="1" lowerValue="0" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="5"/>
+	</Sensor>
+	<Sensor id="XDeformation" name="X形变" modelNo="0x4F">
+		<Filter level="0" type="0x4F"/>
+		<Entry name="X形变" id="Deformation" type="形变" unit="με" upperValue="1500" lowerValue="-1500" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x30"/>
+	</Sensor>
+	<Sensor id="YDeformation" name="Y形变" modelNo="0x4E">
+		<Filter level="0" type="0x4E"/>
+		<Entry name="Y形变" id="Deformation" type="形变" unit="με" upperValue="1500" lowerValue="-1500" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x31"/>
+	</Sensor>
+	<Sensor id="InfraredMatrix16" name="温度矩阵4×4" matrix="2" cx="4" cy="4">
+		<Filter level="1" type="0x05" addrMin="E000" addrMax="EFFF"/>
+		<Filter level="0" type="0x04"/>
+		<Entry name="温度点阵1,1" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵1,2" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵1,3" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵1,4" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵2,1" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵2,2" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵2,3" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵2,4" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵3,1" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵3,2" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵3,3" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵3,4" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵4,1" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵4,2" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵4,3" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+		<Entry name="温度点阵4,4" id="Temperature" type="温度" unit="℃" upperValue="150" lowerValue="-50" changeValue="1"/>
+	</Sensor>
+	<Sensor id="Noise" name="噪音" modelNo="0x6B">
+		<Filter level="0" type="0x6B"/>
+		<Entry name="噪音" id="Noise" type="声强" unit="dB" upperValue="150" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="XAngle" name="X角度" modelNo="0x6C">
+		<Filter level="0" type="0x6C"/>
+		<Entry name="X角度" id="Angle" type="角度" unit="°" upperValue="360" lowerValue="-360" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="YAngle" name="Y角度" modelNo="0x6D">
+		<Filter level="0" type="0x6D"/>
+		<Entry name="Y角度" id="Angle" type="角度" unit="°" upperValue="360" lowerValue="-360" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ZAngle" name="Z角度" modelNo="0x6E">
+		<Filter level="0" type="0x6E"/>
+		<Entry name="Z角度" id="Angle" type="角度" unit="°" upperValue="360" lowerValue="-360" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Relay" name="继电器" modelNo="0x33" writable="1">
+		<Filter level="0" type="0x33"/>
+		<Entry name="继电器" id="Relay" type="继电器" dataType="Boolean" unit="" upperValue="1" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="RelayChannel1" name="继电器通道1" modelNo="0x81">
+		<Filter level="0" type="0x81"/>
+		<Entry name="继电器" id="Relay" type="继电器" dataType="Boolean" unit="" upperValue="1" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+		<Entry name="接入设备" id="TargetDevice" type="设备" dataType="RelayTargetDevice" unit="" upperValue="255" lowerValue="0" changeValue="0.5" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<!--Sensor id="RelayChannel2" name="继电器通道2" modelNo="0x82">
+		<Filter level="0" type="0x82"/>
+		<Entry name="继电器" id="Relay" type="继电器" dataType="Boolean" unit="" upperValue="1" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+		<Entry name="接入设备" id="TargetDevice" type="设备" dataType="RelayTargetDevice" unit="" upperValue="255" lowerValue="0" changeValue="0.5" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor-->
+	<Sensor id="Atmosphere" name="大气压" modelNo="0x60">
+		<Filter level="0" type="0x60"/>
+		<Entry name="气压" id="Atmosphere" type="气压" unit="hPa" upperValue="1100" lowerValue="0" changeValue="0.025" abnormalValue="1" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="LaserDistance" name="激光测距" modelNo="0x70">
+		<Filter level="0" type="0x70"/>
+		<Entry name="距离" id="Distance" type="距离" unit="m" upperValue="66" lowerValue="0" changeValue="0.001" abnormalValue="1" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Illuminance" name="光照" modelNo="0x49">
+		<Filter level="0" type="0x49"/>
+		<Entry name="光照" id="Illuminance" type="光照度" unit="Lux" upperValue="200000" lowerValue="0" changeValue="0.1" abnormalValue="25" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<!--Sensor id="Obliquity" name="倾斜角" modelNo="0x65">
+		<Filter level="0" type="0x65"/>
+		<Entry name="倾斜角" id="Angle" type="角度" unit="°" upperValue="360" lowerValue="-360" changeValue="0.01" abnormalValue="1" updateSpan="30" offlineSpan="300"/>
+	</Sensor-->
+	<Sensor id="XGravityAcceleration" name="X轴加速度" modelNo="0x65">
+		<Filter level="0" type="0x65"/>
+		<Entry name="X轴加速度" id="GravityAcceleration" type="重力加速度" unit="G" upperValue="100" lowerValue="-100" changeValue="0.001" abnormalValue="1" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="YGravityAcceleration" name="Y轴加速度" modelNo="0x66">
+		<Filter level="0" type="0x66"/>
+		<Entry name="Y轴加速度" id="GravityAcceleration" type="重力加速度" unit="G" upperValue="100" lowerValue="-100" changeValue="0.001" abnormalValue="1" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ZGravityAcceleration" name="Z轴加速度" modelNo="0x67">
+		<Filter level="0" type="0x67"/>
+		<Entry name="Z轴加速度" id="GravityAcceleration" type="重力加速度" unit="G" upperValue="100" lowerValue="-100" changeValue="0.001" abnormalValue="1" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="XObliquity" name="X轴倾角" modelNo="0x65">
+		<Filter level="1" type="0x65" addrMin="B800" addrMax="BAFF"/>
+		<Entry name="X轴倾角" id="Angle" type="角度" unit="°" upperValue="360" lowerValue="-360" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="YObliquity" name="Y轴倾角" modelNo="0x66">
+		<Filter level="1" type="0x66" addrMin="B800" addrMax="BAFF"/>
+		<Entry name="Y轴角度" id="Angle" type="角度" unit="°" upperValue="360" lowerValue="-360" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ZObliquity" name="Z轴倾角" modelNo="0x67">
+		<Filter level="1" type="0x67" addrMin="B800" addrMax="BAFF"/>
+		<Entry name="Z轴角度" id="Angle" type="角度" unit="°" upperValue="360" lowerValue="-360" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Arrester" name="避雷器动作次数" modelNo="0x11">
+		<Filter level="0" type="0x11"/>
+		<Entry name="动作次数" id="Times" type="次数" unit="" upperValue="70000" lowerValue="0" changeValue="0.5" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x10"/>
+	</Sensor>
+	<Sensor id="ResistivePhase" name="相位角度" modelNo="0x15">
+		<Filter level="0" type="0x15"/>
+		<Entry name="相角" id="Phase" type="相角" unit="" upperValue="360" lowerValue="-360" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x15"/>
+	</Sensor>
+	<Sensor id="TotalCurrent" name="总电流" modelNo="0x10">
+		<Filter level="0" type="0x10"/>
+		<Entry name="总电流" id="Current" type="电流" unit="A" upperValue="65535" lowerValue="0" changeValue="0.000001" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x11"/>
+	</Sensor>
+	<Sensor id="BaseCurrent" name="基波电流" modelNo="0x12">
+		<Filter level="0" type="0x12"/>
+		<Entry name="基波电流" id="Current" type="电流" unit="A" upperValue="65535" lowerValue="0" changeValue="0.000001" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x12"/>
+	</Sensor>
+	<Sensor id="Har3Current" name="三次谐波电流" modelNo="0x13">
+		<Filter level="0" type="0x13"/>
+		<Entry name="三次谐波电流" id="Current" type="电流" unit="A" upperValue="65535" lowerValue="0" changeValue="0.000001" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x13"/>
+	</Sensor>
+	<Sensor id="Har5Current" name="五次谐波电流" modelNo="0x16">
+		<Filter level="0" type="0x16"/>
+		<Entry name="五次谐波电流" id="Current" type="电流" unit="A" upperValue="65535" lowerValue="0" changeValue="0.000001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="DynamicCurrent" name="适时宽动态电流" modelNo="0x1D">
+		<Filter level="0" type="0x1D"/>
+		<Entry name="适时宽动态电流" id="Current" type="电流" unit="A" upperValue="65535" lowerValue="0" changeValue="0.000001" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x14"/>
+	</Sensor>
+	<Sensor id="DynamicBigCurrent" name="适时大电流" modelNo="0x1E">
+		<Filter level="0" type="0x1E"/>
+		<Entry name="适时大电流" id="Current" type="电流" unit="A" upperValue="65535" lowerValue="0" changeValue="0.000001" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x14"/>
+	</Sensor>
+	<Sensor id="ResistiveCurrent" name="阻性电流" modelNo="0x14">
+		<Filter level="0" type="0x14"/>
+		<Entry name="阻性电流" id="Current" type="电流" unit="A" upperValue="65535" lowerValue="0" changeValue="0.000001" abnormalValue="10" updateSpan="30" offlineSpan="300" mapNo="0x14"/>
+	</Sensor>
+	<Sensor id="LeakCurrent" name="泄漏电流" modelNo="0x1A">
+		<Filter level="0" type="0x1A"/>
+		<Entry name="泄漏电流" id="Current" type="电流" unit="A" upperValue="65535" lowerValue="0" changeValue="0.000001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="TotalVoltage" name="总电压" modelNo="0x20">
+		<Filter level="0" type="0x20"/>
+		<Entry name="总电压" id="Voltage" type="电压" unit="V" upperValue="65535000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="BaseVoltage" name="基波电压" modelNo="0x21">
+		<Filter level="0" type="0x21"/>
+		<Entry name="基波电压" id="Voltage" type="电压" unit="V" upperValue="65535000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Har3Voltage" name="三次谐波电压" modelNo="0x22">
+		<Filter level="0" type="0x22"/>
+		<Entry name="三次谐波电压" id="Voltage" type="电压" unit="V" upperValue="65535000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Wind" name="风速" modelNo="0x91">
+		<Filter level="0" type="0x91"/>
+		<Entry name="风速" id="WindRate" type="风速" unit="m/s" upperValue="100" lowerValue="0" changeValue="0.1" abnormalValue="5" updateSpan="30" offlineSpan="300"/>
+		<Entry name="风向" id="WindAngle" type="风向" unit="°" upperValue="360" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Rainfall" name="雨量" modelNo="0x44">
+		<Filter level="0" type="0x44"/>
+		<Entry name="雨量" id="Rainfall" type="电压" unit="mm" upperValue="10000" lowerValue="0" changeValue="0.05" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Tension" name="拉力" modelNo="0x63">
+		<Filter level="0" type="0x63"/>
+		<Entry name="拉力" id="Tension" type="拉力" unit="kg" upperValue="65535" lowerValue="0" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ReactivePower" name="无功功率" modelNo="0x54">
+		<Filter level="0" type="0x54"/>
+		<Entry name="无功功率" id="ReactivePower" type="无功功率" unit="Var" upperValue="655350" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ActivePower" name="有功功率" modelNo="0x55">
+		<Filter level="0" type="0x55"/>
+		<Entry name="有功功率" id="ActivePower" type="有功功率" unit="W" upperValue="655350" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ApparentPower" name="视在功率" modelNo="0x56">
+		<Filter level="0" type="0x56"/>
+		<Entry name="视在功率" id="ApparentPower" type="视在功率" unit="VA" upperValue="655350" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Energy" name="电量" modelNo="0x57">
+		<Filter level="0" type="0x57"/>
+		<Entry name="电量" id="Energy" type="电量" unit="kWh" upperValue="65535" lowerValue="0" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="PowerFactor" name="功率因数" modelNo="0x58">
+		<Filter level="0" type="0x58"/>
+		<Entry name="功率因数" id="PowerFactor" type="功率因数" unit="°" upperValue="65535" lowerValue="0" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ACFrequency" name="交流频率" modelNo="0x59">
+		<Filter level="0" type="0x59"/>
+		<Entry name="交流频率" id="Frequency" type="频率" unit="Hz" upperValue="65535" lowerValue="0" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ACDCPower" name="电源功率" modelNo="0x5D">
+		<Filter level="0" type="0x5D"/>
+		<Entry name="电源功率" id="Power" type="功率" unit="W" upperValue="655350" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="SolarPower" name="太阳能功率" modelNo="0x5E">
+		<Filter level="0" type="0x5E"/>
+		<Entry name="太阳能功率" id="Power" type="功率" unit="W" upperValue="655350" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="GasO2" name="氧气含量" modelNo="0x75">
+		<Filter level="0" type="0x75"/>
+		<Entry name="氧气含量" id="PercentO2" type="氧气含量" unit="%" upperValue="100" lowerValue="0" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="GasCO" name="一氧化碳含量" modelNo="0x77">
+		<Filter level="0" type="0x77"/>
+		<Entry name="一氧化碳含量" id="PPMCO" type="一氧化碳含量" unit="ppm" upperValue="655350" lowerValue="0" changeValue="0.2" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="GasCO2" name="二氧化碳含量" modelNo="0x78">
+		<Filter level="0" type="0x78"/>
+		<Entry name="二氧化碳含量" id="PPMCO2" type="二氧化碳含量" unit="ppm" upperValue="655350" lowerValue="0" changeValue="0.2" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<!--脱扣器-->
+	<Sensor id="ActivePowerA" name="A相有功功率" modelNo="0xA0">
+		<Filter level="0" type="0xA0"/>
+		<Entry name="A相有功功率" id="ActivePower" type="有功功率" unit="W" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kW" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="ReactivePowerA" name="A相无功功率" modelNo="0xA1">
+		<Filter level="0" type="0xA1"/>
+		<Entry name="A相无功功率" id="ReactivePower" type="无功功率" unit="Var" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kVar" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="ApparentPowerA" name="A相视在功率" modelNo="0xA2">
+		<Filter level="0" type="0xA2"/>
+		<Entry name="A相视在功率" id="ApparentPower" type="视在功率" unit="VA" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kVA" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="PowerFactorA" name="A相功率因数" modelNo="0xA3">
+		<Filter level="0" type="0xA3"/>
+		<Entry name="A相功率因数" id="PowerFactor" type="功率因数" unit="°" upperValue="100" lowerValue="0" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="CurrentA" name="A相电流" modelNo="0xA4">
+		<Filter level="0" type="0xA4"/>
+		<Entry name="A相电流" id="Current" type="电流" unit="A" upperValue="100000000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="VoltageA" name="A相电压" modelNo="0xA5">
+		<Filter level="0" type="0xA5"/>
+		<Entry name="A相电压" id="Voltage" type="电压" unit="V" upperValue="100000000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="TotalEnergy" name="总电能" modelNo="0xA6">
+		<Filter level="0" type="0xA6"/>
+		<Entry name="总电能" id="Energy" type="电量" unit="kWh" upperValue="100000000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="Frequency" name="频率" modelNo="0xA7">
+		<Filter level="0" type="0xA7"/>
+		<Entry name="频率" id="Frequency" type="频率" unit="Hz" upperValue="1000000" lowerValue="0" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ActivePowerB" name="B相有功功率" modelNo="0xB0">
+		<Filter level="0" type="0xB0"/>
+		<Entry name="B相有功功率" id="ActivePower" type="有功功率" unit="W" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kW" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="ReactivePowerB" name="B相无功功率" modelNo="0xB1">
+		<Filter level="0" type="0xB1"/>
+		<Entry name="B相无功功率" id="ReactivePower" type="无功功率" unit="Var" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kVar" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="ApparentPowerB" name="B相视在功率" modelNo="0xB2">
+		<Filter level="0" type="0xB2"/>
+		<Entry name="B相视在功率" id="ApparentPower" type="视在功率" unit="VA" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kVA" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="PowerFactorB" name="B相功率因数" modelNo="0xB3">
+		<Filter level="0" type="0xB3"/>
+		<Entry name="B相功率因数" id="PowerFactor" type="功率因数" unit="°" upperValue="100" lowerValue="0" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="CurrentB" name="B相电流" modelNo="0xB4">
+		<Filter level="0" type="0xB4"/>
+		<Entry name="B相电流" id="Current" type="电流" unit="A" upperValue="100000000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="VoltageB" name="B相电压" modelNo="0xB5">
+		<Filter level="0" type="0xB5"/>
+		<Entry name="B相电压" id="Voltage" type="电压" unit="V" upperValue="100000000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="ActivePowerC" name="C相有功功率" modelNo="0xC0">
+		<Filter level="0" type="0xC0"/>
+		<Entry name="C相有功功率" id="ActivePower" type="有功功率" unit="W" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kW" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="ReactivePowerC" name="C相无功功率" modelNo="0xC1">
+		<Filter level="0" type="0xC1"/>
+		<Entry name="C相无功功率" id="ReactivePower" type="无功功率" unit="Var" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kVar" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="ApparentPowerC" name="C相视在功率" modelNo="0xC2">
+		<Filter level="0" type="0xC2"/>
+		<Entry name="C相视在功率" id="ApparentPower" type="视在功率" unit="VA" upperValue="100000000" lowerValue="-100000000" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" displayUnit="kVA" displayMultiplier="0.001"/>
+	</Sensor>
+	<Sensor id="PowerFactorC" name="C相功率因数" modelNo="0xC3">
+		<Filter level="0" type="0xC3"/>
+		<Entry name="C相功率因数" id="PowerFactor" type="功率因数" unit="°" upperValue="100" lowerValue="0" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="CurrentC" name="C相电流" modelNo="0xC4">
+		<Filter level="0" type="0xC4"/>
+		<Entry name="C相电流" id="Current" type="电流" unit="A" upperValue="100000000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+	<Sensor id="VoltageC" name="C相电压" modelNo="0xC5">
+		<Filter level="0" type="0xC5"/>
+		<Entry name="C相电压" id="Voltage" type="电压" unit="V" upperValue="100000000" lowerValue="0" changeValue="0.001" abnormalValue="10" updateSpan="30" offlineSpan="300"/>
+	</Sensor>
+</SensorsForm>

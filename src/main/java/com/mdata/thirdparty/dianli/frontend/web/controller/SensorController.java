@@ -34,4 +34,8 @@ public class SensorController {
     public String humidity(){
         return "/chart/humidity";
     }
+    @RequestMapping("/data/calendar")
+    public String calendar(){
+        return "/data/calendar";
+    }
 }

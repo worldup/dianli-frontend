@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SensorsWatcher>
+	<Guard key="70729486" nodeKey="33557968" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="67960966" nodeKey="33582200" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="77734089" nodeKey="33584297" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="75978564" nodeKey="33893095" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="0.5"/>
+		</Setting>
+	</Guard>
+	<Guard key="69357648" nodeKey="33959396" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="80051533" nodeKey="34345191" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="68229293" nodeKey="35199904" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="73729797" nodeKey="35214706" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="74527033" nodeKey="35351474" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="75064181" nodeKey="35415162" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="82528294" nodeKey="35866465" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="70005247" nodeKey="35982176" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="72580243" nodeKey="36388525" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="68032894" nodeKey="36655666" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="76501563" nodeKey="37234286" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="72703266" nodeKey="37763839" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="0.5"/>
+		</Setting>
+	</Guard>
+	<Guard key="75301831" nodeKey="38338907" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="83758041" nodeKey="38347550" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="69101384" nodeKey="38434527" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="76615598" nodeKey="38535774" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="76889231" nodeKey="38691154" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="0.5"/>
+		</Setting>
+	</Guard>
+	<Guard key="67647091" nodeKey="38800087" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="82075133" nodeKey="38889780" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="80027545" nodeKey="38940255" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="0.5"/>
+		</Setting>
+	</Guard>
+	<Guard key="73741902" nodeKey="39020831" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="70603832" nodeKey="39343308" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="71128730" nodeKey="39615406" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="83110146" nodeKey="40007552" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="70003943" nodeKey="40332223" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="81362013" nodeKey="40382253" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="68964965" nodeKey="40438807" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="68572693" nodeKey="40507526" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="0.5"/>
+		</Setting>
+	</Guard>
+	<Guard key="74782175" nodeKey="40528181" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="82929740" nodeKey="40644168" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="68954571" nodeKey="40776607" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="70410468" nodeKey="40972437" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="80745781" nodeKey="41055118" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="67967543" nodeKey="41106577" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="78931988" nodeKey="41373235" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="67925421" nodeKey="41502066" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="72498983" nodeKey="41577144" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="68238892" nodeKey="41709036" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="74581222" nodeKey="42215570" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="70413703" nodeKey="42231076" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="68114885" nodeKey="42599724" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="82342040" nodeKey="42604717" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="67773232" nodeKey="42680858" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="68185030" nodeKey="42884924" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="68900957" nodeKey="42998575" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="72317263" nodeKey="43478921" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="80879868" nodeKey="43649848" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="0.5"/>
+		</Setting>
+	</Guard>
+	<Guard key="75179583" nodeKey="44190788" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="67641817" nodeKey="45554330" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="81408533" nodeKey="45558539" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="73220021" nodeKey="46073399" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="71829304" nodeKey="46297215" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="70332394" nodeKey="46348312" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="81362182" nodeKey="46401105" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="71579049" nodeKey="46554981" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="75511750" nodeKey="46809399" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="77342296" nodeKey="47652956" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="68510779" nodeKey="47734155" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="76955033" nodeKey="47866531" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="68966079" nodeKey="48325709" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="77620538" nodeKey="48966135" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="78185408" nodeKey="49164259" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="70986573" nodeKey="49177120" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="78605162" nodeKey="49496293" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="82321700" nodeKey="49770717" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="79824368" nodeKey="49887233" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="100"/>
+		</Setting>
+	</Guard>
+	<Guard key="70781408" nodeKey="50151411" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+	<Guard key="81612087" nodeKey="50288046" type="UpperLimit">
+		<Setting>
+			<Parameter name="上限阀值" type="Float" value="85"/>
+		</Setting>
+	</Guard>
+</SensorsWatcher>

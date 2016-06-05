@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevicesCollection>
+	<Device name="奉贤35kV姚家港变电站10kV开关-8001" address="0000" type="" key="270957914" protocol="WsnProtocolV1Client" descriptor="ts:8001"/>
+	<Device name="浦东10kV文登南泉站基站-8002" address="0000" type="普通基站" key="270945702" protocol="WsnProtocolV1Client" descriptor="ts:8002"/>
+	<Device name="10kv江湾城干休所地下站-8004" address="0000" type="普通基站" key="278075369" protocol="WsnProtocolV1Client" descriptor="ts:8004"/>
+	<Device name="青浦银涛3号配电站-8005" address="0000" type="普通基站" key="279263848" protocol="WsnProtocolV1Client" descriptor="ts:8005"/>
+	<Device name="10kv锦秋街坊地面站-8006" address="0000" type="普通基站" key="279471355" protocol="WsnProtocolV1Client" descriptor="ts:8006"/>
+	<Device name="浦东10kV蓝高新村箱变-8008" address="0000" type="普通基站" key="278623945" protocol="WsnProtocolV1Client" descriptor="ts:8008"/>
+	<Device name="浦东35kV城市变电站-8010" address="0000" type="普通基站" key="281826240" protocol="WsnProtocolV1Client" descriptor="ts:8010"/>
+	<Device name="奉贤35kV姚家港变电站电缆层-8012" address="0000" type="普通基站" key="283385105" protocol="WsnProtocolV1Client" descriptor="ts:8012"/>
+	<Device name="奉贤35kV姚家港变电站电缆层-8016" address="0000" type="普通基站" key="281367007" protocol="WsnProtocolV1Client" descriptor="ts:8016"/>
+</DevicesCollection>

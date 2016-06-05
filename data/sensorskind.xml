@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SensorsKind version="1.0.2">
+	<Kind id="Temperature" name="温度传感器">
+		<Sensor id="Temperature"/>
+	</Kind>
+	<Kind id="TemperatureHumidity" name="温湿度传感器">
+		<Sensor id="Temperature"/>
+		<Sensor id="Humidity"/>
+	</Kind>
+	<Kind id="SoilMoistureTemperature" name="土壤水分温度传感器">
+		<Sensor id="Temperature"/>
+		<Sensor id="SoilMoisture"/>
+	</Kind>
+	<Kind id="Water" name="水浸传感器">
+		<Sensor id="Water"/>
+	</Kind>
+	<Kind id="Dehumidifier" name="除湿机">
+		<Sensor id="RelayChannel1"/>
+		<Sensor id="RelayChannel2"/>
+		<Sensor id="Temperature"/>
+		<Sensor id="Humidity"/>
+	</Kind>
+	<Kind id="Arrester" name="避雷器">
+		<Sensor id="Arrester"/>
+		<Sensor id="TotalCurrent"/>
+		<Sensor id="BaseCurrent"/>
+		<Sensor id="Har3Current"/>
+		<Sensor id="ResistiveCurrent"/>
+		<Sensor id="ResistivePhase"/>
+	</Kind>
+	<Kind id="TemperatureVibration" name="轴温震动传感器">
+		<Sensor id="Temperature"/>
+		<Sensor id="XGravityAcceleration"/>
+		<Sensor id="YGravityAcceleration"/>
+		<Sensor id="ZGravityAcceleration"/>
+	</Kind>
+	<Kind id="GasO2" name="氧气传感器">
+		<Sensor id="GasO2"/>
+	</Kind>
+	<Kind id="EnergyGage" name="能耗计量传感器">
+		<Sensor id="TotalCurrent"/>
+		<Sensor id="TotalVoltage"/>
+		<Sensor id="ReactivePower"/>
+		<Sensor id="ActivePower"/>
+		<Sensor id="Energy"/>
+		<Sensor id="PowerFactor"/>
+		<Sensor id="ACFrequency"/>
+	</Kind>
+	<Kind id="Noise" name="噪音传感器">
+		<Sensor id="Noise"/>
+	</Kind>
+	<Kind id="DynamicCurrent" name="适时宽动态电流传感器">
+		<Sensor id="DynamicCurrent"/>
+	</Kind>
+	<Kind id="DynamicBigCurrent" name="适时大电流传感器">
+		<Sensor id="DynamicBigCurrent"/>
+	</Kind>
+	<Kind id="SmartRelease" name="智能脱扣器">
+		<Sensor id="ActivePowerA"/>
+		<Sensor id="ReactivePowerA"/>
+		<Sensor id="ApparentPowerA"/>
+		<Sensor id="PowerFactorA"/>
+		<Sensor id="CurrentA"/>
+		<Sensor id="VoltageA"/>
+		<Sensor id="ActivePowerB"/>
+		<Sensor id="ReactivePowerB"/>
+		<Sensor id="ApparentPowerB"/>
+		<Sensor id="PowerFactorB"/>
+		<Sensor id="CurrentB"/>
+		<Sensor id="VoltageB"/>
+		<Sensor id="ActivePowerC"/>
+		<Sensor id="ReactivePowerC"/>
+		<Sensor id="ApparentPowerC"/>
+		<Sensor id="PowerFactorC"/>
+		<Sensor id="CurrentC"/>
+		<Sensor id="VoltageC"/>
+		<Sensor id="TotalEnergy"/>
+		<Sensor id="Frequency"/>
+	</Kind>
+</SensorsKind>

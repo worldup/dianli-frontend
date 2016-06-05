@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SensorsConfiguration>
+	<Group name="RootNode" key="45224714" owner="0" ownerGroup="0" permission="4294967295">
+		<Group name="市北-10kV江湾城地下站" key="34174763" owner="0" ownerGroup="568551690" permission="261">
+			<Sensor name="市北10kv江湾城站10k市北10kv江湾城站10kV进线2V进线2#柜A相温度" skey="24252262" key="41502066" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站10kV进线2#柜B相温度" skey="21392396" key="45558539" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站10kV进线2#柜C相温度" skey="17058337" key="43478921" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站0.4kV2#配变开关侧A相温度" skey="29825376" key="40007552" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站0.4kV2#配变开关侧B相温度" skey="29556805" key="35199904" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站0.4kV2#配变开关侧C相温度" skey="31542304" key="42231076" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站0.4kV2#配变低压侧A相温度" skey="27862889" key="38800087" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站0.4kV2#配变低压侧B相温度" skey="23398995" key="42998575" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站0.4kV2#配变低压侧C相温度" skey="25368995" key="48325709" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站0.4kV2#配变低压侧N相温度" skey="20735939" key="49770717" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站0.4kV2#配变铁芯温度" skey="24333330" key="40528181" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站10kV进线1#柜温湿度温度" skey="31474815" key="49177120" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站10kV进线1#柜温湿度湿度" skey="26218050" key="40382253" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站环境温湿度温度" skey="30151306" key="41106577" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站环境温湿度湿度" skey="31464281" key="39343308" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站10kV进线2#柜智能除湿器温度" skey="29033491" key="42604717" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站10kV进线2#柜智能除湿器湿度" skey="19019358" key="35415162" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv江湾城站10kV进线2#柜智能除湿器继电器通道1" skey="23093353" key="47018814" owner="0" ownerGroup="568551690" permission="261"/>
+		</Group>
+		<Group name="浦东-35kV城市变电站" key="45825624" owner="0" ownerGroup="562970955" permission="261">
+			<Sensor name="浦东35kV城市变电站电缆层东北角排水井水位" skey="21904147" key="33893095" owner="0" ownerGroup="562970955" permission="261"/>
+		</Group>
+		<Group name="浦东-10kV蓝高新村箱变" key="35284505" owner="0" ownerGroup="562970955" permission="261">
+			<Sensor name="浦东10kV蓝高箱村箱变配变低压接头A相温度" skey="24070607" key="47652956" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV蓝高箱村箱变配变低压接头B相温度" skey="19604884" key="46348312" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV蓝高箱村箱变配变低压接头C相温度" skey="18687095" key="36388525" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV蓝高箱村箱变东门门磁" skey="29183851" key="36393237" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV蓝高箱村箱变北门门磁" skey="28669063" key="47913450" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV蓝高箱村箱变变压器室噪音" skey="22380181" key="46861424" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV蓝高箱村箱变低压侧除湿温度" skey="16997098" key="39020831" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV蓝高箱村箱变低压侧除湿湿度" skey="28337178" key="42884924" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV蓝高箱村箱变低压侧除湿继电器通道1" skey="18641924" key="49446019" owner="0" ownerGroup="562970955" permission="261"/>
+		</Group>
+		<Group name="浦东-10kV文登南泉街坊站" key="46400129" owner="0" ownerGroup="562970955" permission="261">
+			<Sensor name="浦东10kV文登南泉站1号配变室变压器低压侧接头A相温度" skey="25767259" key="41055118" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室变压器低压侧接头B相温度" skey="26112414" key="46297215" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室变压器低压侧接头C相温度" skey="30429189" key="40776607" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室变压器低压侧接头N相温度" skey="23398237" key="46073399" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室变压器高压侧接头A相温度" skey="25583376" key="41373235" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室变压器高压侧接头B相温度" skey="32467962" key="37234286" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室变压器高压侧接头C相温度" skey="25499513" key="36655666" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室变压器铁芯温度" skey="20651203" key="33959396" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室门环境噪音" skey="20344957" key="40242685" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站1号配变室墙面环境噪音" skey="19941001" key="43206320" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站10kV开关室环境温湿度温度" skey="19422847" key="48966135" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站10kV开关室环境温湿度湿度" skey="26502266" key="38434527" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室环境温湿度温度" skey="26347045" key="44190788" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室环境温湿度湿度" skey="22415349" key="38535774" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测A相有功功率" skey="33303619" key="47655376" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测A相无功功率" skey="21517592" key="40182810" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测A相视在功率" skey="29108611" key="47327379" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测A相功率因数" skey="21197881" key="37642853" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测A相电流" skey="23624083" key="44857108" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测A相电压" skey="18613463" key="47448732" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测B相有功功率" skey="22175945" key="39927084" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测B相无功功率" skey="31399327" key="36200454" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测B相视在功率" skey="17061848" key="35998221" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测B相功率因数" skey="25235077" key="37300736" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测B相电流" skey="20008184" key="50094978" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测B相电压" skey="24267528" key="36654423" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相有功功率" skey="32178241" key="42277497" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相无功功率" skey="24201655" key="47779062" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相视在功率" skey="18186072" key="35014846" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相功率因数" skey="27557108" key="39390657" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相电流" skey="18613326" key="34479113" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相电压" skey="32000248" key="35543488" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相有功功率" skey="23468823" key="40325691" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相无功功率" skey="33240661" key="34807424" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相视在功率" skey="23529029" key="42666725" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相功率因数" skey="18614574" key="35007158" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相电流" skey="23660762" key="40456714" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相电压" skey="30433790" key="44855078" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相有功功率" skey="24207250" key="46614566" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相无功功率" skey="23925269" key="49481411" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相视在功率" skey="27527640" key="47844206" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相功率因数" skey="21451975" key="47712792" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相电流" skey="17916740" key="34883162" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相电压" skey="19092753" key="42545638" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相有功功率" skey="30570082" key="37554017" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相无功功率" skey="32454272" key="36572431" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相视在功率" skey="22244533" key="46482947" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相功率因数" skey="28321103" key="47467954" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相电流" skey="32587771" key="39401741" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相电压" skey="29045199" key="44659096" owner="0" ownerGroup="562970955" permission="261"/>
+			<Sensor name="浦东10kV文登南泉站10kV开关室大门门磁" skey="23406143" key="48323097" owner="0" ownerGroup="562970955" permission="261"/>
+		</Group>
+		<Group name="青浦-银涛3号配电站" key="35214691" owner="0" ownerGroup="564402074" permission="261">
+			<Sensor name="青浦银涛3号配电站低压1号配变低压侧接头A相温度" skey="33248775" key="49164259" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站低压1号配变低压侧接头B相温度" skey="21785000" key="34345191" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站低压1号配变低压侧接头C相温度" skey="23463875" key="33584297" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站低压1号配变低压侧接头N相温度" skey="25641703" key="33582200" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站低压1号配变高压侧接头A相温度" skey="20325330" key="38347550" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站低压1号配变高压侧接头B相温度" skey="20216722" key="49496293" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站低压1号配变高压侧接头C相温度" skey="28319978" key="40972437" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站低压1号配变变压器铁芯温度" skey="28974327" key="50288046" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头A相温度" skey="33164051" key="42599724" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头B相温度" skey="27406330" key="47734155" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头C相温度" skey="27331628" key="50151411" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站10kV开关柜温湿度温度" skey="18509202" key="39615406" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站10kV开关柜温湿度湿度" skey="19417562" key="46401105" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站环境温湿度温度" skey="28339593" key="40644168" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站环境温湿度湿度" skey="24330057" key="47866531" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站噪音" skey="29584168" key="33629084" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜智能除湿温度" skey="23948065" key="40438807" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜智能除湿湿度" skey="26816741" key="49887233" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜智能除湿继电器通道1" skey="26374090" key="43131349" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相有功功率" skey="18960885" key="40861671" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相无功功率" skey="32575104" key="40313757" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相视在功率" skey="24974327" key="42737658" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相功率因数" skey="31590663" key="36903026" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相电流" skey="18356186" key="44331563" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相电压" skey="23403322" key="40776080" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相有功功率" skey="26033557" key="34948532" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相无功功率" skey="19292517" key="41891735" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相视在功率" skey="16983430" key="43132107" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相功率因数" skey="26815866" key="47474701" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相电流" skey="29119671" key="35137479" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相电压" skey="20147563" key="41288098" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相有功功率" skey="32206431" key="35849093" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相无功功率" skey="31019224" key="48326072" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相视在功率" skey="29763244" key="35739402" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相功率因数" skey="26833386" key="34763554" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相电流" skey="31281855" key="36142185" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相电压" skey="26740095" key="48332332" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相有功功率" skey="21714567" key="48455911" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相无功功率" skey="23661685" key="43059676" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相视在功率" skey="32116909" key="47327326" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相功率因数" skey="19538645" key="44443256" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相电流" skey="19013179" key="45227999" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相电压" skey="19163970" key="49682760" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相有功功率" skey="17505591" key="37438363" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相无功功率" skey="21768110" key="33763741" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相视在功率" skey="22622162" key="34233348" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相功率因数" skey="19292508" key="42495763" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相电流" skey="30813188" key="48133679" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相电压" skey="31143331" key="38952210" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相有功功率" skey="17854064" key="33962877" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相无功功率" skey="26042351" key="38881179" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相视在功率" skey="21910669" key="35286138" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相功率因数" skey="31925512" key="49229121" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相电流" skey="29958663" key="48890629" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相电压" skey="33031063" key="44044917" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站高压侧电缆沟水位" skey="29039111" key="38940255" owner="0" ownerGroup="564402074" permission="261"/>
+			<Sensor name="青浦银涛3号配电站低压侧电缆沟水位" skey="25691882" key="43649848" owner="0" ownerGroup="564402074" permission="261"/>
+		</Group>
+		<Group name="奉贤-35kV姚家港变电站" key="37834214" owner="0" ownerGroup="564489459" permission="261">
+			<Sensor name="奉贤35kV姚家港变电站10kV开关室1号主变10kV开关温湿度温度" skey="23666331" key="35214706" owner="0" ownerGroup="564489459" permission="261"/>
+			<Sensor name="奉贤35kV姚家港变电站10kV开关室1号主变10kV开关温湿度湿度" skey="29430287" key="35351474" owner="0" ownerGroup="564489459" permission="261"/>
+			<Sensor name="奉贤35kV姚家港变电站10kV开关室10kV 2#电容器开关温湿度温度" skey="30956958" key="35866465" owner="0" ownerGroup="564489459" permission="261"/>
+			<Sensor name="奉贤35kV姚家港变电站10kV开关室10kV 2#电容器开关温湿度湿度" skey="19801673" key="40332223" owner="0" ownerGroup="564489459" permission="261"/>
+			<Sensor name="奉贤35kV姚家港变电站电缆层西排水井水位" skey="18772516" key="40507526" owner="0" ownerGroup="564489459" permission="261"/>
+			<Sensor name="奉贤35kV姚家港变电站电缆层东排水井水位" skey="21907912" key="38691154" owner="0" ownerGroup="564489459" permission="261"/>
+			<Sensor name="奉贤35kV姚家港变电站1号主变室噪音" skey="32983387" key="35462497" owner="0" ownerGroup="564489459" permission="261"/>
+			<Sensor name="奉贤35kV姚家港变电站10kV开关室1号主变10kV开关红外点阵温度" skey="22033884" key="35982176" owner="0" ownerGroup="564489459" permission="261"/>
+			<Sensor name="奉贤35kV姚家港变电站10kV开关室姚4加弹开关红外点阵温度" skey="30491217" key="41709036" owner="0" ownerGroup="564489459" permission="261"/>
+		</Group>
+		<Group name="市北-10k锦秋街坊地面站" key="49375105" owner="0" ownerGroup="568551690" permission="261">
+			<Sensor name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线A相温度" skey="29326193" key="46809399" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线B相温度" skey="23069583" key="42215570" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线C相温度" skey="31801553" key="41577144" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关进线A相温度" skey="29699548" key="42680858" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线A相温度" skey="24587615" key="38338907" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线B相温度" skey="26435747" key="45554330" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线C相温度" skey="20204644" key="33557968" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关进线C相温度" skey="27279328" key="46554981" owner="0" ownerGroup="568551690" permission="261"/>
+			<Sensor name="市北10kv锦秋街坊地面站电缆层 电缆出口水浸" skey="19608109" key="49545260" owner="0" ownerGroup="568551690" permission="261"/>
+		</Group>
+		<Group name="测控" key="47468704" owner="538053666" ownerGroup="559743486" permission="261">
+			<Sensor name="测控-温度传感器" skey="28597388" key="38889780" owner="545407676" ownerGroup="559743486" permission="271"/>
+			<Sensor name="测控-水浸传感器" skey="20070619" key="35158644" owner="545407676" ownerGroup="559743486" permission="271"/>
+			<Sensor name="测控-磁控开关" skey="29764354" key="37450371" owner="545407676" ownerGroup="559743486" permission="271"/>
+			<Sensor name="测控-水位" skey="21321415" key="37763839" owner="545407676" ownerGroup="559743486" permission="271"/>
+		</Group>
+	</Group>
+</SensorsConfiguration>

@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SensorsCollection>
+	<Sensor name="浦东10kV文登南泉站1号配变室变压器低压侧接头A相温度" type="Temperature" sid="111_05_A_0_0053BC" key="25767259">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室变压器低压侧接头B相温度" type="Temperature" sid="111_05_A_0_004788" key="26112414">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室变压器低压侧接头C相温度" type="Temperature" sid="111_05_A_0_004794" key="30429189">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室变压器低压侧接头N相温度" type="Temperature" sid="111_05_A_0_003C04" key="23398237">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室变压器高压侧接头A相温度" type="Temperature" sid="111_05_A_0_004974" key="25583376">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室变压器高压侧接头B相温度" type="Temperature" sid="111_05_A_0_0048DF" key="32467962">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室变压器高压侧接头C相温度" type="Temperature" sid="111_05_A_0_00489B" key="25499513">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室变压器铁芯温度" type="Temperature" sid="111_05_A_0_0052FC" key="20651203">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室门环境噪音" type="Noise" sid="111_6B_A_0_00A163" key="20344957">
+		<Entry name="噪音" lowerValue="0" upperValue="150" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站1号配变室墙面环境噪音" type="Noise" sid="111_6B_A_0_00A60C" key="19941001">
+		<Entry name="噪音" lowerValue="0" upperValue="150" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站10kV开关室环境温湿度温度" type="Temperature" sid="111_05_A_0_008182" key="19422847">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站10kV开关室环境温湿度湿度" type="Humidity" sid="111_40_A_0_008182" key="26502266">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室环境温湿度温度" type="Temperature" sid="111_05_A_0_008105" key="26347045">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室环境温湿度湿度" type="Humidity" sid="111_40_A_0_008105" key="22415349">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测A相有功功率" type="ActivePowerA" sid="111_A0_A_0_00CF75" key="33303619">
+		<Entry name="A相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测A相无功功率" type="ReactivePowerA" sid="111_A1_A_0_00CF75" key="21517592">
+		<Entry name="A相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测A相视在功率" type="ApparentPowerA" sid="111_A2_A_0_00CF75" key="29108611">
+		<Entry name="A相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测A相功率因数" type="PowerFactorA" sid="111_A3_A_0_00CF75" key="21197881">
+		<Entry name="A相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测A相电流" type="CurrentA" sid="111_A4_A_0_00CF75" key="23624083">
+		<Entry name="A相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测A相电压" type="VoltageA" sid="111_A5_A_0_00CF75" key="18613463">
+		<Entry name="A相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测B相有功功率" type="ActivePowerB" sid="111_B0_A_0_00CF75" key="22175945">
+		<Entry name="B相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测B相无功功率" type="ReactivePowerB" sid="111_B1_A_0_00CF75" key="31399327">
+		<Entry name="B相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉0.4kV室0.4kV 1号配变柜用电监测B相视在功率" type="ApparentPowerB" sid="111_B2_A_0_00CF75" key="17061848">
+		<Entry name="B相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测B相功率因数" type="PowerFactorB" sid="111_B3_A_0_00CF75" key="25235077">
+		<Entry name="B相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测B相电流" type="CurrentB" sid="111_B4_A_0_00CF75" key="20008184">
+		<Entry name="B相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测B相电压" type="VoltageB" sid="111_B5_A_0_00CF75" key="24267528">
+		<Entry name="B相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相有功功率" type="ActivePowerC" sid="111_C0_A_0_00CF75" key="32178241">
+		<Entry name="C相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相无功功率" type="ReactivePowerC" sid="111_C1_A_0_00CF75" key="24201655">
+		<Entry name="C相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相视在功率" type="ApparentPowerC" sid="111_C2_A_0_00CF75" key="18186072">
+		<Entry name="C相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相功率因数" type="PowerFactorC" sid="111_C3_A_0_00CF75" key="27557108">
+		<Entry name="C相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相电流" type="CurrentC" sid="111_C4_A_0_00CF75" key="18613326">
+		<Entry name="C相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测C相电压" type="VoltageC" sid="111_C5_A_0_00CF75" key="32000248">
+		<Entry name="C相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相有功功率" type="ActivePowerA" sid="111_A0_A_0_00CF77" key="23468823">
+		<Entry name="A相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相无功功率" type="ReactivePowerA" sid="111_A1_A_0_00CF77" key="33240661">
+		<Entry name="A相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相视在功率" type="ApparentPowerA" sid="111_A2_A_0_00CF77" key="23529029">
+		<Entry name="A相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相功率因数" type="PowerFactorA" sid="111_A3_A_0_00CF77" key="18614574">
+		<Entry name="A相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相电流" type="CurrentA" sid="111_A4_A_0_00CF77" key="23660762">
+		<Entry name="A相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测A相电压" type="VoltageA" sid="111_A5_A_0_00CF77" key="30433790">
+		<Entry name="A相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相有功功率" type="ActivePowerB" sid="111_B0_A_0_00CF77" key="24207250">
+		<Entry name="B相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相无功功率" type="ReactivePowerB" sid="111_B1_A_0_00CF77" key="23925269">
+		<Entry name="B相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相视在功率" type="ApparentPowerB" sid="111_B2_A_0_00CF77" key="27527640">
+		<Entry name="B相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相功率因数" type="PowerFactorB" sid="111_B3_A_0_00CF77" key="21451975">
+		<Entry name="B相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相电流" type="CurrentB" sid="111_B4_A_0_00CF77" key="17916740">
+		<Entry name="B相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测B相电压" type="VoltageB" sid="111_B5_A_0_00CF77" key="19092753">
+		<Entry name="B相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相有功功率" type="ActivePowerC" sid="111_C0_A_0_00CF77" key="30570082">
+		<Entry name="C相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相无功功率" type="ReactivePowerC" sid="111_C1_A_0_00CF77" key="32454272">
+		<Entry name="C相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相视在功率" type="ApparentPowerC" sid="111_C2_A_0_00CF77" key="22244533">
+		<Entry name="C相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相功率因数" type="PowerFactorC" sid="111_C3_A_0_00CF77" key="28321103">
+		<Entry name="C相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相电流" type="CurrentC" sid="111_C4_A_0_00CF77" key="32587771">
+		<Entry name="C相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测C相电压" type="VoltageC" sid="111_C5_A_0_00CF77" key="29045199">
+		<Entry name="C相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变配变低压接头A相温度" type="Temperature" sid="111_05_A_0_004813" key="24070607">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变配变低压接头B相温度" type="Temperature" sid="111_05_A_0_0047A8" key="19604884">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变配变低压接头C相温度" type="Temperature" sid="111_05_A_0_00478A" key="18687095">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变东门门磁" type="Magnistor" sid="111_45_A_0_00B01E" key="29183851">
+		<Entry name="磁开关" lowerValue="0" upperValue="1" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变北门门磁" type="Magnistor" sid="111_45_A_0_00B023" key="28669063">
+		<Entry name="磁开关" lowerValue="0" upperValue="1" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变变压器室噪音" type="Noise" sid="111_6B_A_0_00A60B" key="22380181">
+		<Entry name="噪音" lowerValue="0" upperValue="150" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变低压侧除湿温度" type="Temperature" sid="111_05_A_0_00CD05" key="16997098">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变低压侧除湿湿度" type="Humidity" sid="111_40_A_0_00CD05" key="28337178">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV蓝高箱村箱变低压侧除湿继电器通道1" type="RelayChannel1" sid="111_81_A_0_00CD05" key="18641924">
+		<Entry name="继电器" lowerValue="0" upperValue="1" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="接入设备" lowerValue="0" upperValue="255" changeValue="0.5" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东35kV城市变电站电缆层东北角排水井水位" type="WaterLevel" sid="111_42_A_0_00A235" key="21904147">
+		<Entry name="水位" lowerValue="0" upperValue="60" changeValue="0.01" abnormalValue="0.1" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压1号配变低压侧接头A相温度" type="Temperature" sid="111_05_A_0_00359A" key="33248775">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压1号配变低压侧接头B相温度" type="Temperature" sid="111_05_A_0_003499" key="21785000">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压1号配变低压侧接头C相温度" type="Temperature" sid="111_05_A_0_003A13" key="23463875">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压1号配变低压侧接头N相温度" type="Temperature" sid="111_05_A_0_003A94" key="25641703">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压1号配变高压侧接头A相温度" type="Temperature" sid="111_05_A_0_003EDD" key="20325330">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压1号配变高压侧接头B相温度" type="Temperature" sid="111_05_A_0_0035FE" key="20216722">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压1号配变高压侧接头C相温度" type="Temperature" sid="111_05_A_0_003E67" key="28319978">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压1号配变变压器铁芯温度" type="Temperature" sid="111_05_A_0_003488" key="28974327">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头A相温度" type="Temperature" sid="111_05_A_0_003AB0" key="33164051">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头B相温度" type="Temperature" sid="111_05_A_0_003461" key="27406330">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头C相温度" type="Temperature" sid="111_05_A_0_0036A2" key="27331628">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站10kV开关柜温湿度温度" type="Temperature" sid="111_05_A_0_0080EF" key="18509202">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站10kV开关柜温湿度湿度" type="Humidity" sid="111_40_A_0_0080EF" key="19417562">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站环境温湿度
+温度" type="Temperature" sid="111_05_A_0_00810A" key="28339593">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站环境温湿度
+湿度" type="Humidity" sid="111_40_A_0_00810A" key="24330057">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站噪音" type="Noise" sid="111_6B_A_0_00A617" key="29584168">
+		<Entry name="噪音" lowerValue="0" upperValue="150" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜智能除湿温度" type="Temperature" sid="111_05_A_0_00CD01" key="23948065">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜智能除湿湿度" type="Humidity" sid="111_40_A_0_00CD01" key="26816741">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站10kV银12银3号甲开关柜智能除湿继电器通道1" type="RelayChannel1" sid="111_81_A_0_00CD01" key="26374090">
+		<Entry name="继电器" lowerValue="0" upperValue="1" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="接入设备" lowerValue="0" upperValue="255" changeValue="0.5" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相有功功率" type="ActivePowerA" sid="111_A0_A_0_00CF72" key="18960885">
+		<Entry name="A相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相无功功率" type="ReactivePowerA" sid="111_A1_A_0_00CF72" key="32575104">
+		<Entry name="A相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相视在功率" type="ApparentPowerA" sid="111_A2_A_0_00CF72" key="24974327">
+		<Entry name="A相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相功率因数" type="PowerFactorA" sid="111_A3_A_0_00CF72" key="31590663">
+		<Entry name="A相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相电流" type="CurrentA" sid="111_A4_A_0_00CF72" key="18356186">
+		<Entry name="A相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测A相电压" type="VoltageA" sid="111_A5_A_0_00CF72" key="23403322">
+		<Entry name="A相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相有功功率" type="ActivePowerB" sid="111_B0_A_0_00CF72" key="26033557">
+		<Entry name="B相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相无功功率" type="ReactivePowerB" sid="111_B1_A_0_00CF72" key="19292517">
+		<Entry name="B相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相视在功率" type="ApparentPowerB" sid="111_B2_A_0_00CF72" key="16983430">
+		<Entry name="B相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相功率因数" type="PowerFactorB" sid="111_B3_A_0_00CF72" key="26815866">
+		<Entry name="B相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相电流" type="CurrentB" sid="111_B4_A_0_00CF72" key="29119671">
+		<Entry name="B相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测B相电压" type="VoltageB" sid="111_B5_A_0_00CF72" key="20147563">
+		<Entry name="B相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相有功功率" type="ActivePowerC" sid="111_C0_A_0_00CF72" key="32206431">
+		<Entry name="C相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相无功功率" type="ReactivePowerC" sid="111_C1_A_0_00CF72" key="31019224">
+		<Entry name="C相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相视在功率" type="ApparentPowerC" sid="111_C2_A_0_00CF72" key="29763244">
+		<Entry name="C相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相功率因数" type="PowerFactorC" sid="111_C3_A_0_00CF72" key="26833386">
+		<Entry name="C相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相电流" type="CurrentC" sid="111_C4_A_0_00CF72" key="31281855">
+		<Entry name="C相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站1主变低压开关柜用电监测C相电压" type="VoltageC" sid="111_C5_A_0_00CF72" key="26740095">
+		<Entry name="C相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相有功功率" type="ActivePowerA" sid="111_A0_A_0_00CF74" key="21714567">
+		<Entry name="A相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相无功功率" type="ReactivePowerA" sid="111_A1_A_0_00CF74" key="23661685">
+		<Entry name="A相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相视在功率" type="ApparentPowerA" sid="111_A2_A_0_00CF74" key="32116909">
+		<Entry name="A相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相功率因数" type="PowerFactorA" sid="111_A3_A_0_00CF74" key="19538645">
+		<Entry name="A相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相电流" type="CurrentA" sid="111_A4_A_0_00CF74" key="19013179">
+		<Entry name="A相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测A相电压" type="VoltageA" sid="111_A5_A_0_00CF74" key="19163970">
+		<Entry name="A相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相有功功率" type="ActivePowerB" sid="111_B0_A_0_00CF74" key="17505591">
+		<Entry name="B相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相无功功率" type="ReactivePowerB" sid="111_B1_A_0_00CF74" key="21768110">
+		<Entry name="B相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相视在功率" type="ApparentPowerB" sid="111_B2_A_0_00CF74" key="22622162">
+		<Entry name="B相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相功率因数" type="PowerFactorB" sid="111_B3_A_0_00CF74" key="19292508">
+		<Entry name="B相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相电流" type="CurrentB" sid="111_B4_A_0_00CF74" key="30813188">
+		<Entry name="B相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测B相电压" type="VoltageB" sid="111_B5_A_0_00CF74" key="31143331">
+		<Entry name="B相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相有功功率" type="ActivePowerC" sid="111_C0_A_0_00CF74" key="17854064">
+		<Entry name="C相有功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相无功功率" type="ReactivePowerC" sid="111_C1_A_0_00CF74" key="26042351">
+		<Entry name="C相无功功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相视在功率" type="ApparentPowerC" sid="111_C2_A_0_00CF74" key="21910669">
+		<Entry name="C相视在功率" lowerValue="0" upperValue="655350" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相功率因数" type="PowerFactorC" sid="111_C3_A_0_00CF74" key="31925512">
+		<Entry name="C相功率因数" lowerValue="0" upperValue="65535" changeValue="0.01" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相电流" type="CurrentC" sid="111_C4_A_0_00CF74" key="29958663">
+		<Entry name="C相电流" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测C相电压" type="VoltageC" sid="111_C5_A_0_00CF74" key="33031063">
+		<Entry name="C相电压" lowerValue="0" upperValue="6.5535e+007" changeValue="1e-006" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站高压侧电缆沟水位" type="WaterLevel" sid="111_42_A_0_00A23C" key="29039111">
+		<Entry name="水位" lowerValue="0" upperValue="60" changeValue="0.01" abnormalValue="0.1" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="青浦银涛3号配电站低压侧电缆沟水位" type="WaterLevel" sid="111_42_A_0_00A244" key="25691882">
+		<Entry name="水位" lowerValue="0" upperValue="60" changeValue="0.01" abnormalValue="0.1" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站10kV开关室1号主变10kV开关温湿度温度" type="Temperature" sid="111_05_A_0_008F3C" key="23666331">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站10kV开关室1号主变10kV开关温湿度湿度" type="Humidity" sid="111_40_A_0_008F3C" key="29430287">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站10kV开关室10kV 2#电容器开关温湿度
+温度" type="Temperature" sid="111_05_A_0_008164" key="30956958">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站10kV开关室10kV 2#电容器开关温湿度
+湿度" type="Humidity" sid="111_40_A_0_008164" key="19801673">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站电缆层西排水井水位" type="WaterLevel" sid="111_42_A_0_00A240" key="18772516">
+		<Entry name="水位" lowerValue="0" upperValue="60" changeValue="0.01" abnormalValue="0.1" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站电缆层东排水井水位" type="WaterLevel" sid="111_42_A_0_00A25C" key="21907912">
+		<Entry name="水位" lowerValue="0" upperValue="60" changeValue="0.01" abnormalValue="0.1" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站1号主变室噪音" type="Noise" sid="111_6B_A_0_00A606" key="32983387">
+		<Entry name="噪音" lowerValue="0" upperValue="150" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站10kV进线2#柜A相温度" type="Temperature" sid="111_05_A_0_004217" key="24252262">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站10kV进线2#柜B相温度" type="Temperature" sid="111_05_A_0_004861" key="21392396">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站10kV进线2#柜C相温度" type="Temperature" sid="111_05_A_0_0043BA" key="17058337">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站0.4kV2#配变开关侧A相温度" type="Temperature" sid="111_05_A_0_003A2A" key="29825376">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站0.4kV2#配变开关侧B相温度" type="Temperature" sid="111_05_A_0_002EF3" key="29556805">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站0.4kV2#配变开关侧C相温度" type="Temperature" sid="111_05_A_0_003B61" key="31542304">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站0.4kV2#配变低压侧A相温度" type="Temperature" sid="111_05_A_0_003050" key="27862889">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站0.4kV2#配变低压侧B相温度" type="Temperature" sid="111_05_A_0_0047DB" key="23398995">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站0.4kV2#配变低压侧C相温度" type="Temperature" sid="111_05_A_0_00348E" key="25368995">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站0.4kV2#配变低压侧N相温度" type="Temperature" sid="111_05_A_0_0041B0" key="20735939">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站0.4kV2#配变铁芯温度" type="Temperature" sid="111_05_A_0_003226" key="24333330">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站10kV进线1#柜温湿度温度" type="Temperature" sid="111_05_A_0_008F2E" key="31474815">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站10kV进线1#柜温湿度湿度" type="Humidity" sid="111_40_A_0_008F2E" key="26218050">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站环境温湿度温度" type="Temperature" sid="111_05_A_0_008EAA" key="30151306">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站环境温湿度湿度" type="Humidity" sid="111_40_A_0_008EAA" key="31464281">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站10kV进线2#柜智能除湿器温度" type="Temperature" sid="111_05_A_0_00CD4E" key="29033491">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站10kV进线2#柜智能除湿器湿度" type="Humidity" sid="111_40_A_0_00CD4E" key="19019358">
+		<Entry name="湿度" lowerValue="0" upperValue="100" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv江湾城站10kV进线2#柜智能除湿器继电器通道1" type="RelayChannel1" sid="111_81_A_0_00CD4E" key="23093353">
+		<Entry name="继电器" lowerValue="0" upperValue="1" changeValue="0.1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="接入设备" lowerValue="0" upperValue="255" changeValue="0.5" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线A相温度" type="Temperature" sid="111_05_A_0_0030B2" key="29326193">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线B相温度" type="Temperature" sid="111_05_A_0_003ECA" key="23069583">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线C相温度" type="Temperature" sid="111_05_A_0_00317D" key="31801553">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关进线A相温度" type="Temperature" sid="111_05_A_0_003F49" key="29699548">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线A相温度" type="Temperature" sid="111_05_A_0_003165" key="24587615">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线B相温度" type="Temperature" sid="111_05_A_0_00348C" key="26435747">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线C相温度" type="Temperature" sid="111_05_A_0_004243" key="20204644">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关进线C相温度" type="Temperature" sid="111_05_A_0_003A24" key="27279328">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="市北10kv锦秋街坊地面站电缆层 电缆出线口水浸" type="Water" sid="111_43_A_0_00A03F" key="19608109">
+		<Entry name="水浸" lowerValue="0" upperValue="1" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站10kV开关室1号主变10kV开关红外点阵温度
+" type="InfraredMatrix16" sid="111_04_A_0_00E182" key="22033884">
+		<Entry name="温度点阵1,1" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵1,2" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵1,3" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵1,4" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵2,1" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵2,2" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵2,3" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵2,4" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵3,1" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵3,2" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵3,3" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵3,4" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵4,1" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵4,2" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵4,3" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵4,4" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="奉贤35kV姚家港变电站10kV开关室姚4加弹开关红外点阵温度
+" type="InfraredMatrix16" sid="111_04_A_0_00E185" key="30491217">
+		<Entry name="温度点阵1,1" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵1,2" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵1,3" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵1,4" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵2,1" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵2,2" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵2,3" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵2,4" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵3,1" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵3,2" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵3,3" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵3,4" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵4,1" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵4,2" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵4,3" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+		<Entry name="温度点阵4,4" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="60" offlineSpan="600" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="浦东10kV文登南泉站10kV开关室大门门磁" type="Magnistor" sid="111_45_A_0_00B048" key="23406143">
+		<Entry name="磁开关" lowerValue="0" upperValue="1" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="测控-温度传感器" type="Temperature" sid="111_05_A_0_0056F0" key="28597388">
+		<Entry name="温度" lowerValue="-50" upperValue="150" changeValue="1" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="测控-水浸传感器" type="Water" sid="111_43_A_0_00A000" key="20070619">
+		<Entry name="水浸" lowerValue="0" upperValue="1" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="测控-磁控开关" type="Magnistor" sid="111_45_A_0_00B0EB" key="29764354">
+		<Entry name="磁开关" lowerValue="0" upperValue="1" changeValue="0" abnormalValue="10" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Sensor name="测控-水位" type="WaterLevel" sid="111_42_A_0_00A24C" key="21321415">
+		<Entry name="水位" lowerValue="0" upperValue="60" changeValue="0.01" abnormalValue="0.1" updateSpan="30" offlineSpan="300" adjust="0" adjustMultiplier="1" adjustOffsetAdder="0"/>
+	</Sensor>
+	<Case name="浦东10kV文登南泉站1号配变室变压器低压侧接头A相温度" kind="Temperature" addr="53BC" key="90708036">
+		<Sensor key="25767259"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室变压器低压侧接头B相温度" kind="Temperature" addr="4788" key="91308865">
+		<Sensor key="26112414"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室变压器低压侧接头C相温度" kind="Temperature" addr="4794" key="100211444">
+		<Sensor key="30429189"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室变压器低压侧接头N相温度" kind="Temperature" addr="3C04" key="92222321">
+		<Sensor key="23398237"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室变压器高压侧接头A相温度" kind="Temperature" addr="4974" key="90905877">
+		<Sensor key="25583376"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室变压器高压侧接头B相温度" kind="Temperature" addr="48DF" key="88879037">
+		<Sensor key="32467962"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室变压器高压侧接头C相温度" kind="Temperature" addr="489B" key="90445365">
+		<Sensor key="25499513"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室变压器铁芯温度" kind="Temperature" addr="52FC" key="90582516">
+		<Sensor key="20651203"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室门环境噪音" kind="Noise" addr="A163" key="92147462">
+		<Sensor key="20344957"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站1号配变室墙面环境噪音" kind="Noise" addr="A60C" key="93474889">
+		<Sensor key="19941001"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站0.4kV室0.4kV 1号配变柜用电监测" kind="SmartRelease" addr="CF75" key="95777034">
+		<Sensor key="33303619"/>
+		<Sensor key="21517592"/>
+		<Sensor key="29108611"/>
+		<Sensor key="21197881"/>
+		<Sensor key="23624083"/>
+		<Sensor key="18613463"/>
+		<Sensor key="22175945"/>
+		<Sensor key="31399327"/>
+		<Sensor key="17061848"/>
+		<Sensor key="25235077"/>
+		<Sensor key="20008184"/>
+		<Sensor key="24267528"/>
+		<Sensor key="32178241"/>
+		<Sensor key="24201655"/>
+		<Sensor key="18186072"/>
+		<Sensor key="27557108"/>
+		<Sensor key="18613326"/>
+		<Sensor key="32000248"/>
+	</Case>
+	<Case name="浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜用电监测" kind="SmartRelease" addr="CF77" key="98712517">
+		<Sensor key="23468823"/>
+		<Sensor key="33240661"/>
+		<Sensor key="23529029"/>
+		<Sensor key="18614574"/>
+		<Sensor key="23660762"/>
+		<Sensor key="30433790"/>
+		<Sensor key="24207250"/>
+		<Sensor key="23925269"/>
+		<Sensor key="27527640"/>
+		<Sensor key="21451975"/>
+		<Sensor key="17916740"/>
+		<Sensor key="19092753"/>
+		<Sensor key="30570082"/>
+		<Sensor key="32454272"/>
+		<Sensor key="22244533"/>
+		<Sensor key="28321103"/>
+		<Sensor key="32587771"/>
+		<Sensor key="29045199"/>
+	</Case>
+	<Case name="浦东10kV蓝高箱村箱变配变低压接头A相温度" kind="Temperature" addr="4813" key="95707673">
+		<Sensor key="24070607"/>
+	</Case>
+	<Case name="浦东10kV蓝高箱村箱变配变低压接头B相温度" kind="Temperature" addr="47A8" key="95973972">
+		<Sensor key="19604884"/>
+	</Case>
+	<Case name="浦东10kV蓝高箱村箱变配变低压接头C相温度" kind="Temperature" addr="478A" key="96300164">
+		<Sensor key="18687095"/>
+	</Case>
+	<Case name="浦东10kV蓝高箱村箱变变压器室噪音" kind="Noise" addr="A60B" key="87709142">
+		<Sensor key="22380181"/>
+	</Case>
+	<Case name="浦东10kV蓝高箱村箱变低压侧除湿" kind="Dehumidifier" addr="CD05" key="93323928">
+		<Sensor key="16997098"/>
+		<Sensor key="28337178"/>
+		<Sensor key="18641924"/>
+	</Case>
+	<Case name="青浦银涛3号配电站低压1号配变低压侧接头A相温度" kind="Temperature" addr="359A" key="84285799">
+		<Sensor key="33248775"/>
+	</Case>
+	<Case name="青浦银涛3号配电站低压1号配变低压侧接头B相温度" kind="Temperature" addr="3499" key="96285563">
+		<Sensor key="21785000"/>
+	</Case>
+	<Case name="青浦银涛3号配电站低压1号配变低压侧接头C相温度" kind="Temperature" addr="3A13" key="89656686">
+		<Sensor key="23463875"/>
+	</Case>
+	<Case name="青浦银涛3号配电站低压1号配变低压侧接头N相温度" kind="Temperature" addr="3A94" key="85147227">
+		<Sensor key="25641703"/>
+	</Case>
+	<Case name="青浦银涛3号配电站低压1号配变高压侧接头A相温度" kind="Temperature" addr="3EDD" key="89015536">
+		<Sensor key="20325330"/>
+	</Case>
+	<Case name="青浦银涛3号配电站低压1号配变高压侧接头B相温度" kind="Temperature" addr="35FE" key="98773361">
+		<Sensor key="20216722"/>
+	</Case>
+	<Case name="青浦银涛3号配电站低压1号配变高压侧接头C相温度" kind="Temperature" addr="3E67" key="95813888">
+		<Sensor key="28319978"/>
+	</Case>
+	<Case name="青浦银涛3号配电站低压1号配变变压器铁芯温度" kind="Temperature" addr="3488" key="93206043">
+		<Sensor key="28974327"/>
+	</Case>
+	<Case name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头A相温度" kind="Temperature" addr="3AB0" key="86194790">
+		<Sensor key="33164051"/>
+	</Case>
+	<Case name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头B相温度" kind="Temperature" addr="3461" key="91751851">
+		<Sensor key="27406330"/>
+	</Case>
+	<Case name="青浦银涛3号配电站10kV银12银3号甲开关柜电缆接头C相温度" kind="Temperature" addr="36A2" key="90834463">
+		<Sensor key="27331628"/>
+	</Case>
+	<Case name="青浦银涛3号配电站噪音" kind="Noise" addr="A617" key="83957164">
+		<Sensor key="29584168"/>
+	</Case>
+	<Case name="青浦银涛3号配电站10kV银12银3号甲开关柜智能除湿" kind="Dehumidifier" addr="CD01" key="86583050">
+		<Sensor key="23948065"/>
+		<Sensor key="26816741"/>
+		<Sensor key="26374090"/>
+	</Case>
+	<Case name="青浦银涛3号配电站1主变低压开关柜用电监测" kind="SmartRelease" addr="CF72" key="96278995">
+		<Sensor key="18960885"/>
+		<Sensor key="32575104"/>
+		<Sensor key="24974327"/>
+		<Sensor key="31590663"/>
+		<Sensor key="18356186"/>
+		<Sensor key="23403322"/>
+		<Sensor key="26033557"/>
+		<Sensor key="19292517"/>
+		<Sensor key="16983430"/>
+		<Sensor key="26815866"/>
+		<Sensor key="29119671"/>
+		<Sensor key="20147563"/>
+		<Sensor key="32206431"/>
+		<Sensor key="31019224"/>
+		<Sensor key="29763244"/>
+		<Sensor key="26833386"/>
+		<Sensor key="31281855"/>
+		<Sensor key="26740095"/>
+	</Case>
+	<Case name="青浦银涛3号配电站银涛3号低压柜3号出线用电监测" kind="SmartRelease" addr="CF74" key="95042041">
+		<Sensor key="21714567"/>
+		<Sensor key="23661685"/>
+		<Sensor key="32116909"/>
+		<Sensor key="19538645"/>
+		<Sensor key="19013179"/>
+		<Sensor key="19163970"/>
+		<Sensor key="17505591"/>
+		<Sensor key="21768110"/>
+		<Sensor key="22622162"/>
+		<Sensor key="19292508"/>
+		<Sensor key="30813188"/>
+		<Sensor key="31143331"/>
+		<Sensor key="17854064"/>
+		<Sensor key="26042351"/>
+		<Sensor key="21910669"/>
+		<Sensor key="31925512"/>
+		<Sensor key="29958663"/>
+		<Sensor key="33031063"/>
+	</Case>
+	<Case name="奉贤35kV姚家港变电站1号主变室噪音" kind="Noise" addr="A606" key="94922511">
+		<Sensor key="32983387"/>
+	</Case>
+	<Case name="市北10kv江湾城站10kV进线2#柜A相温度" kind="Temperature" addr="4217" key="85416480">
+		<Sensor key="24252262"/>
+	</Case>
+	<Case name="市北10kv江湾城站10kV进线2#柜B相温度" kind="Temperature" addr="4861" key="87886415">
+		<Sensor key="21392396"/>
+	</Case>
+	<Case name="市北10kv江湾城站10kV进线2#柜C相温度" kind="Temperature" addr="43BA" key="86721579">
+		<Sensor key="17058337"/>
+	</Case>
+	<Case name="市北10kv江湾城站0.4kV2#配变开关侧A相温度" kind="Temperature" addr="3A2A" key="88348698">
+		<Sensor key="29825376"/>
+	</Case>
+	<Case name="市北10kv江湾城站0.4kV2#配变开关侧B相温度" kind="Temperature" addr="2EF3" key="86388946">
+		<Sensor key="29556805"/>
+	</Case>
+	<Case name="市北10kv江湾城站0.4kV2#配变开关侧C相温度" kind="Temperature" addr="3B61" key="87048137">
+		<Sensor key="31542304"/>
+	</Case>
+	<Case name="市北10kv江湾城站0.4kV2#配变低压侧A相温度" kind="Temperature" addr="3050" key="88215021">
+		<Sensor key="27862889"/>
+	</Case>
+	<Case name="市北10kv江湾城站0.4kV2#配变低压侧B相温度" kind="Temperature" addr="47DB" key="96666774">
+		<Sensor key="23398995"/>
+	</Case>
+	<Case name="市北10kv江湾城站0.4kV2#配变低压侧C相温度" kind="Temperature" addr="348E" key="99173049">
+		<Sensor key="25368995"/>
+	</Case>
+	<Case name="市北10kv江湾城站0.4kV2#配变低压侧N相温度" kind="Temperature" addr="41B0" key="87298654">
+		<Sensor key="20735939"/>
+	</Case>
+	<Case name="市北10kv江湾城站0.4kV2#配变铁芯温度" kind="Temperature" addr="3226" key="87839316">
+		<Sensor key="24333330"/>
+	</Case>
+	<Case name="市北10kv江湾城站10kV进线2#柜智能除湿器" kind="Dehumidifier" addr="CD4E" key="99375339">
+		<Sensor key="29033491"/>
+		<Sensor key="19019358"/>
+		<Sensor key="23093353"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线A相温度" kind="Temperature" addr="30B2" key="86211351">
+		<Sensor key="29326193"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线B相温度" kind="Temperature" addr="3ECA" key="97543940">
+		<Sensor key="23069583"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关出线C相温度" kind="Temperature" addr="317D" key="95315969">
+		<Sensor key="31801553"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站0.4kVD1进线柜开关进线A相温度" kind="Temperature" addr="3F49" key="96013226">
+		<Sensor key="29699548"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线A相温度" kind="Temperature" addr="3165" key="97592051">
+		<Sensor key="24587615"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线B相温度" kind="Temperature" addr="348C" key="96207129">
+		<Sensor key="26435747"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关出线C相温度" kind="Temperature" addr="4243" key="90908377">
+		<Sensor key="20204644"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站0.4kVD11进线柜开关进线C相温度" kind="Temperature" addr="3A24" key="92155359">
+		<Sensor key="27279328"/>
+	</Case>
+	<Case name="市北10kv锦秋街坊地面站电缆层 电缆出线口水浸" kind="Water" addr="A03F" key="84543617">
+		<Sensor key="19608109"/>
+	</Case>
+	<Case name="测控-温度传感器" kind="Temperature" addr="56F0" key="100539398">
+		<Sensor key="28597388"/>
+	</Case>
+	<Case name="测控-水浸传感器" kind="Water" addr="A000" key="97000567">
+		<Sensor key="20070619"/>
+	</Case>
+</SensorsCollection>

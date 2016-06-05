@@ -3,7 +3,6 @@ package com.mdata.thirdparty.dianli.frontend.web.controller;
 import com.google.code.kaptcha.Producer;
 import com.google.code.kaptcha.util.Config;
 import com.mdata.thirdparty.dianli.frontend.web.controller.commons.Result;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -96,48 +96,7 @@
     </script>
 </head>
 <body style="overflow-x:hidden;">
-    <div class="container-fluid">
-        <nav class="navbar navbar-inverse" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/index.html">首页</a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="rdata.html">实时数据</a></li>
-                    <li><a href="revent.html">实时告警</a></li>
-                    <li class="active"><a href="hdata.html">历史数据</a></li>
-                    <li><a href="hevent.html">历史告警</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">其他 <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">待加...</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <!--li><a href="http://www.wsn-cn.com">WSN</a></li-->
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="/action/login-try">登录</a></li>
-                            <li><a href="/action/logout">注销</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">关于</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-    </div>
     <div class="container-fluid">
         <form class="form-inline pull-right" role="form">
             <div class="form-group">
@@ -489,7 +448,7 @@
                     "animation": 0,
                     "themes": { "stripes": true },
                     'data': {
-                        'url': '/action/sensors.html',
+                        'url': '/dianli-frontend/templates/data/sensors.html',
                         'data': function (node) {
                             return { 'id': node.id };
                         }
