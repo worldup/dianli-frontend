@@ -1,10 +1,17 @@
 package com.mdata.thirdparty.dianli.frontend.web.controller;
 
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by administrator on 16/5/15.
@@ -18,9 +25,28 @@ public class SensorController {
     public void count(){
         sensorService.testConnect();
     }
-    @RequestMapping(value="/test2")
-    public void test2(){
-        sensorService.test2();
+    @RequestMapping(value="/list")
+    @ResponseBody
+    public String list(@RequestParam  String id){
+        if(StringUtils.isBlank(id)||"#".equals(id)){
+            id="-1";
+        }
+        StringBuilder sb=new StringBuilder();
+        List<Map<String,Object>> result=sensorService.list(id);
+        sb.append("<ul>");
+        if(!CollectionUtils.isEmpty(result)){
+
+            for(Map<String,Object> map:result){
+                sb.append("<li class=\"jstree-closed\" id=\"");
+                sb.append(map.get("key"));
+                sb.append("\">").append(map.get("name"));
+                sb.append("</li>");
+            }
+
+        }
+        sb.append("</ul>");
+        return sb.toString();
+
     }
     @RequestMapping("/chart/temperature")
     public String temperature(){
@@ -38,4 +64,5 @@ public class SensorController {
     public String calendar(){
         return "/data/calendar";
     }
+
 }
