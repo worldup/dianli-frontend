@@ -2,6 +2,7 @@ package com.mdata.thirdparty.dianli.frontend.web.controller;
 
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,5 +67,20 @@ public class SensorController {
     public String calendar(){
         return "/data/calendar";
     }
+    @RequestMapping("/data/list")
+    @ResponseBody
+    public List<Map<String,Object>> listData(  String sid,  Long start, Long end){
+    List<Map<String,Object>>    result=  sensorService.getDataBetweenTimeRange(sid,start,end);
 
+
+        return result ;
+    }
+    @RequestMapping("/kdata/list")
+    @ResponseBody
+    public List<Map<String,Object>> listKData(  String sid,String idx){
+        List<Map<String,Object>>    result=  sensorService.getKData(sid,idx);
+
+
+        return result ;
+    }
 }

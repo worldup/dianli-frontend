@@ -16,10 +16,10 @@ import java.util.List;
  * Created by administrator on 16/6/4.
  */
 public class DBUtils {
-    static final String INSERTSQL="insert into `%s` ( `createtime`, `svalue`) values ( '%s','%s')";
+    static final String INSERTSQL="insert into `%s` ( `createtime`, `svalue`) values ( %d,'%s')";
     static final String CREATESQL="CREATE TABLE IF NOT EXISTS   `%s` (" +
             " `id` int NOT NULL AUTO_INCREMENT," +
-            " `createtime` datetime," +
+            " `createtime` bigint," +
             " `svalue` double," +
             " PRIMARY KEY (`id`)," +
             " INDEX `idx_%s_createtime` (`createtime`)  " +
@@ -39,7 +39,7 @@ public class DBUtils {
         }
         return result;
     }
-    public static String genInsertSensorDaysSql(String tableName,SensorDays sensorDays,String date){
+    public static String genInsertSensorDaysSql(String tableName,SensorDays sensorDays,long date){
 
         String sql=String.format(INSERTSQL,tableName,date,sensorDays.getSlast());
         return sql;

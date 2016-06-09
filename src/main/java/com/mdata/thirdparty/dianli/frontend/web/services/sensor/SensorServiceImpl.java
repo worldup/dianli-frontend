@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,6 @@ public class SensorServiceImpl implements  SensorService {
     private JdbcTemplate jdbcTemplate;
     @Override
     public void testConnect() {
-        System.out.println("aaaa");
         SqlRowSet sqlRowSet=jdbcTemplate.queryForRowSet("select * from sensor_event limit 1");
         System.out.println(sqlRowSet.getRow());
     }
@@ -35,6 +35,20 @@ public class SensorServiceImpl implements  SensorService {
        List<Map<String,Object>> result=jdbcTemplate.query(listSql,new Object[]{pkey}, new ColumnMapRowMapper());
 
         return result;
+    }
+
+    @Override
+    public List<Map<String, Object>> getDataBetweenTimeRange(String sid, long beginTime, long endTime) {
+        String sql="select * from %s where createtime between ? and ?";
+        String finalSql=String.format(sql,sid);
+       List<Map<String,Object>>  resultMapper=jdbcTemplate.query(finalSql,new Object[]{beginTime,endTime},new ColumnMapRowMapper()) ;
+        return resultMapper;
+    }
+    @Override
+    public List<Map<String,Object>>  getKData(String sid, String idx){
+        String sql="select * from sensor_days where sid=? and idx=?";
+        List<Map<String,Object>> resultMapper=jdbcTemplate.query(sql,new Object[]{sid,idx},new ColumnMapRowMapper());
+        return resultMapper;
     }
 
 }

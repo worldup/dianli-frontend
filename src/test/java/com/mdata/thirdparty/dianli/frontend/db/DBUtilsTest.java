@@ -37,12 +37,13 @@ public class DBUtilsTest {
     private JdbcTemplate sqliteJdbcTemplate;
     @Test
     public void testTableCreate(){
-        Assert.assertEquals(DBUtils.createTableIFNotExist(jdbcTemplate,"S211_04_A_0_00E182_0"),true);;
+      //  Assert.assertEquals(DBUtils.createTableIFNotExist(jdbcTemplate,"S211_04_A_0_00E182_0"),true);;
     }
     @Test
     public void testMigrate(){
         Date now=new Date();
-        String  datetime= DateFormatUtils.format(now,"yyyy-MM-dd HH:mm:ss");
+       // String  datetime= DateFormatUtils.format(now,"yyyy-MM-dd HH:mm:ss");
+        long datetime=now.getTime();
         String  date= DateFormatUtils.format(now,"yyyy-MM-dd");
         int dayOfYear= TimeUtils.getDayOfYear(now);
        List<SensorDays> sensorDaysList= sqliteJdbcTemplate.query("select * from sensor_days where days=?",new Object[]{dayOfYear}, new BeanPropertyRowMapper(SensorDays.class));

@@ -1,77 +1,112 @@
 // 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
+$(document).ready(function() {
 
-var base = +new Date(2016, 1, 1);
-var oneDay = 24 * 3600 * 1000;
-var date = [];
-
-var dataMax= [];
-var dataMin= [];
-var dataAvg= [];
-
-for (var i = 1; i < 144; i++) {
-    var now = new Date(base += oneDay);
-    date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'));
-    var min=Math.round(Math.random()*10+60);
-    var max=Math.round(Math.random()*(100-90)+90);
-    var avg=Math.round(Math.random()*(80-70)+70);
-    dataMin.push(min);
-    dataMax.push(max);
-    dataAvg.push(avg);
-}
-
-option = {
+        var myChart = echarts.init(document.getElementById('main'));
 
 
-    title: {
-        text: '堆叠区域图'
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap : false,
-        data: date
-    },
-    yAxis: {
-        type: 'value',
-    },
-    legend: {
-        data:['max','avg','min']
-    },
-    series: [
-        {
-            name:'avg',
-            type:'line',
-            smooth:true,
+    var data = [];
 
 
+    option = {
+        title: {
+            text: '动态数据 + 时间坐标轴'
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: function (params) {
+                params = params[0];
+                var date = new Date(params.value[0]);
+                return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+            },
+            axisPointer: {
+                animation: false
+            }
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        xAxis: {
+            type: 'time',
+            splitLine: {
+                show: false
+            }
+        },
+        yAxis: {
+            type: 'value',
+            scale: true,
+            splitLine: {
+                show: false
+            }
+        },
+        dataZoom: [
+            {
+                type: 'inside'
+
+            },
+            {
+                show: true,
+                type: 'slider'
+
+            }
+        ],
+        series: [{
+            name: '模拟数据',
+            type: 'line',
+            //smooth:true,
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                }
+            },
+
+            showSymbol: false,
+            hoverAnimation: false,
+            markPoint:{
+                data:[{
+                    name: '平均线',
+                    // 支持 'average', 'min', 'max'
+                    type: 'max'
+                },]
+            },
             markLine:{
                 data:[{
                     name: '阈值',
-                    yAxis: 100
-                },]
+                    yAxis: 25
+                }]
             },
-            data: dataAvg
-        },
-        {
-            name:'max',
-            type:'line',
-            smooth:true,
+            data: data
+        }]
+    };
+    myChart.setOption(option)
 
-            data: dataMax
-        },
-        {
-            name:'min',
-            type:'line',
-            smooth:true,
+        $.get("/sensor/data/list",{sid:'T111_05_A_0_00CD01_0',start:'1',end:'2465092000000'},function(result){
+            var data=[];
+            for(var i=0;i<result.length;i++){
 
-            data: dataMin
+                data.push([new Date(result[i].createtime).toString(),result[i].svalue]);
+            }
+            myChart.setOption({
+                series: [{
+                    data: data
+                }]
+            });
+            });
+
+        window.onresize = function () {
+            myChart.resize()
         }
-    ]
-};
-
-
-// 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
-window.onresize=function(){
-    myChart.resize()
-}
+    }
+)

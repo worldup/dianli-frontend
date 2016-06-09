@@ -33,8 +33,9 @@ public class CronService {
     public void show(){
         System.out.println("begin show");
         Date now=new Date();
-//        now.setTime(now.getTime()-1000l*60*60*24*30*2);
-        String  datetime= DateFormatUtils.format(now,"yyyy-MM-dd HH:mm:ss");
+        now.setTime(now.getTime()-1000l*60*60*24*30*2);
+        //String  datetime= DateFormatUtils.format(now,"yyyy-MM-dd HH:mm:ss");
+        long datetime=System.currentTimeMillis();
         String  date= DateFormatUtils.format(now,"yyyy-MM-dd");
         int dayOfYear= TimeUtils.getDayOfYear(now);
         List<SensorDays> sensorDaysList= sqliteJdbcTemplate.query("select * from sensor_days where days=?",new Object[]{dayOfYear}, new BeanPropertyRowMapper(SensorDays.class));

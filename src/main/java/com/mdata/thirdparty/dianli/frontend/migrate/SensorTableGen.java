@@ -110,6 +110,7 @@ public class SensorTableGen {
             }
         }
     }
+
     public static void migrateSensors(JdbcTemplate jdbcTemplate){
         String createSensorTableSql="CREATE TABLE  IF NOT EXISTS  `T_SENSORS` (\n" +
                 "\t`key` varchar(100) NOT NULL,\n" +
