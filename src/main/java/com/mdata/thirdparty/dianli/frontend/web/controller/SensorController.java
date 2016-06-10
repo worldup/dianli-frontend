@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +56,14 @@ public class SensorController {
     public String temperature(){
         return "/chart/temperature";
     }
+    @RequestMapping("/chart/temperaturek")
+    public String temperaturek(){
+        return "/chart/temperaturek";
+    }
+    @RequestMapping("/chart/threephasek")
+    public String threephasek(){
+        return "/chart/threephasek";
+    }
     @RequestMapping("/chart/threephase")
     public String threephase(){
         return "/chart/threephase";
@@ -63,13 +72,17 @@ public class SensorController {
     public String humidity(){
         return "/chart/humidity";
     }
+    @RequestMapping("/chart/humidityk")
+    public String humidityk(){
+        return "/chart/humidityk";
+    }
     @RequestMapping("/data/calendar")
     public String calendar(){
         return "/data/calendar";
     }
     @RequestMapping("/data/list")
     @ResponseBody
-    public List<Map<String,Object>> listData(  String sid,  Long start, Long end){
+    public List<Map<String,Object>> listData(String sid, Long start, Long end ){
     List<Map<String,Object>>    result=  sensorService.getDataBetweenTimeRange(sid,start,end);
 
 
@@ -79,8 +92,24 @@ public class SensorController {
     @ResponseBody
     public List<Map<String,Object>> listKData(  String sid,String idx){
         List<Map<String,Object>>    result=  sensorService.getKData(sid,idx);
-
-
         return result ;
+    }
+    @RequestMapping("/threephase/list")
+    @ResponseBody
+    public List<Map<String,Object>> threephase(  String aSid,String bSid,String cSid) {
+        List<Map<String, Object>> result = sensorService.getThreePhaseData(aSid, bSid, cSid);
+        return result;
+    }
+    @RequestMapping("/threephasek/list")
+    @ResponseBody
+    public List<Map<String,Object>> threephasek(  String aSid,String bSid,String cSid) {
+        List<Map<String, Object>> result = sensorService.getThreePhaseData(aSid, bSid, cSid);
+        return result;
+    }
+    @RequestMapping("/temphumk/list")
+    @ResponseBody
+    public List<Map<String,Object>> temphumk(  String tSid,String hSid) {
+        List<Map<String, Object>> result = sensorService.getTempHumData(tSid, hSid);
+        return result;
     }
 }

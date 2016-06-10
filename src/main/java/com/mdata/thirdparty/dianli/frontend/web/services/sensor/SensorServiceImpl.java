@@ -9,7 +9,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +51,47 @@ public class SensorServiceImpl implements  SensorService {
     public List<Map<String,Object>>  getKData(String sid, String idx){
         String sql="select * from sensor_days where sid=? and idx=?";
         List<Map<String,Object>> resultMapper=jdbcTemplate.query(sql,new Object[]{sid,idx},new ColumnMapRowMapper());
+        return resultMapper;
+    }
+    @Override
+    public List<Map<String,Object>>  getThreePhaseData(String aSid,String bSid,String cSid){
+        String sql="select sum(case s.type  when 'CurrentA' then  d.smax else 0 end) asmax,\n" +
+                "sum(case s.type  when 'CurrentB' then  d.smax else 0 end) bsmax,\n" +
+                "sum(case s.type  when 'CurrentC' then  d.smax else 0 end) csmax,\n" +
+                "d.days from sensor_days  d ,t_sensors s  where d.sid in (?,?, \n" +
+                "?) and d.sid=s.sid  group by  d.days";
+        List<Map<String,Object>> resultMapper=jdbcTemplate.query(sql, new Object[]{aSid, bSid, cSid}, new RowMapper<Map<String, Object>>() {
+            @Override
+            public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Map<String,Object> result=new HashMap<String, Object>();
+                String days=rs.getString("days");
+                double asmax=rs.getDouble("asmax");
+                double bsmax=rs.getDouble("bsmax");
+                double csmax=rs.getDouble("csmax");
+                double max=Math.max(asmax,Math.max(bsmax,csmax));
+                double min=Math.min(asmax,Math.min(bsmax,csmax));
+                double value=1d;
+                if(min!=0d){
+                    value=((max-min)/min-1);
+                }
+                result.put("days",days);
+                result.put("value",String.valueOf(value));
+                return result;
+            }
+        });
+
+        return resultMapper;
+    }
+
+    @Override
+    public List<Map<String, Object>> getTempHumData(String tSid, String hSid) {
+       String sql=  "select sum(case s.type  when 'Humidity' then  d.savg else 0 end) havg,\n" +
+               " sum(case s.type  when 'Temperature' then  d.savg else 0 end) tavg,\n" +
+               " d.days from sensor_days  d ,t_sensors s \n" +
+               " where d.sid in (?,?) and d.sid=s.sid \n" +
+               " group by  d.days";
+        List<Map<String,Object>> resultMapper=jdbcTemplate.query(sql, new Object[]{tSid, hSid}, new ColumnMapRowMapper() );
+
         return resultMapper;
     }
 

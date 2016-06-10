@@ -23,6 +23,7 @@ public class DataMigrateTest {
     private JdbcTemplate sqliteJdbcTemplate;
     @Test
     public void testMigrate() {
-        Sqlite2Mysql.migrateData(sqliteJdbcTemplate,jdbcTemplate,"111_05_A_0_00CD01_0");
+       // Sqlite2Mysql.migrateSensorData(sqliteJdbcTemplate,jdbcTemplate,"111_05_A_0_00CD01_0");
+       Sqlite2Mysql.migrateSensorDays(sqliteJdbcTemplate,jdbcTemplate,"2016");
     }
 }
