@@ -50,7 +50,20 @@ $(document).ready(function() {
                 {
                     type : 'category',
                     boundaryGap : false,
+                    splitLine: {
+                        show: false
+                    },
                     axisLine: {onZero: false},
+                    axisLabel:{
+                        interval:0 ,
+                        formatter:function(val){
+                           var tmp= val.split("-");
+                            if(tmp[2]%5==0){
+                                return val;
+                            }
+                           return  "";
+                        }
+                    },
                     data :  data.days
                 }
             ],
@@ -58,11 +71,17 @@ $(document).ready(function() {
                 {
                     name: '温度(℃)',
                     type: 'value',
+                    splitLine: {
+                        show: false
+                    }
                 },
                 {
                     name: '湿度(%RH)',
                     nameLocation: 'start',
-                    type: 'value'
+                    type: 'value',
+                    splitLine: {
+                        show: false
+                    }
                 }
             ],
             series: [
