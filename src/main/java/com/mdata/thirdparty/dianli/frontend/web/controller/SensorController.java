@@ -1,5 +1,6 @@
 package com.mdata.thirdparty.dianli.frontend.web.controller;
 
+import com.mdata.thirdparty.dianli.frontend.util.conf.SensorsConfiguration;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by administrator on 16/5/15.
@@ -51,6 +50,21 @@ public class SensorController {
         sb.append("</ul>");
         return sb.toString();
 
+    }
+    @RequestMapping("/data/tables")
+    public String tables(Map<String, Object> model){
+        List<Map<String,Object>> sensors=new ArrayList<Map<String, Object>>();
+        Map<String,Object> sensor=new HashMap<String, Object>();
+        sensor.put("id",1);
+        sensor.put("name","市北10kv江湾城站10kV进线2#柜A相温度");
+
+        sensor.put("status","正常");
+        sensor.put("value","28 ℃");
+        sensor.put("time","2016-6-11 15:29:36");
+                sensors.add(sensor);
+        Map<String,Map<String,Object>>  result=sensorService.getSensorDays("2016-01-06");
+        model.put("sensors",result.values());
+        return "/data/tables";
     }
     @RequestMapping("/chart/temperature")
     public String temperature(){

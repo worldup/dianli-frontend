@@ -1,8 +1,15 @@
 package com.mdata.thirdparty.dianli.frontend.web.services.sensor;
 
+
+import com.google.common.base.Function;
+import com.google.common.collect.HashBasedTable;
+
+import com.google.common.collect.Maps;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,10 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by administrator on 16/5/15.
@@ -93,6 +98,35 @@ public class SensorServiceImpl implements  SensorService {
         List<Map<String,Object>> resultMapper=jdbcTemplate.query(sql, new Object[]{tSid, hSid}, new ColumnMapRowMapper() );
 
         return resultMapper;
+    }
+
+    @Override
+
+    public  Map<String,Map<String,Object>>getSensorDays(String day) {
+        String sql="select  t.name name  ,d.days days , d.sid sid ,d.idx idx ,d.slast value,t.type type ,count(d.sid) c from sensor_days d ,t_sensors t  where d.sid=t.sid\n" +
+                "  and d.days=?  group by d.sid order by name ";
+        List<Map<String,Object>> resultMapper=jdbcTemplate.query(sql, new Object[]{day}, new ColumnMapRowMapper() );
+        HashBasedTable<String,String,Map<String,Object>> table=HashBasedTable.create();
+        if(CollectionUtils.isNotEmpty(resultMapper)){
+            for(Map<String,Object> map:resultMapper) {
+               String sid= MapUtils.getString(map,"sid");
+                String idx=MapUtils.getString(map,"idx");
+                table.put(sid,idx,map);
+            }
+        }
+        final AtomicInteger aint=new AtomicInteger(0);
+        FastDateFormat fdf=FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
+        final String now=fdf.format(new Date());
+        Map<String,Map<String,Object>> result= Maps.transformValues(table.column("0"), new Function<Map<String,Object>, Map<String,Object>>() {
+            @Override
+            public Map<String, Object> apply(Map<String, Object> input) {
+                input.put("status","正常");
+                input.put("time",now);
+                input.put("id",aint.addAndGet(1));
+                return input;
+            }
+        });
+        return  result;
     }
 
 }
