@@ -14,10 +14,17 @@ $(document).ready(function() {
             }
 
                 var option = {
-                    title: {
-                        text: '三项电流不平衡'
-                    },
 
+                    title: {
+                        text: '三项电流不平衡日K线',
+                        subtext: '青浦银涛3号配电站银涛3号低压柜3号',
+                        x: 'center',
+                        align: 'right'
+                    },
+                    legend: {
+                        data:['电流不平衡度'],
+                        x: 'left'
+                    },
                     toolbox: {
                         show : true,
                         feature : {
@@ -36,11 +43,17 @@ $(document).ready(function() {
                         {
                             type : 'category',
                             boundaryGap : false,
+                            splitLine: {
+                                show: false
+                            },
                             data :data.days
                         }
                     ],
                     yAxis: {
                         type: 'value',
+                        splitLine: {
+                            show: false
+                        },
                         min:-1,
                         max:5
                     },

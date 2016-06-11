@@ -24,6 +24,13 @@ $(document).ready(function() {
             grid: {
                 bottom: 80
             },
+           toolbox: {
+               show : true,
+               feature : {
+
+                   saveAsImage : {show: true}
+               }
+           },
             tooltip : {
                 trigger: 'axis',
                 axisPointer: {

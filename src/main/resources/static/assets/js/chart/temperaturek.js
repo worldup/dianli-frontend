@@ -4,7 +4,7 @@ $(document).ready(function() {
         var myChart = echarts.init(document.getElementById('main'));
 
 
-    $.get("http://localhost:8080/sensor/kdata/list",{sid:'111_05_A_0_00CD01',idx:'0'},function(result){
+    $.get("/sensor/kdata/list",{sid:'111_05_A_0_00CD01',idx:'0'},function(result){
         var data={};
         data.days=[];
         data.smax=[];
@@ -19,13 +19,17 @@ $(document).ready(function() {
         }
        var option = {
             title: {
-                text: '日k线'
+                text: '智能除湿温度日K线',
+                subtext: '青浦银涛3号配电站10kV银12银3号甲开关柜',
+                x: 'center',
+                align: 'right'
             },
             tooltip : {
                 trigger: 'axis'
             },
             legend: {
-                data:['最高','最低','平均','最终']
+                data:['最高','最低','平均'],
+                x: 'left'
             },
             toolbox: {
                 show:true,
@@ -45,12 +49,19 @@ $(document).ready(function() {
                 {
                     type : 'category',
                     boundaryGap : false,
+                    splitLine: {
+                        show: false
+                    },
                     data :data.days
                 }
             ],
             yAxis : [
                 {
+                    name: '温度(℃)',
                     type : 'value',
+                    splitLine: {
+                        show: false
+                    },
                     max:50
 
                 }
