@@ -4,7 +4,7 @@ $(document).ready(function() {
         var myChart = echarts.init(document.getElementById('main'));
 
 
-    $.get("/sensor/temphumk/list",{tSid:'111_05_A_0_008105',hSid:'111_40_A_0_008105'},function(result){
+    $.get("/sensor/temphumk/list",{tSid:tSid,hSid:hSid},function(result){
         var data={};
         data.days=[];
         data.tvalue=[];
@@ -17,7 +17,7 @@ $(document).ready(function() {
        var  option = {
             title : {
                 text: '温湿控效率日K线',
-                subtext: '浦东10kV文登南泉站0.4kV室',
+                subtext: sName,
                 x: 'center',
                 align: 'right'
             },
@@ -64,10 +64,13 @@ $(document).ready(function() {
                     axisLabel:{
                         interval:0 ,
                         formatter:function(val){
-                           var tmp= val.split("-");
-                            if(tmp[2]%5==0){
-                                return val;
+                            if(val){
+                                var tmp= val.split("-");
+                                if(tmp[2]%5==0){
+                                    return val;
+                                }
                             }
+
                            return  "";
                         }
                     },

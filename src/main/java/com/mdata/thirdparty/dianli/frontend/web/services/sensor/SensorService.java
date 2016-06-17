@@ -15,4 +15,5 @@ public interface SensorService {
       List<Map<String,Object>>  getThreePhaseData(String aSid,String bSid,String cSid);
       List<Map<String,Object>> getTempHumData(String tSid,String hSid);
       Map<String,Map<String,Object>> getSensorDays(String day);
+      Map<String,Object> getSensorInfo(String sid);
 }

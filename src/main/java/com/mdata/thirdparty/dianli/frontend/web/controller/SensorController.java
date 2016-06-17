@@ -2,6 +2,7 @@ package com.mdata.thirdparty.dianli.frontend.web.controller;
 
 import com.mdata.thirdparty.dianli.frontend.util.conf.SensorsConfiguration;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +72,22 @@ public class SensorController {
         return "/chart/temperature";
     }
     @RequestMapping("/chart/temperaturek")
-    public String temperaturek(){
+    public String temperaturek(@RequestParam String sid,Map<String,Object> model){
+        model.put("sid",sid);
+        String sName="此传感器不存在";
+        Map<String,Object> sMap= sensorService.getSensorInfo(sid);
+        if(sMap!=null){
+            sName= MapUtils.getString(sMap,"name","此传感器不存在");
+        }
+        model.put("sName",sName);
         return "/chart/temperaturek";
     }
     @RequestMapping("/chart/threephasek")
-    public String threephasek(){
+    public String threephasek(@RequestParam String aSid,@RequestParam String bSid,@RequestParam String cSid,Map<String, Object> model){
+        model.put("aSid",aSid);
+        model.put("bSid",bSid);
+        model.put("cSid",cSid);
+        model.put("sName","名称需要配置");
         return "/chart/threephasek";
     }
     @RequestMapping("/chart/threephase")
@@ -87,7 +99,10 @@ public class SensorController {
         return "/chart/humidity";
     }
     @RequestMapping("/chart/humidityk")
-    public String humidityk(){
+    public String humidityk(@RequestParam String tSid,@RequestParam String hSid,Map<String, Object> model) {
+        model.put("tSid",tSid);
+        model.put("hSid",hSid);
+        model.put("sName","名称需要配置");
         return "/chart/humidityk";
     }
     @RequestMapping("/data/calendar")

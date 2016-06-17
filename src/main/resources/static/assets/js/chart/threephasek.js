@@ -4,7 +4,7 @@ $(document).ready(function() {
         var myChart = echarts.init(document.getElementById('main'));
 
         $.get("/sensor/threephase/list",
-            {aSid:'111_A4_A_0_00CF74',bSid:'111_C4_A_0_00CF74',cSid:'111_B4_A_0_00CF74'},function(result){
+            {aSid:aSid,bSid:bSid,cSid:cSid},function(result){
             var data={};
                 data.days=[];
                 data.value=[];
@@ -17,7 +17,7 @@ $(document).ready(function() {
 
                     title: {
                         text: '三项电流不平衡日K线',
-                        subtext: '青浦银涛3号配电站银涛3号低压柜3号',
+                        subtext: sName,
                         x: 'center',
                         align: 'right'
                     },

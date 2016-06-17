@@ -128,5 +128,8 @@ public class SensorServiceImpl implements  SensorService {
         });
         return  result;
     }
-
+    public Map<String,Object> getSensorInfo(String sid){
+        String sql="select * from t_sensors where sid=?";
+        return jdbcTemplate.queryForMap(sql,sid);
+    }
 }

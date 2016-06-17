@@ -4,7 +4,7 @@ $(document).ready(function() {
         var myChart = echarts.init(document.getElementById('main'));
 
 
-    $.get("/sensor/kdata/list",{sid:'111_05_A_0_00CD01',idx:'0'},function(result){
+    $.get("/sensor/kdata/list",{sid:sid,idx:'0'},function(result){
         var data={};
         data.days=[];
         data.smax=[];
@@ -20,7 +20,7 @@ $(document).ready(function() {
        var option = {
             title: {
                 text: '智能除湿温度日K线',
-                subtext: '青浦银涛3号配电站10kV银12银3号甲开关柜',
+                subtext: sName,
                 x: 'center',
                 align: 'right'
             },
