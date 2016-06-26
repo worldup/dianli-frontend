@@ -103,9 +103,23 @@ $(document).ready(function() {
                     name:'温度',
                     type:'line',
                     hoverAnimation: false,
+                    data: data.tvalue,
+                    markPoint:{
+                        data:[{
+                            name: '最高值',
+                            // 支持 'average', 'min', 'max'
+                            type: 'max'
+                        },]
+                    },
+                    markLine:{
 
-
-                    data: data.tvalue
+                        symbol: ['none'],
+                        data:[{
+                            name: '阈值',
+                            yAxis: 28,
+                            scale:true
+                        }]
+                    }
                 },
                 {
                     name:'湿度',
@@ -113,7 +127,24 @@ $(document).ready(function() {
                     yAxisIndex:1,
                     hoverAnimation: false,
 
-                    data:  data.hvalue
+                    data:  data.hvalue,
+                    markPoint:{
+                        data:[{
+                            name: '最高值',
+                            symbolSize:[70,40],
+                            // 支持 'average', 'min', 'max'
+                            type: 'max'
+                        },]
+                    },
+                    markLine:{
+
+                        symbol: ['none'],
+                        data:[{
+                            name: '阈值',
+                            yAxis: 58,
+                            scale:true
+                        }]
+                    }
                 }
             ]
         };

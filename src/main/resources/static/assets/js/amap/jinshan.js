@@ -19,6 +19,7 @@ var qsInfowindow = new AMap.InfoWindow({
     '<ul style="padding-left: 0">  ' +
     '<li  style="list-style: none" style="text-align:center"> <span class="fa fa-location-arrow" > 上海市金山区夏盛路239弄105号    </span> </li>  ' +
     '<li style="list-style: none" style="text-align:center" > <span class="fa fa-phone" style="text-align:center">021-37285507</li> ' +
+    '<li style="list-style: none" style="text-align:center" > <span class="fa fa-fire" aria-hidden="true" style="text-align:center">设备:焚烧炉  状态:<span style="color: green">正常</span></li> ' +
     '<li style="list-style:none" style="text-align:center"><span><i class="fa fa-bar-chart" aria-hidden="true"></i><a target="_blank" href = "/sensor/chart/temperaturek.html?sid=111_05_A_0_00CD01">进入传感器监控页面</a></span></li>'+
     ' </ul>'+
     '</div>',

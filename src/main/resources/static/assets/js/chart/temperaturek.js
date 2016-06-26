@@ -99,7 +99,7 @@ $(document).ready(function() {
                             yAxis: 40,
                             scale:true
                         }]
-                    },
+                    }
                 },
                 {
                     name:'最低',
