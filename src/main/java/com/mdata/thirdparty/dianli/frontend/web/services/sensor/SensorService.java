@@ -1,5 +1,7 @@
 package com.mdata.thirdparty.dianli.frontend.web.services.sensor;
 
+import com.mdata.thirdparty.dianli.frontend.web.controller.api.SensorData;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,4 +18,6 @@ public interface SensorService {
       List<Map<String,Object>> getTempHumData(String tSid,String hSid);
       Map<String,Map<String,Object>> getSensorDays(String day);
       Map<String,Object> getSensorInfo(String sid);
+      void insertSensorValues(List<SensorData> sensorDatas) throws Exception;
+      void insertSensorValue(SensorData sensorData) throws Exception;
 }

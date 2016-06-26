@@ -141,4 +141,8 @@ public class SensorController {
         List<Map<String, Object>> result = sensorService.getTempHumData(tSid, hSid);
         return result;
     }
+    @RequestMapping("/map/jinshan")
+    public String jinshan(  String tSid,String hSid) {
+        return "/amap/jinshan";
+    }
 }

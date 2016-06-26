@@ -39,18 +39,16 @@ $(document).ready(function() {
                     saveAsImage: {}
                 }
             },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
+
             xAxis : [
                 {
                     type : 'category',
                     boundaryGap : false,
                     splitLine: {
                         show: false
+                    },
+                    axisLabel:{
+                        rotate:45
                     },
                     data :data.days
                 }
@@ -68,13 +66,16 @@ $(document).ready(function() {
             ],
            dataZoom: [
                {
-                   type: 'inside'
+                   type: 'inside',
+                   z:-1,
+                   top:'bottom'
 
                },
                {
                    show: true,
-                   type: 'slider'
-
+                   z:-1,
+                   type: 'slider',
+                   top:'bottom'
                }
            ],
             series : [

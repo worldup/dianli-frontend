@@ -1,24 +1,24 @@
 package com.mdata.thirdparty.dianli.frontend.beans;
 
-import java.security.Timestamp;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
- * Created by administrator on 16/6/4.
+ * Created by administrator on 16/6/26.
  */
-//对应sqlite的sensor_days这张表
-public class SensorDays {
+public class TSensorDays implements Serializable {
     private String sid;
-    private String idx;
-    private int days;
-
+    private int idx;
+    private String days;
     private double smax;
     private double smin;
     private double savg;
     private double slast;
-    private long tmax;
-    private long tmin;
-    private long count;
-    private long change;
+    private Timestamp tmax;
+    private Timestamp tmin;
+    private Timestamp tlast;
+    private long scount;
+    private long schange;
 
     public String getSid() {
         return sid;
@@ -28,19 +28,19 @@ public class SensorDays {
         this.sid = sid;
     }
 
-    public String getIdx() {
+    public int getIdx() {
         return idx;
     }
 
-    public void setIdx(String idx) {
+    public void setIdx(int idx) {
         this.idx = idx;
     }
 
-    public int getDays() {
+    public String getDays() {
         return days;
     }
 
-    public void setDays(int days) {
+    public void setDays(String days) {
         this.days = days;
     }
 
@@ -76,52 +76,61 @@ public class SensorDays {
         this.slast = slast;
     }
 
-    public long getTmax() {
+    public Timestamp getTmax() {
         return tmax;
     }
 
-    public void setTmax(long tmax) {
+    public void setTmax(Timestamp tmax) {
         this.tmax = tmax;
     }
 
-    public long getTmin() {
+    public Timestamp getTmin() {
         return tmin;
     }
 
-    public void setTmin(long tmin) {
+    public void setTmin(Timestamp tmin) {
         this.tmin = tmin;
     }
 
-    public long getCount() {
-        return count;
+    public Timestamp getTlast() {
+        return tlast;
     }
 
-    public void setCount(long count) {
-        this.count = count;
+    public void setTlast(Timestamp tlast) {
+        this.tlast = tlast;
     }
 
-    public long getChange() {
-        return change;
+    public long getScount() {
+        return scount;
     }
 
-    public void setChange(long change) {
-        this.change = change;
+    public void setScount(long scount) {
+        this.scount = scount;
+    }
+
+    public long getSchange() {
+        return schange;
+    }
+
+    public void setSchange(long schange) {
+        this.schange = schange;
     }
 
     @Override
     public String toString() {
-        return "SensorDays{" +
+        return "TSensorDays{" +
                 "sid='" + sid + '\'' +
-                ", idx='" + idx + '\'' +
-                ", days=" + days +
+                ", idx=" + idx +
+                ", days='" + days + '\'' +
                 ", smax=" + smax +
                 ", smin=" + smin +
                 ", savg=" + savg +
                 ", slast=" + slast +
                 ", tmax=" + tmax +
                 ", tmin=" + tmin +
-                ", count=" + count +
-                ", change=" + change +
+                ", tlast=" + tlast +
+                ", scount=" + scount +
+                ", schange=" + schange +
                 '}';
     }
 }

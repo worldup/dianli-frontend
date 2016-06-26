@@ -46,6 +46,8 @@ $(document).ready(function() {
                             splitLine: {
                                 show: false
                             },
+                            axisLabel:{
+                                rotate:45},
                             data :data.days
                         }
                     ],

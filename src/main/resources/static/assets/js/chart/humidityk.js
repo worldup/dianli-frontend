@@ -44,12 +44,15 @@ $(document).ready(function() {
             dataZoom: [
                 {
                     show: true,
-                    realtime: true
-
+                    realtime: true,
+                    top:'bottom',
+                    z:-1
                 },
                 {
                     type: 'inside',
-                    realtime: true
+                    realtime: true,
+                    top:'bottom',
+                    z:-1
 
                 }
             ],
@@ -63,6 +66,7 @@ $(document).ready(function() {
                     axisLine: {onZero: false},
                     axisLabel:{
                         interval:0 ,
+                        rotate:45,
                         formatter:function(val){
                             if(val){
                                 var tmp= val.split("-");

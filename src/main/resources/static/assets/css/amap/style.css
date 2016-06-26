@@ -1,0 +1,23 @@
+.title{
+    margin: 0px;
+    color: white;
+    font-size: 14px;
+    background-color: rgba(0,155,255,0.8);
+    border-bottom: solid 1px silver;
+    line-height: 26px;
+    padding: 0px 0 0 6px;
+    font-weight: lighter;
+    letter-spacing: 1px
+}
+.content{
+    padding: 4px;
+    color: #666;
+    line-height: 23px;
+}
+.content img{
+    float: left;
+    margin: 3px;
+}
+.amap-info-content{
+    padding: 0 0 2px 0px;
+}
