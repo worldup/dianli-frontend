@@ -19,12 +19,12 @@ import java.util.List;
  * Created by administrator on 16/6/25.
  */
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api",method = {RequestMethod.POST,RequestMethod.GET})
 public class ApiController {
     static final Logger logger=LoggerFactory.getLogger(ApiController.class);
     @Autowired
     private SensorService sensorService;
-    @RequestMapping("/sensor")
+    @RequestMapping(value = "/sensor",method ={RequestMethod.POST,RequestMethod.GET} )
     public Result uploadData(String data){
        ObjectMapper mapper=ObjectMapperUtil.genObjectMapper();
         Result result=new Result();

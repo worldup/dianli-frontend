@@ -20,6 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private JdbcTemplate jdbcTemplate;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http.authorizeRequests().antMatchers("/assets*//**").permitAll().antMatchers("/api/**").permitAll().anyRequest()
                 .fullyAuthenticated().and().formLogin().loginPage("/login")
                 .failureUrl("/login?error").permitAll().and().logout().permitAll();

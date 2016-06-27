@@ -196,12 +196,16 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             lastSensorCache.put(cacheKey, sensorData);
 
         }
-
           TSensorDays cachedSensorDays = sensorDaysCache.getIfPresent(cacheKey);
         if (cachedSensorDays == null) {
-            cachedSensorDays = jdbcTemplate.queryForObject("select * from t_sensor_days where sid=? and idx=? and days=? limit 1", new Object[]{
+            List<TSensorDays> results = jdbcTemplate.query("select * from t_sensor_days where sid=? and idx=? and days=? limit 1", new Object[]{
                     sid, idx, day
             }, new BeanPropertyRowMapper<TSensorDays>(TSensorDays.class));
+            if(CollectionUtils.isEmpty(results)){
+                cachedSensorDays=null;
+            }else{
+                cachedSensorDays=results.get(0);
+            }
         }
         if(cachedSensorDays==null){
 
