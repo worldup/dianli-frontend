@@ -3,106 +3,91 @@ $(document).ready(function() {
 
         var myChart = echarts.init(document.getElementById('main'));
 
-
-    var data = [];
-
-
-    option = {
-        title: {
-            text: '动态数据 + 时间坐标轴'
-        },
-        tooltip: {
-            trigger: 'axis',
-            formatter: function (params) {
-                params = params[0];
-                var date = new Date(params.value[0]);
-                return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-            },
-            axisPointer: {
-                animation: false
-            }
-        },
-        toolbox: {
-            show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {show: true, type: ['line', 'bar']},
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
-        },
-        xAxis: {
-            type: 'time',
-            splitLine: {
-                show: false
-            }
-        },
-        yAxis: {
-            type: 'value',
-            scale: true,
-            splitLine: {
-                show: false
-            }
-        },
-        dataZoom: [
-            {
-                type: 'inside'
-
-            },
-            {
-                show: true,
-                type: 'slider'
-
-            }
-        ],
-        series: [{
-            name: '模拟数据',
-            type: 'line',
-            //smooth:true,
-            areaStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: 'rgb(255, 158, 68)'
-                    }, {
-                        offset: 1,
-                        color: 'rgb(255, 70, 131)'
-                    }])
+        $.get("/sensor/threephase/list",
+            {aSid:aSid,bSid:bSid,cSid:cSid},function(result){
+                var data={};
+                data.days=[];
+                data.value=[];
+                for(var i=0;i<result.length;i++){
+                    data.days.push(result[i].days);
+                    data.value.push(result[i].value);
                 }
-            },
 
-            showSymbol: false,
-            hoverAnimation: false,
-            markPoint:{
-                data:[{
-                    name: '平均线',
-                    // 支持 'average', 'min', 'max'
-                    type: 'max'
-                },]
-            },
-            markLine:{
-                data:[{
-                    name: '阈值',
-                    yAxis: 25
-                }]
-            },
-            data: data
-        }]
-    };
-    myChart.setOption(option)
+                var option = {
 
-        $.get("/sensor/data/list",{sid:'T111_05_A_0_00CD01_0',start:'1',end:'2465092000000'},function(result){
-            var data=[];
-            for(var i=0;i<result.length;i++){
+                    title: {
+                        text: '三项电流不平衡日K线',
+                        subtext: sName,
+                        x: 'center',
+                        align: 'right'
+                    },
+                    legend: {
+                        data:['电流不平衡度'],
+                        x: 'left'
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
 
-                data.push([new Date(result[i].createtime).toString(),result[i].svalue]);
-            }
-            myChart.setOption({
-                series: [{
-                    data: data
-                }]
-            });
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            animation: false
+                        }
+                    },
+
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            splitLine: {
+                                show: false
+                            },
+                            axisLabel:{
+                                rotate:45},
+                            data :data.days
+                        }
+                    ],
+                    yAxis: {
+                        type: 'value',
+                        splitLine: {
+                            show: false
+                        },
+                        min:-1,
+                        max:5
+                    },
+                    dataZoom: [
+                        {
+                            type: 'inside'
+                        },
+                        {
+                            show: true,
+                            type: 'slider'
+                        }
+                    ],
+                    series: [{
+                        name: '三项电流不平衡',
+                        type: 'line',
+                        smooth:true,
+
+                        showSymbol: false,
+                        hoverAnimation: false,
+
+                        markLine:{
+                            data:[{
+                                name: '阈值',
+                                yAxis: 1
+                            }]
+                        },
+                        data: data.value
+                    }]
+                };
+
+                myChart.setOption(option)
+
             });
 
         window.onresize = function () {

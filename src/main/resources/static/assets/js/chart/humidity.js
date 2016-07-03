@@ -4,122 +4,155 @@ $(document).ready(function() {
         var myChart = echarts.init(document.getElementById('main'));
 
 
-    $.get("http://localhost:8080/sensor/kdata/list",{sid:'111_05_A_0_00CD01',idx:'0'},function(result){
-        var data={};
-        data.days=[];
-        data.smax=[];
-        data.smin=[];
-        data.savg=[];
-        for(var i=0;i<result.length;i++){
-            var tmp=result[i];
-            data.days.push(tmp.days);
-            data.smax.push(tmp.smax);
-            data.smin.push(tmp.smin);
-            data.savg.push(tmp.savg);
-        }
-       var option = {
-            title: {
-                text: '日k线'
-            },
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['最高','最低','平均','最终']
-            },
-            toolbox: {
-                show:true,
-                feature: {
-                    magicType : {show: true, type: ['line', 'bar']},
-                    restore : {show: true},
-                    saveAsImage: {}
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis : [
-                {
-                    type : 'category',
-                    boundaryGap : false,
-                    data :data.days
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value',
-                    max:50
-
-                }
-            ],
-           dataZoom: [
-               {
-                   type: 'inside'
-
-               },
-               {
-                   show: true,
-                   type: 'slider'
-
-               }
-           ],
-            series : [
-                {
-                    name:'最高',
-                    type:'line',
-                   // smooth:true,
-                    data:data.smax,
-                    markPoint:{
-                        data:[{
-                            name: '最高值',
-                            // 支持 'average', 'min', 'max'
-                            type: 'max'
-                        },]
-                    },
-                    markLine:{
-
-                        symbol: ['none'],
-                        data:[{
-                            name: '阈值',
-                            yAxis: 40,
-                            scale:true
-                        }]
-                    },
+        $.get("/sensor/temphum/list",{tSid:tSid,hSid:hSid},function(result){
+            var data={};
+            data.days=[];
+            data.tvalue=[];
+            data.hvalue=[];
+            for(var i=0;i<result.length;i++){
+                data.days.push(result[i].days);
+                data.tvalue.push(result[i].tavg);
+                data.hvalue.push(result[i].havg);
+            }
+            var  option = {
+                title : {
+                    text: '温湿控效率日K线',
+                    subtext: sName,
+                    x: 'center',
+                    align: 'right'
                 },
-                {
-                    name:'最低',
-                    type:'line',
-                     smooth:true,
-                    lineStyle: {
-                        normal: {opacity: 1}
-                    },
-                    data:data.smin
+                grid: {
+                    bottom: 80
                 },
-                {
-                    name:'平均',
-                    type:'line',
-                 //   smooth:true,
-                    lineStyle: {
-                        normal: {
-                          //  width:1,
-                          //  color:'#ccc',
-                            opacity: 0.5
+                toolbox: {
+                    show : true,
+                    feature : {
+
+                        saveAsImage : {show: true}
+                    }
+                },
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer: {
+                        animation: false
+                    }
+                },
+                legend: {
+                    data:['温度','湿度'],
+                    x: 'left'
+                },
+                dataZoom: [
+                    {
+                        show: true,
+                        realtime: true,
+                        top:'bottom',
+                        z:-1
+                    },
+                    {
+                        type: 'inside',
+                        realtime: true,
+                        top:'bottom',
+                        z:-1
+
+                    }
+                ],
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        splitLine: {
+                            show: false
+                        },
+                        axisLine: {onZero: false},
+                        axisLabel:{
+                            interval:0 ,
+                            rotate:45,
+                            formatter:function(val){
+                                if(val){
+                                    var tmp= val.split("-");
+                                    if(tmp[2]%5==0){
+                                        return val;
+                                    }
+                                }
+
+                                return  "";
+                            }
+                        },
+                        data :  data.days
+                    }
+                ],
+                yAxis: [
+                    {
+                        name: '温度(℃)',
+                        type: 'value',
+                        splitLine: {
+                            show: false
                         }
                     },
-                    data:data.savg
-                }
-            ]
-        };
+                    {
+                        name: '湿度(%RH)',
+                        nameLocation: 'start',
+                        type: 'value',
+                        splitLine: {
+                            show: false
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name:'温度',
+                        type:'line',
+                        hoverAnimation: false,
+                        data: data.tvalue,
+                        markPoint:{
+                            data:[{
+                                name: '最高值',
+                                // 支持 'average', 'min', 'max'
+                                type: 'max'
+                            },]
+                        },
+                        markLine:{
 
+                            symbol: ['none'],
+                            data:[{
+                                name: '阈值',
+                                yAxis: 28,
+                                scale:true
+                            }]
+                        }
+                    },
+                    {
+                        name:'湿度',
+                        type:'line',
+                        yAxisIndex:1,
+                        hoverAnimation: false,
 
+                        data:  data.hvalue,
+                        markPoint:{
+                            data:[{
+                                name: '最高值',
+                                symbolSize:[70,40],
+                                // 支持 'average', 'min', 'max'
+                                type: 'max'
+                            },]
+                        },
+                        markLine:{
 
-        myChart.setOption(option)
-    });
+                            symbol: ['none'],
+                            data:[{
+                                name: '阈值',
+                                yAxis: 58,
+                                scale:true
+                            }]
+                        }
+                    }
+                ]
+            };
 
-    window.onresize = function () {
+            myChart.setOption(option)
+        });
+
+        window.onresize = function () {
             myChart.resize()
         }
     }

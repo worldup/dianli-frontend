@@ -5,6 +5,7 @@ import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -68,7 +69,14 @@ public class SensorController {
         return "/data/tables";
     }
     @RequestMapping("/chart/temperature")
-    public String temperature(){
+    public String temperature(@RequestParam String sid,Map<String,Object> model){
+        model.put("sid",sid);
+        String sName="此传感器不存在";
+        Map<String,Object> sMap= sensorService.getSensorInfo(sid);
+        if(sMap!=null){
+            sName= MapUtils.getString(sMap,"name","此传感器不存在");
+        }
+        model.put("sName",sName);
         return "/chart/temperature";
     }
     @RequestMapping("/chart/temperaturek")
@@ -91,11 +99,18 @@ public class SensorController {
         return "/chart/threephasek";
     }
     @RequestMapping("/chart/threephase")
-    public String threephase(){
+    public String threephase(@RequestParam String aSid,@RequestParam String bSid,@RequestParam String cSid,Map<String, Object> model){
+        model.put("aSid",aSid);
+        model.put("bSid",bSid);
+        model.put("cSid",cSid);
+        model.put("sName","名称需要配置");
         return "/chart/threephase";
     }
     @RequestMapping("/chart/humidity")
-    public String humidity(){
+    public String humidity(@RequestParam String tSid,@RequestParam String hSid,Map<String, Object> model){
+        model.put("tSid",tSid);
+        model.put("hSid",hSid);
+        model.put("sName","名称需要配置");
         return "/chart/humidity";
     }
     @RequestMapping("/chart/humidityk")
@@ -121,6 +136,13 @@ public class SensorController {
     @ResponseBody
     public List<Map<String,Object>> listKData(  String sid,String idx){
         List<Map<String,Object>>    result=  sensorService.getKData(sid,idx);
+        return result ;
+    }
+    @RequestMapping("/data/listdaydata")
+    @ResponseBody
+    public List<Map<String,Object>> listDayData(  String sid,String idx,long date){
+        String days= FastDateFormat.getInstance("yyyy-MM-dd").format(new Date(date));
+        List<Map<String,Object>>    result=  sensorService.getData(sid,idx,days);
         return result ;
     }
     @RequestMapping("/threephase/list")

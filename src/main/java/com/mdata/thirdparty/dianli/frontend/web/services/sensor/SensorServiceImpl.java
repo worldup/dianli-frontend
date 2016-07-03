@@ -75,7 +75,12 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{sid, idx}, new ColumnMapRowMapper());
         return resultMapper;
     }
-
+    @Override
+    public List<Map<String, Object>> getData(String sid, String idx,String days) {
+        String sql = "select  sid,idx,sv,DATE_FORMAT(tmin,'%T') tmin,date_format(tmax,'%T') tmax from t_sensor_data where sid=? and idx=? and days=?";
+        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{sid, idx,days}, new ColumnMapRowMapper());
+        return resultMapper;
+    }
     @Override
     public List<Map<String, Object>> getThreePhaseData(String aSid, String bSid, String cSid) {
         String sql = "select sum(case s.type  when 'CurrentA' then  d.smax else 0 end) asmax,\n" +
@@ -160,7 +165,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         }
     }
 
-    final String insertSensorDataSql = "insert into t_sensor_data(sid,idx,days,sv,tmax,tmin) values(?,?,?,?,?,?)";
+    final String insertSensorDataSql = "insert into t_sensor_data(sid,idx,days,sv,tmax,tmin,create_time) values(?,?,?,?,?,?,now())";
 
     public void insertSensorValue(final SensorData sensorData) throws  Exception {
         final String sid = sensorData.getSid();
@@ -222,7 +227,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             temp.setTmax(times);
             temp.setTmin(times);
             temp.setTlast(times);
-            jdbcTemplate.update("replace into t_sensor_days (sid,idx,days,smax,smin,savg,slast,tmax,tmin,schange,scount,tlast) values(?,?,?,?,?,?,?,?,?,?,?,?)", new PreparedStatementSetter() {
+            jdbcTemplate.update("replace into t_sensor_days (sid,idx,days,smax,smin,savg,slast,tmax,tmin,schange,scount,tlast,create_time) values(?,?,?,?,?,?,?,?,?,?,?,?,now())", new PreparedStatementSetter() {
                 @Override
                 public void setValues(PreparedStatement ps) throws SQLException {
                     ps.setString(1, sid);

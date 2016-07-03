@@ -4,106 +4,109 @@ $(document).ready(function() {
         var myChart = echarts.init(document.getElementById('main'));
 
 
-    var data = [];
-
-
-    option = {
-        title: {
-            text: '动态数据 + 时间坐标轴'
-        },
-        tooltip: {
-            trigger: 'axis',
-            formatter: function (params) {
-                params = params[0];
-                var date = new Date(params.value[0]);
-                return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-            },
-            axisPointer: {
-                animation: false
-            }
-        },
-        toolbox: {
-            show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {show: true, type: ['line', 'bar']},
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
-        },
-        xAxis: {
-            type: 'time',
-            splitLine: {
-                show: false
-            }
-        },
-        yAxis: {
-            type: 'value',
-            scale: true,
-            splitLine: {
-                show: false
-            }
-        },
-        dataZoom: [
-            {
-                type: 'inside'
-
-            },
-            {
-                show: true,
-                type: 'slider'
-
-            }
-        ],
-        series: [{
-            name: '模拟数据',
-            type: 'line',
-            //smooth:true,
-            areaStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: 'rgb(255, 158, 68)'
-                    }, {
-                        offset: 1,
-                        color: 'rgb(255, 70, 131)'
-                    }])
-                }
-            },
-
-            showSymbol: false,
-            hoverAnimation: false,
-            markPoint:{
-                data:[{
-                    name: '平均线',
-                    // 支持 'average', 'min', 'max'
-                    type: 'max'
-                },]
-            },
-            markLine:{
-                data:[{
-                    name: '阈值',
-                    yAxis: 25
-                }]
-            },
-            data: data
-        }]
-    };
-    myChart.setOption(option)
-
-        $.get("/sensor/data/list",{sid:'T111_05_A_0_00CD01_0',start:'1',end:'2465092000000'},function(result){
-            var data=[];
+        $.get("/sensor/data/listdaydata",{sid:sid,idx:'0',date:+new Date()},function(result){
+            var data={};
+            data.days=[];
+            data.sv=[];
             for(var i=0;i<result.length;i++){
-
-                data.push([new Date(result[i].createtime).toString(),result[i].svalue]);
+                var tmp=result[i];
+                console.log(tmp.tmin,tmp.tmax,tmp.sv)
+                data.days.push(tmp.tmin);
+                data.days.push(tmp.tmax);
+                data.sv.push(tmp.sv);
+                data.sv.push(tmp.sv);
             }
-            myChart.setOption({
-                series: [{
-                    data: data
-                }]
-            });
-            });
+            var option = {
+                title: {
+                    text: '智能除湿温度日K线',
+                    subtext: sName,
+                    x: 'center',
+                    align: 'right'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['最高','最低','平均'],
+                    x: 'left'
+                },
+                toolbox: {
+                    show:true,
+                    feature: {
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage: {}
+                    }
+                },
+
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        splitLine: {
+                            show: false
+                        },
+                        axisLabel:{
+                            rotate:45
+                        },
+                        data :data.days
+                    }
+                ],
+                yAxis : [
+                    {
+                        name: '温度(℃)',
+                        type : 'value',
+                        splitLine: {
+                            show: false
+                        },
+                        max:50
+
+                    }
+                ],
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        z:-1,
+                        top:'bottom'
+
+                    },
+                    {
+                        show: true,
+                        z:-1,
+                        type: 'slider',
+                        top:'bottom'
+                    }
+                ],
+                series : [
+                    {
+                        name:'最高',
+                        type:'line',
+                        // smooth:true,
+                        data:data.sv,
+                        markPoint:{
+                            data:[{
+                                name: '最高值',
+                                // 支持 'average', 'min', 'max'
+                                type: 'max'
+                            },]
+                        },
+                        markLine:{
+
+                            symbol: ['none'],
+                            data:[{
+                                name: '阈值',
+                                yAxis: 40,
+                                scale:true
+                            }]
+                        }
+                    }
+                ]
+            };
+
+
+
+            myChart.setOption(option)
+        });
 
         window.onresize = function () {
             myChart.resize()
