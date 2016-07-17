@@ -1,21 +1,21 @@
 package com.mdata.thirdparty.dianli.frontend.web.controller;
 
-import com.mdata.thirdparty.dianli.frontend.util.conf.SensorsConfiguration;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -164,7 +164,19 @@ public class SensorController {
         return result;
     }
     @RequestMapping("/map/jinshan")
-    public String jinshan(  String tSid,String hSid) {
+    public String jinshan(String tSid, String hSid, Model model) {
+        int tenantId=1;
+        List<Corporate> corporates=sensorService.getAllCorporate(tenantId);
+        ObjectMapper mapper = new ObjectMapper();
+
+        // Convert object to JSON string
+        try {
+            model.addAttribute("corporates",mapper.writeValueAsString(corporates));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         return "/amap/jinshan";
     }
+
+
 }

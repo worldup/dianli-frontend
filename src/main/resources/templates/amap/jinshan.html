@@ -45,11 +45,9 @@
 <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&amp;key=5a8ce2fc0ffdea3332750842b211cdb7"/>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    sensorArr=[];
-    sensorArr.push({name:"上海强盛化工有限公司",addr:"上海市金山区夏盛路239弄105号",tel:"021-37285507",url:"/sensor/chart/temperaturek.html?sid=111_05_A_0_00CD01",LngLat:{lng:121.281098,lat:30.725774},sensors:[{name:"焚烧炉",status:"正常"}]});
-    sensorArr.push({name:"上海金山环境再生能源有限公司",addr:"上海市金山区金山卫镇海金路728号",tel:"021-xxxxxx",url:"/sensor/chart/humidityk.html?tSid=111_05_A_0_0043BA&hSid=111_40_A_0_00CD4E",LngLat:{lng:121.279388,lat:30.707399},sensors:[{name:"焚烧炉",status:"正常"}]});
-    var sensorsStr =  JSON.stringify(sensorArr);
-    sensorArr=JSON.parse(sensorsStr);
+    var corporates=/*[[${corporates}]]*/
+    sensorArr=JSON.parse(corporates);
+
     /*]]>*/
 </script>
 <script type="text/javascript" th:src="@{/assets/js/amap/jinshan.js}" src="../../static/assets/js/amap/jinshan.js"/>

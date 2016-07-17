@@ -1,5 +1,6 @@
 package com.mdata.thirdparty.dianli.frontend.web.services.sensor;
 
+import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.web.controller.api.SensorData;
 
 import java.util.Date;
@@ -21,4 +22,5 @@ public interface SensorService {
       Map<String,Object> getSensorInfo(String sid);
       void insertSensorValues(List<SensorData> sensorDatas) throws Exception;
       void insertSensorValue(SensorData sensorData) throws Exception;
+      List<Corporate> getAllCorporate(int tenantId);
 }

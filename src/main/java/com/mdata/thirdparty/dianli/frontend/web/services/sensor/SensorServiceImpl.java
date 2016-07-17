@@ -7,7 +7,9 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.beans.TSensorDays;
 import com.mdata.thirdparty.dianli.frontend.web.controller.api.SensorData;
 import org.apache.commons.collections4.CollectionUtils;
@@ -300,9 +302,24 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         }
     }
 
+
+
     @Override
     public void afterPropertiesSet() throws Exception {
         lastSensorCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
         sensorDaysCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
+    }
+    @Override
+    public  List<Corporate> getAllCorporate(int tenantId){
+        String sql="select * from t_corporate where tenant_Id=?";
+       List<Corporate> corporates=  jdbcTemplate.query(sql,new Object[]{tenantId},new BeanPropertyRowMapper<Corporate>(Corporate.class));
+        corporates = Lists.transform(corporates, new Function<Corporate, Corporate>() {
+            @Override
+            public Corporate apply(Corporate input) {
+                input.setLabel(String.format(input.getLabel(), "<span style=\"color: green\">正常</span>"));
+                return input;
+            }
+        });
+        return  corporates;
     }
 }
