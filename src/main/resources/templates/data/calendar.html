@@ -1,0 +1,114 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js fixed-layout">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>欧忆智能监测平台</title>
+    <meta name="keywords" content="index"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/jpg" th:href="@{/assets/img/favorite.jpg}" href="../../static/assets/img/favorite.jpg"/>
+    <meta name="apple-mobile-web-app-title" content="智能监测平台"/>
+    <link rel="stylesheet" th:href="@{/assets/css/amazeui.min.css}" href="../../static/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/jstreestyle.min.css}" href="../../static/assets/css/jstreestyle.min.css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/amazeui.datetimepicker.css}" href="../../static/assets/css/amazeui.datetimepicker.css"/>
+
+</head>
+<body>
+<div class="am-cf admin-main">
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">数据分析</strong> >>
+                    <small>温度传感器日K线</small>
+                </div>
+            </div>
+            <form class="am-form-inline" role="form">
+                <div class="am-input-group  am-u-sm-12 am-u-md-4">
+                    <input size="16" required="required" placeholder="请选择传感器"  id="sid" type="text"   class="am-form-field" />
+                    <span class="add-on am-input-group-btn "><button   class="am-btn am-btn-primary " type="button" id="btnSensor1"  data-am-modal="{target: '#selectDlg'}"   data-content="请选择传感器">...</button></span>
+                </div>
+
+                <div class="am-input-group  am-u-sm-12 am-u-md-4">
+                    <input size="16" required="required" placeholder="开始时间" id="datetimepicker" type="text"   class="am-form-field"  />
+                    <span class="add-on am-input-group-label"><i class="icon-th am-icon-calendar"></i></span>
+                </div>
+                <div class="am-input-group  am-u-sm-12 am-u-md-4">
+                    <input size="16" required="required" placeholder="结束时间" id="datetimepicker1" type="text"   class="am-form-field" /> 
+                    <span class="add-on am-input-group-label"><i class="icon-th am-icon-calendar"></i></span>
+                </div>
+            </form>
+
+        </div>
+        <div class="am-modal am-modal-alert" tabindex="-1" id="selectDlg">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">选择传感器  <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="true">&times;</a></div>
+                <div class="am-modal-bd" id="myTree">
+
+                </div>
+                <div class="am-modal-footer">
+                    <span data-am-modal-cancel="true" class="am-modal-btn">关闭</span>
+                    <span data-am-modal-confirm="true" class="am-modal-btn">选择</span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="admin-content-footer">
+            <hr> </hr>
+            <p class="am-padding-left">© 2016 上海欧忆智能网络</p>
+        </footer>
+    </div>
+    <!-- content end -->
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+   data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<script th:src="@{/assets/js/jquery.min.js}" src="../../static/assets/js/jquery.min.js"></script>
+
+<script th:src="@{/assets/js/amazeui.min.js}" src="../../static/assets/js/amazeui.min.js"></script>
+<script th:src="@{/assets/js/amazeui.datetimepicker.min.js}" src="../../static/assets/js/amazeui.datetimepicker.min.js"></script>
+<script th:src="@{/assets/js/locales/amazeui.datetimepicker.zh-CN.js}" src="../../static/assets/js/locales/amazeui.datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script th:src="@{/assets/js/jstree.min.js}" src="../../static/assets/js/jstree.min.js"  ></script>
+
+<script type="text/javascript">
+
+    $(function() {
+        $('#datetimepicker').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:  'zh-CN'
+        });
+        $('#datetimepicker1').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:  'zh-CN'
+        });
+        var options={
+            onConfirm:function(){
+                $('#sid').val(selText);
+            }
+        }
+        $('#selectDlg').modal(options);
+        $('#myTree').on('changed.jstree', function (e, data) {
+                    var s = data.instance.get_node(data.selected[0]);
+                    selText = s.text;
+                    selKey = s.id;
+                })
+                .jstree({
+                    "core": {
+                        "animation": 0,
+                        "themes": { "stripes": true },
+                        'data': {
+                            'url': '/sensor/list',
+                            'data': function (node) {
+                                return { 'id': node.id };
+                            }
+                        }
+                    }
+                });
+    });
+</script>
+</body>
+</html>

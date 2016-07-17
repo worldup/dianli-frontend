@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dianli-frontend:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="dianli-frontend-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="dianli-frontend:war exploded" />
+    </root>
+  </artifact>
+</component>
