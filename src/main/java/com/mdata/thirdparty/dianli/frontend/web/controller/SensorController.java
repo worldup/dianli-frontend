@@ -3,7 +3,9 @@ package com.mdata.thirdparty.dianli.frontend.web.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
+import com.mdata.thirdparty.dianli.frontend.beans.Menu;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
+import com.mdata.thirdparty.dianli.frontend.web.services.system.IMenuService;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -26,6 +28,8 @@ import java.util.*;
 public class SensorController {
     @Autowired
     private SensorService sensorService;
+    @Autowired
+    private IMenuService menuService;
     @RequestMapping(value="/count")
     public void count(){
         sensorService.testConnect();
@@ -167,11 +171,13 @@ public class SensorController {
     public String jinshan(String tSid, String hSid, Model model) {
         int tenantId=1;
         List<Corporate> corporates=sensorService.getAllCorporate(tenantId);
+
         ObjectMapper mapper = new ObjectMapper();
 
         // Convert object to JSON string
         try {
             model.addAttribute("corporates",mapper.writeValueAsString(corporates));
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

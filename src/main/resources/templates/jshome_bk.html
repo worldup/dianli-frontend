@@ -55,16 +55,20 @@
     <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class="am-offcanvas-bar admin-offcanvas-bar" style="overflow: hidden">
             <ul class="am-list admin-sidebar-list">
-
-                <li th:each="menu : ${menus}" th:class="${not #lists.isEmpty(menu.subMenu)}?${'admin-parent'}:${''}">
-                    <a class="am-cf" th:if="${not #lists.isEmpty(menu.subMenu)}" data-am-collapse="{target: '#collapse-eye'}"><span th:class="${menu.iconClass}"></span> <span th:text="${menu.name}"></span>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-eye'}"><span class="am-icon-eye"></span> 监测分析
                         <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul th:if="${not #lists.isEmpty(menu.subMenu)}" class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-eye">
-                        <li th:each="subMenu:${menu.subMenu}"><a th:href="${subMenu.url}"><span th:class="${subMenu.iconClass}"></span> <span th:text="${subMenu.name}"></span></a></li>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-eye">
+                        <li><a href="#" class="am-cf"><span class="am-icon-sun-o"></span> 能源监测</a></li>
+                        <li><a href="#"><span class="am-icon-bolt"></span> 生产监测</a></li>
+                        <li><a href="#"><span class="am-icon-tint"></span> 环保监测</a></li>
+                        <li><a href="#"><span class="am-icon-line-chart"></span> 能源分析</a></li>
+
                     </ul>
-                    <a th:if="${#lists.isEmpty(menu.subMenu)}" th:href="${menu.url}"><span th:class="${menu.iconClass}"></span><span th:text="${menu.name}"></span> </a>
                 </li>
 
+                <li><a href="#"><span class="am-icon-user-secret"></span> 账号与权限</a></li>
+                <li><a href="#"><span class="am-icon-bell"></span> 告警信息</a></li>
             </ul>
         </div>
     </div>
