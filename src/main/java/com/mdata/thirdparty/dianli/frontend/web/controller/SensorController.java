@@ -59,15 +59,8 @@ public class SensorController {
     }
     @RequestMapping("/data/tables")
     public String tables(Map<String, Object> model){
-        List<Map<String,Object>> sensors=new ArrayList<Map<String, Object>>();
-        Map<String,Object> sensor=new HashMap<String, Object>();
-        sensor.put("id",1);
-        sensor.put("name","市北10kv江湾城站10kV进线2#柜A相温度");
-
-        sensor.put("status","正常");
-        sensor.put("value","28 ℃");
-        sensor.put("time","2016-6-11 15:29:36");
-                sensors.add(sensor);
+        List<Menu> menus=menuService.listAllMenu(1);
+        model.put("menus",menus);
         Map<String,Map<String,Object>>  result=sensorService.getSensorDays("2016-01-06");
         model.put("sensors",result.values());
         return "/data/tables";

@@ -1,6 +1,10 @@
 package com.mdata.thirdparty.dianli.frontend.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.beans.Menu;
+import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
 import com.mdata.thirdparty.dianli.frontend.web.services.system.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,8 @@ import java.util.Map;
 public class AuthController {
     @Autowired
     private IMenuService menuService;
+    @Autowired
+    private SensorService sensorService;
     @RequestMapping("/")
     public String home(Map<String, Object> model) {
         model.put("message", "Hello World");
@@ -24,6 +30,18 @@ public class AuthController {
         model.put("date", new Date());
         List<Menu> menus=menuService.listAllMenu(1);
         model.put("menus",menus);
+        int tenantId=1;
+        List<Corporate> corporates=sensorService.getAllCorporate(tenantId);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        // Convert object to JSON string
+        try {
+            model.put("corporates",mapper.writeValueAsString(corporates));
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         return "jshome";
     }
 
