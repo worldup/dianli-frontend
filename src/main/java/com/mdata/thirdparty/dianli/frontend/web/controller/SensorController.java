@@ -6,6 +6,7 @@ import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.beans.Menu;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
 import com.mdata.thirdparty.dianli.frontend.web.services.system.IMenuService;
+import org.apache.catalina.manager.util.SessionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -13,11 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -29,10 +29,10 @@ public class SensorController {
     @Autowired
     private SensorService sensorService;
     @Autowired
-    private IMenuService menuService;
+    private ModelAndViewUtils modelAndViewUtils;
     @RequestMapping(value="/count")
     public void count(){
-        sensorService.testConnect();
+     //   sensorService.testConnect();
     }
     @RequestMapping(value="/list")
     @ResponseBody
@@ -58,12 +58,13 @@ public class SensorController {
 
     }
     @RequestMapping("/data/tables")
-    public String tables(Map<String, Object> model){
-        List<Menu> menus=menuService.listAllMenu(1);
-        model.put("menus",menus);
+    public ModelAndView tables(HttpSession session){
+       Integer tenantId=(Integer) session.getAttribute("tenantId");
+       ModelAndView modelAndView=modelAndViewUtils.newInstance(tenantId);
         Map<String,Map<String,Object>>  result=sensorService.getSensorDays("2016-01-06");
-        model.put("sensors",result.values());
-        return "/data/tables";
+        modelAndView.getModel().put("sensors",result.values());
+        modelAndView.setViewName( "/data/tables");
+        return modelAndView;
     }
     @RequestMapping("/chart/temperature")
     public String temperature(@RequestParam String sid,Map<String,Object> model){

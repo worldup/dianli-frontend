@@ -9,7 +9,9 @@ import com.mdata.thirdparty.dianli.frontend.web.services.system.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,29 +22,33 @@ import java.util.Map;
 @Controller
 public class AuthController {
     @Autowired
-    private IMenuService menuService;
+    private ModelAndViewUtils modelAndViewUtils;
     @Autowired
     private SensorService sensorService;
     @RequestMapping("/")
-    public String home(Map<String, Object> model) {
-        model.put("message", "Hello World");
-        model.put("title", "Hello Home");
-        model.put("date", new Date());
-        List<Menu> menus=menuService.listAllMenu(1);
-        model.put("menus",menus);
-        int tenantId=1;
-        List<Corporate> corporates=sensorService.getAllCorporate(tenantId);
+    public ModelAndView home( HttpSession session) {
 
-        ObjectMapper mapper = new ObjectMapper();
+        Integer tenantId=(Integer)session.getAttribute("tenantId");
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(tenantId);
+        if(tenantId==1){
+            List<Corporate> corporates=sensorService.getAllCorporate(tenantId);
 
-        // Convert object to JSON string
-        try {
-            model.put("corporates",mapper.writeValueAsString(corporates));
+            ObjectMapper mapper = new ObjectMapper();
 
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            // Convert object to JSON string
+            try {
+                modelAndView.getModel().put("corporates",mapper.writeValueAsString(corporates));
+
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            modelAndView.setViewName("jshome");
         }
-        return "jshome";
+        else if(tenantId==2){
+            modelAndView.setViewName("index");
+        }
+
+        return modelAndView;
     }
 
     @RequestMapping("/foo")
