@@ -29,7 +29,7 @@ public class AuthController {
     public ModelAndView home( HttpSession session) {
 
         Integer tenantId=(Integer)session.getAttribute("tenantId");
-        ModelAndView modelAndView=modelAndViewUtils.newInstance(tenantId);
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         if(tenantId==1){
             List<Corporate> corporates=sensorService.getAllCorporate(tenantId);
 

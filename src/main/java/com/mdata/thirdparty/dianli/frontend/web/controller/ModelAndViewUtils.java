@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +17,16 @@ import java.util.Map;
 public class ModelAndViewUtils {
     @Autowired
     private IMenuService menuService;
-    public   ModelAndView newInstance(int tenantId){
+    public ModelAndView newInstance(HttpSession session){
+
+        Integer tenantId=(Integer)session.getAttribute("tenantId");
+        String userName=(String)session.getAttribute("userName");
+        return newInstance(tenantId, userName);
+    }
+    private   ModelAndView newInstance(int tenantId,String userName){
         ModelAndView modelAndView=new ModelAndView();
         Map<String,Object> model=modelAndView.getModel();
-        List<Menu> menus=menuService.listAllMenu(tenantId);
+        List<Menu> menus=menuService.listAllMenu(tenantId,userName);
         model.put("menus",menus);
         String layoutTitle="";
         String strongHeader="";

@@ -2,21 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout">
-
 <body>
 <div class="admin-content-body" layout:fragment="content"  id="container">
 
 </div>
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&amp;key=5a8ce2fc0ffdea3332750842b211cdb7"/>
-<script th:inline="javascript">
+<th:block layout:fragment="script">
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&amp;key=5a8ce2fc0ffdea3332750842b211cdb7"></script>
+<script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
-    var corporates=/*[[${corporates}]]*/
-            sensorArr=JSON.parse(corporates);
-    console.log(sensorArr)
+    var corporates=/*[[${corporates}]]*/ "[{\"id\":1,\"name\":\"\u4E0A\u6D77\u5F3A\u76DB\u5316\u5DE5\u6709\u9650\u516C\u53F8\",\"address\":\"\u4E0A\u6D77\u5E02\u91D1\u5C71\u533A\u590F\u76DB\u8DEF239\u5F04105\u53F7\",\"label\":\"\u711A\u70E7\u7089:<span style=\\\"color: green\\\">\u6B63\u5E38</span>\",\"url\":\"/sensor/chart/temperaturek.html?sid=111_05_A_0_00CD01\",\"lng\":\"121.281098\",\"lat\":\"30.725774\",\"tel\":\"021-37285507\",\"tenantId\":1},{\"id\":2,\"name\":\"\u4E0A\u6D77\u91D1\u5C71\u73AF\u5883\u518D\u751F\u80FD\u6E90\u6709\u9650\u516C\u53F8\",\"address\":\"\u4E0A\u6D77\u5E02\u91D1\u5C71\u533A\u91D1\u5C71\u536B\u9547\u6D77\u91D1\u8DEF728\u53F7\",\"label\":\"\u711A\u70E7\u7089:<span style=\\\"color: green\\\">\u6B63\u5E38</span>\",\"url\":\"/sensor/chart/humidityk.html?tSid=111_05_A_0_0043BA&hSid=111_40_A_0_00CD4E\",\"lng\":\"121.279388\",\"lat\":\"30.707399\",\"tel\":\"021-xxxxxx\",\"tenantId\":1}]";
+     sensorArr=JSON.parse(corporates);
     /*]]>*/
 </script>
-<script type="text/javascript" th:src="@{/assets/js/amap/jinshan.js}" src="../../static/assets/js/amap/jinshan.js"/>
-
+<script type="text/javascript" th:src="@{/assets/js/amap/jinshan.js}" src="../../static/assets/js/amap/jinshan.js"></script>
+</th:block>
 </body>
 </html>
 

@@ -59,8 +59,7 @@ public class SensorController {
     }
     @RequestMapping("/data/tables")
     public ModelAndView tables(HttpSession session){
-       Integer tenantId=(Integer) session.getAttribute("tenantId");
-       ModelAndView modelAndView=modelAndViewUtils.newInstance(tenantId);
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         Map<String,Map<String,Object>>  result=sensorService.getSensorDays("2016-01-06");
         modelAndView.getModel().put("sensors",result.values());
         modelAndView.setViewName( "/data/tables");
@@ -89,12 +88,15 @@ public class SensorController {
         return "/chart/temperaturek";
     }
     @RequestMapping("/chart/threephasek")
-    public String threephasek(@RequestParam String aSid,@RequestParam String bSid,@RequestParam String cSid,Map<String, Object> model){
+    public ModelAndView threephasek(@RequestParam String aSid,@RequestParam String bSid,@RequestParam String cSid,@RequestParam("sName") String sName,HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+       Map<String,Object> model= modelAndView.getModel();
         model.put("aSid",aSid);
         model.put("bSid",bSid);
         model.put("cSid",cSid);
-        model.put("sName","名称需要配置");
-        return "/chart/threephasek";
+        model.put("sName",sName);
+        modelAndView.setViewName("/chart/threephasek");
+        return modelAndView;
     }
     @RequestMapping("/chart/threephase")
     public String threephase(@RequestParam String aSid,@RequestParam String bSid,@RequestParam String cSid,Map<String, Object> model){
@@ -112,11 +114,14 @@ public class SensorController {
         return "/chart/humidity";
     }
     @RequestMapping("/chart/humidityk")
-    public String humidityk(@RequestParam String tSid,@RequestParam String hSid,Map<String, Object> model) {
+    public ModelAndView humidityk(@RequestParam String tSid,@RequestParam String hSid,@RequestParam("sName") String sName,HttpSession session) {
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        Map<String,Object> model= modelAndView.getModel();
         model.put("tSid",tSid);
         model.put("hSid",hSid);
-        model.put("sName","名称需要配置");
-        return "/chart/humidityk";
+        model.put("sName",sName);
+        modelAndView.setViewName("/chart/humidityk");
+        return modelAndView;
     }
     @RequestMapping("/data/calendar")
     public String calendar(){

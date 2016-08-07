@@ -28,15 +28,13 @@ public class LayoutController {
 
     @RequestMapping("/")
     public ModelAndView layout(HttpSession session){
-        Integer tenantId=(Integer)session.getAttribute("tenantId");
-        ModelAndView modelAndView=modelAndViewUtils.newInstance(tenantId);
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         modelAndView.setViewName("layout");
         return modelAndView;
     }
     @RequestMapping("/test")
     public ModelAndView test(HttpSession session){
-        Integer tenantId=(Integer)session.getAttribute("tenantId");
-        ModelAndView modelAndView=modelAndViewUtils.newInstance(tenantId);
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         modelAndView.setViewName("/layouttest");
         return modelAndView;
     }

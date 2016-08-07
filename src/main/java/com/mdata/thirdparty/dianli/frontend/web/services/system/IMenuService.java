@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface IMenuService {
     List<Menu> listAllMenu(int tenantId);
+    List<Menu> listAllMenu(int tenantId,String userName);
 }

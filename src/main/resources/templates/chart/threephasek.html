@@ -1,28 +1,42 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
-<head>
-    <meta charset="utf-8"/>
-    <title>三项电流不平衡日K线</title>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+ <head>
+<th:block layout:fragment="stylesheet">
     <style type="text/css">
         html, body{
             height: 95%;
         }
     </style>
-</head>
-<body  >
-<div id="main" style="width: 100%;height:100%;"></div>
-<script type="text/javascript"  th:inline="javascript">
-    /*<![CDATA[*/
-    var aSid=/*[[${aSid}]]*/'111_A4_A_0_00CF74';
-    var bSid=/*[[${bSid}]]*/'111_B4_A_0_00CF74';
-    var cSid=/*[[${cSid}]]*/'111_C4_A_0_00CF74';
-    var sName=/*[[${sName}]]*/'青浦银涛3号配电站银涛3号低压柜3号';
-    /*]]>*/
-</script>
-<script  type="text/javascript" th:src="@{/assets/js/jquery.min.js}" src="../../static/assets/js/jquery.min.js"></script>
-<script  type="text/javascript" th:src="@{/assets/js/echarts.common.min.js}" src="../../static/assets/js/echarts.common.min.js"></script>
+</th:block>
+ </head>
+<body>
+<div class="admin-content-body" layout:fragment="content"  id="container">
+    <div class="am-dropdown" data-am-dropdown>
+        <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选择传感器 <span class="am-icon-caret-down"></span></button>
+        <ul class="am-dropdown-content">
+            <li><a th:href="@{/sensor/chart/threephasek.html(aSid=111_A4_A_0_00CF75,bSid=111_B4_A_0_00CF75,cSid=111_C4_A_0_00CF75,sName='浦东10kV文登南泉0.4kV室0.4kV 1号配变柜')}" href="#">浦东10kV文登南泉0.4kV室0.4kV 1号配变柜</a></li>
+            <li ><a th:href="@{/sensor/chart/threephasek.html(aSid=111_A4_A_0_00CF77,bSid=111_B4_A_0_00CF77,cSid=111_C4_A_0_00CF77,sName='浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜')}" href="#">浦东10kV文登南泉站0.4kV室文泉1-盛7601出线柜</a></li>
+            <li  ><a th:href="@{/sensor/chart/threephasek.html(aSid=111_A4_A_0_00CF72,bSid=111_B4_A_0_00CF72,cSid=111_C4_A_0_00CF72,sName='青浦银涛3号配电站1主变低压开关柜')}" href="#">青浦银涛3号配电站1主变低压开关柜</a></li>
+            <li  ><a th:href="@{/sensor/chart/threephasek.html(aSid=111_A4_A_0_00CF74,bSid=111_B4_A_0_00CF74,cSid=111_C4_A_0_00CF74,sName='青浦银涛3号配电站银涛3号低压柜3号出线柜')}" href="#">青浦银涛3号配电站银涛3号低压柜3号出线柜</a></li>
 
-<script type="text/javascript" th:src="@{/assets/js/chart/threephasek.js}" src="../../static/assets/js/chart/threephasek.js"/>
-
+        </ul>
+    </div>
+    <div id="main" style="width: 100%;height:80%;"></div>
+</div>
+<th:block layout:fragment="script">
+    <script type="text/javascript"  th:inline="javascript">
+        /*<![CDATA[*/
+        var aSid=/*[[${aSid}]]*/'111_A4_A_0_00CF74';
+        var bSid=/*[[${bSid}]]*/'111_B4_A_0_00CF74';
+        var cSid=/*[[${cSid}]]*/'111_C4_A_0_00CF74';
+        var sName=/*[[${sName}]]*/'青浦银涛3号配电站银涛3号低压柜3号';
+        /*]]>*/
+    </script>
+    <script  type="text/javascript" th:src="@{/assets/js/echarts.common.min.js}" src="../../static/assets/js/echarts.common.min.js"></script>
+    <script type="text/javascript" th:src="@{/assets/js/chart/threephasek.js}" src="../../static/assets/js/chart/threephasek.js"></script>
+</th:block>
 </body>
 </html>
+

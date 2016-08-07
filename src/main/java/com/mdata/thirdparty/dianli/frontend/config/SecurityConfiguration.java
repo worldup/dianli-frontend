@@ -5,19 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 
 /**
@@ -27,7 +32,7 @@ import java.io.IOException;
 @EnableGlobalAuthentication
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private DataSource dataSource;
     @Autowired
     private AuthService authService;
     @Override
@@ -39,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                 super.onAuthenticationSuccess(request, response, authentication);
                 String userName=((User) authentication.getPrincipal()).getUsername();
-
+                request.getSession().setAttribute("userName",userName);
                 request.getSession().setAttribute("tenantId", authService.getUserTenantId(userName));
             }
         })
@@ -49,11 +54,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> configurer= auth.jdbcAuthentication();
         JdbcUserDetailsManager jdbcUserDetailsManager= configurer.getUserDetailsService();
-        jdbcUserDetailsManager.setJdbcTemplate(jdbcTemplate);
+        jdbcUserDetailsManager.setEnableGroups(true);
+        jdbcUserDetailsManager.setDataSource(dataSource);
 
-       /* auth.inMemoryAuthentication().withUser("admin").password("admin")
-                .roles("ADMIN", "USER").and().withUser("user").password("user")
-                .roles("USER");*/
+
+
     }
 
 

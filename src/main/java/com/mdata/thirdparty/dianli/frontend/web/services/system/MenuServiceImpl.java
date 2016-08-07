@@ -37,6 +37,26 @@ public class MenuServiceImpl  implements  IMenuService{
        }).toList();
     }
 
+    @Override
+    public List<Menu> listAllMenu(int tenantId, String userName) {
+        String sql="select distinct m.* from group_members gm ,group_authorities ga,t_menu  m\n" +
+                "where gm.group_id=ga.group_id and m.`code`=ga.authority\n" +
+                "and gm.username=? and m.tenant_id=?";
+        final  List<Menu> menus= jdbcTemplate.query(sql,new Object[]{userName,tenantId},new BeanPropertyRowMapper<Menu>(Menu.class));
+        return  FluentIterable.from( Lists.transform(menus, new Function<Menu, Menu>() {
+            @Override
+            public Menu apply(Menu input) {
+                input.setSubMenu(getSubMenus(input,menus));
+                return input;
+            }
+        })).filter(new Predicate<Menu>() {
+            @Override
+            public boolean apply(Menu input) {
+                return input.getPid()==-1;
+            }
+        }).toList();
+    }
+
     private List<Menu> getSubMenus(final Menu menu,List<Menu> allMenu){
        return  FluentIterable.from(allMenu).filter(new Predicate<Menu>() {
             @Override
