@@ -17,10 +17,12 @@ public interface SensorService {
       List<Map<String,Object>>  getKData(String sid, String idx);
       List<Map<String,Object>>  getData(String sid, String idx,String days);
       List<Map<String,Object>>  getThreePhaseData(String aSid,String bSid,String cSid);
-      List<Map<String,Object>> getTempHumData(String tSid,String hSid);
+      Map<String,List<Map<String, Object>>> getTempHumData(String tSid,String hSid,String tSid1,String hSid1);
       Map<String,Map<String,Object>> getSensorDays(String day);
       Map<String,Object> getSensorInfo(String sid);
       void insertSensorValues(List<SensorData> sensorDatas) throws Exception;
       void insertSensorValue(SensorData sensorData) throws Exception;
       List<Corporate> getAllCorporate(int tenantId);
+      List<Map<String,String>> getThreephaseSids(String userName );
+      List<Map<String,String>> getTemperatureSids(String userName );
 }

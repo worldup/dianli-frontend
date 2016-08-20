@@ -56,8 +56,8 @@ $(document).ready(function() {
                         splitLine: {
                             show: false
                         },
-                        min:-1,
-                        max:5
+                        min:0,
+                        max:500
                     },
                     dataZoom: [
                         {
@@ -79,7 +79,7 @@ $(document).ready(function() {
                         markLine:{
                             data:[{
                                 name: '阈值',
-                                yAxis: 1
+                                yAxis: 100
                             }]
                         },
                         data: data.value

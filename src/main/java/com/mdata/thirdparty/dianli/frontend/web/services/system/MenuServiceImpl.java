@@ -40,7 +40,7 @@ public class MenuServiceImpl  implements  IMenuService{
     @Override
     public List<Menu> listAllMenu(int tenantId, String userName) {
         String sql="select distinct m.* from group_members gm ,group_authorities ga,t_menu  m\n" +
-                "where gm.group_id=ga.group_id and m.`code`=ga.authority\n" +
+                "where gm.group_id=ga.group_id and m.`resource_id`=ga.authority\n" +
                 "and gm.username=? and m.tenant_id=?";
         final  List<Menu> menus= jdbcTemplate.query(sql,new Object[]{userName,tenantId},new BeanPropertyRowMapper<Menu>(Menu.class));
         return  FluentIterable.from( Lists.transform(menus, new Function<Menu, Menu>() {

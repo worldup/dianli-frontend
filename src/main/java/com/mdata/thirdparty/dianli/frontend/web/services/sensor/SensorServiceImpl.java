@@ -2,10 +2,12 @@ package com.mdata.thirdparty.dianli.frontend.web.services.sensor;
 
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -25,6 +27,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.*;
 import java.util.Date;
 import java.util.HashMap;
@@ -100,9 +104,11 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 double csmax = rs.getDouble("csmax");
                 double max = Math.max(asmax, Math.max(bsmax, csmax));
                 double min = Math.min(asmax, Math.min(bsmax, csmax));
-                double value = 1d;
+                double value = 100d;
                 if (min != 0d) {
-                    value = ((max - min) / min - 1);
+                    BigDecimal bmax=BigDecimal.valueOf(max);
+                    BigDecimal bmin=BigDecimal.valueOf(min);
+                    value=  bmax.subtract(bmin).multiply(new BigDecimal(100)).divide(bmin,BigDecimal.ROUND_HALF_UP).setScale(2).doubleValue();
                 }
                 result.put("days", days);
                 result.put("value", String.valueOf(value));
@@ -114,15 +120,39 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     }
 
     @Override
-    public List<Map<String, Object>> getTempHumData(String tSid, String hSid) {
-        String sql = "select sum(case s.type  when 'Humidity' then  d.savg else 0 end) havg,\n" +
-                " sum(case s.type  when 'Temperature' then  d.savg else 0 end) tavg,\n" +
-                " d.days from t_sensor_days  d ,t_sensors s \n" +
-                " where d.sid in (?,?) and d.sid=s.sid \n" +
-                " group by  d.days";
-        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{tSid, hSid}, new ColumnMapRowMapper());
+    public Map<String,List<Map<String, Object>>> getTempHumData(final String tSid, final String hSid, final  String tSid1, final String hSid1) {
+        String sql = "SELECT sid,savg, days FROM t_sensor_days\n" +
+                "\tWHERE STR_TO_DATE(days, '%Y-%m-%d') > date_add(now(), INTERVAL - 1 YEAR)\n" +
+                "\t\tAND sid IN (?,?,?,?)\n" +
+                "\t\tAND idx = '0'";
 
-        return resultMapper;
+        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{tSid, hSid,tSid1,hSid1}, new ColumnMapRowMapper());
+        Map<String,List<Map<String,Object>>> result=Maps.newHashMap();
+         result.put("tSid",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+             @Override
+             public boolean apply(Map<String, Object> input) {
+                 return input.get("sid").equals(tSid);
+             }
+         }).toList());
+        result.put("hSid",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return input.get("sid").equals(hSid);
+            }
+        }).toList());
+        result.put("tSid1",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return input.get("sid").equals(tSid1);
+            }
+        }).toList());
+        result.put("hSid1",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return input.get("sid").equals(hSid1);
+            }
+        }).toList());
+        return result;
     }
 
     @Override
@@ -321,5 +351,55 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             }
         });
         return  corporates;
+    }
+
+    @Override
+    public List<Map<String, String>> getThreephaseSids(String userName) {
+        String sql="select tm.* from t_threephase_mapping  tm where tm.resource_id in (\n" +
+                "select ga.authority  from group_authorities ga ,\n" +
+                "group_members gm  \n" +
+                "where gm.username=? and gm.group_id=ga.group_id\n" +
+                " \n" +
+                ")";
+        List<Map<String,Object>> result=jdbcTemplate.query(sql,new Object[]{userName}, new ColumnMapRowMapper());
+        if(CollectionUtils.isNotEmpty(result)){
+            return Lists.transform(result, new Function<Map<String, Object>, Map<String, String>>() {
+                @Override
+                public Map<String, String> apply(Map<String, Object> input) {
+                    Map<String,String> map=Maps.newHashMap();
+                    String sname=MapUtils.getString(input,"sname");
+                    map.put("name",String.valueOf(input.get("sname")));
+                    String pageHref=new StringBuilder("sensor/chart/threephasek.html?aSid=").append(MapUtils.getString(input,"aphase_sid")).append("&bSid=").append(MapUtils.getString(input,"bphase_sid")).append("&cSid=").append(MapUtils.getString(input,"cphase_sid")).append("&sName=").append(sname).toString();
+                    map.put("pageHref",pageHref);
+                    return map;
+                }
+            });
+        }
+        return Lists.newArrayList();
+    }
+
+    @Override
+    public List<Map<String, String>> getTemperatureSids(String userName) {
+        String sql="select tm.* from t_temperature_mapping  tm where tm.resource_id in (\n" +
+                "select ga.authority  from group_authorities ga ,\n" +
+                "group_members gm  \n" +
+                "where gm.username=? and gm.group_id=ga.group_id\n" +
+                " \n" +
+                ")";
+        List<Map<String,Object>> result=jdbcTemplate.query(sql,new Object[]{userName}, new ColumnMapRowMapper());
+        if(CollectionUtils.isNotEmpty(result)){
+            return Lists.transform(result, new Function<Map<String, Object>, Map<String, String>>() {
+                @Override
+                public Map<String, String> apply(Map<String, Object> input) {
+                    Map<String,String> map=Maps.newHashMap();
+                    String sname=MapUtils.getString(input,"sname");
+                    map.put("name",String.valueOf(input.get("sname")));
+                    String pageHref=new StringBuilder("sensor/chart/temperaturek.html?sid=").append(MapUtils.getString(input,"sid")).append("&sName=").append(sname).toString();
+                    map.put("pageHref",pageHref);
+                    return map;
+                }
+            });
+        }
+        return Lists.newArrayList();
     }
 }

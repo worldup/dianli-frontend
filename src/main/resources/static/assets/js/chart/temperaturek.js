@@ -1,6 +1,13 @@
 // 基于准备好的dom，初始化echarts实例
 $(document).ready(function() {
-
+    $("#sid-select").find("option").each(function(){
+        if($(this).text() === sName){
+            $(this).attr('selected', 'selected');
+        }
+    })
+    $("#sid-select").on("change",function(){
+        window.location.href=contextPath+$(this).val();
+    })
         var myChart = echarts.init(document.getElementById('main'));
 
 

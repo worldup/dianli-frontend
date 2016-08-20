@@ -14,18 +14,9 @@
 <body>
 <div class="admin-content-body" layout:fragment="content"  id="container">
     <div class="am-dropdown" data-am-dropdown>
-        <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选择传感器 <span class="am-icon-caret-down"></span></button>
-        <ul class="am-dropdown-content">
-            <li><a th:href="@{/sensor/chart/humidityk.html(tSid=111_05_A_0_008164,hSid=111_40_A_0_008164,sName='奉贤35kV姚家港变电站10kV开关室10kV 2#电容器开关')}" href="#">奉贤35kV姚家港变电站10kV开关室10kV 2#电容器开关</a></li>
-            <li><a th:href="@{/sensor/chart/humidityk.html(tSid=111_05_A_0_008F3C,hSid=111_40_A_0_008F3C,sName='奉贤35kV姚家港变电站10kV开关室1号主变10kV开关')}" href="#">奉贤35kV姚家港变电站10kV开关室1号主变10kV开关</a></li>
-            <li><a th:href="@{/sensor/chart/humidityk.html(tSid=111_05_A_0_008F2E,hSid=111_40_A_0_008F2E,sName='市北10kv江湾城站10kV进线1#柜')}" href="#">市北10kv江湾城站10kV进线1#柜</a></li>
-            <li><a th:href="@{/sensor/chart/humidityk.html(tSid=111_05_A_0_008EAA,hSid=111_40_A_0_008EAA,sName='市北10kv江湾城站环境')}" href="#">市北10kv江湾城站环境</a></li>
-            <li><a th:href="@{/sensor/chart/humidityk.html(tSid=111_05_A_0_008105,hSid=111_40_A_0_008105,sName='浦东10kV文登南泉站0.4kV室')}" href="#">浦东10kV文登南泉站0.4kV室环境</a></li>
-            <li><a th:href="@{/sensor/chart/humidityk.html(tSid=111_05_A_0_008182,hSid=111_40_A_0_008182,sName='浦东10kV文登南泉站10kV开关室')}" href="#">浦东10kV文登南泉站10kV开关室</a></li>
-            <li><a th:href="@{/sensor/chart/humidityk.html(tSid=111_05_A_0_0080EF,hSid=111_40_A_0_0080EF,sName='青浦银涛3号配电站10kV开关柜')}" href="#">青浦银涛3号配电站10kV开关柜</a></li>
-            <li><a th:href="@{/sensor/chart/humidityk.html(tSid=111_05_A_0_00810A,hSid=111_40_A_0_00810A,sName='青浦银涛3号配电站环境')}" href="#">青浦银涛3号配电站环境</a></li>
-
-        </ul>
+        <select id="sid-select" data-am-selected="{searchBox: 1,maxHeight: 200}">
+            <option  th:each="sid : ${sids}" th:value="${sid.pageHref}"  th:text="${sid.name}"value="a">Apple</option>
+        </select>
     </div>
     <div id="main" style="width: 100%;height:80%;"></div>
 </div>
@@ -34,6 +25,7 @@
         /*<![CDATA[*/
         var sid=/*[[${sid}]]*/'111_05_A_0_00CD01';
         var sName=/*[[${sName}]]*/'浦东10kV文登南泉站0.4kV室';
+        var contextPath=/*[[@{'/'}]]*/'/';
         /*]]>*/
     </script>
     <script  type="text/javascript" th:src="@{/assets/js/echarts.common.min.js}" src="../../static/assets/js/echarts.common.min.js"></script>

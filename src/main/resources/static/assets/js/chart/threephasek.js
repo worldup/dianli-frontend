@@ -1,6 +1,13 @@
 // 基于准备好的dom，初始化echarts实例
 $(document).ready(function() {
-
+          $("#sid-select").find("option").each(function(){
+              if($(this).text() === sName){
+                  $(this).attr('selected', 'selected');
+              }
+          })
+          $("#sid-select").on("change",function(){
+             window.location.href=contextPath+$(this).val();
+          })
         var myChart = echarts.init(document.getElementById('main'));
 
         $.get("/sensor/threephase/list",
@@ -22,7 +29,7 @@ $(document).ready(function() {
                         align: 'right'
                     },
                     legend: {
-                        data:['电流不平衡度'],
+                        data:['电流不平衡度(%)'],
                         x: 'left'
                     },
                     toolbox: {
@@ -56,8 +63,8 @@ $(document).ready(function() {
                         splitLine: {
                             show: false
                         },
-                        min:-1,
-                        max:5
+                        min:0,
+                        max:500
                     },
                     dataZoom: [
                         {
@@ -79,7 +86,7 @@ $(document).ready(function() {
                         markLine:{
                             data:[{
                                 name: '阈值',
-                                yAxis: 1
+                                yAxis: 100
                             }]
                         },
                         data: data.value

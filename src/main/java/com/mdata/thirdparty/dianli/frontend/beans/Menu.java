@@ -10,7 +10,7 @@ public class Menu {
     private Long id;
     private Long pid;
     private String name;
-    private String code;
+    private String resourceId;
     private String url;
     private int idx;
     private String iconClass;
@@ -48,12 +48,12 @@ public class Menu {
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public String getResourceId() {
+        return resourceId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getUrl() {
@@ -95,7 +95,7 @@ public class Menu {
                 ", id=" + id +
                 ", pid=" + pid +
                 ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
+                ", resourceId='" + resourceId + '\'' +
                 ", url='" + url + '\'' +
                 ", idx=" + idx +
                 ", iconClass='" + iconClass + '\'' +

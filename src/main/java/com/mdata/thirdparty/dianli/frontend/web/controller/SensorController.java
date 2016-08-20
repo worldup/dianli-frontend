@@ -77,24 +77,32 @@ public class SensorController {
         return "/chart/temperature";
     }
     @RequestMapping("/chart/temperaturek")
-    public String temperaturek(@RequestParam String sid,Map<String,Object> model){
+    public ModelAndView temperaturek(@RequestParam String sid,@RequestParam("sName") String sName,HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        Map<String,Object> model= modelAndView.getModel();
         model.put("sid",sid);
-        String sName="此传感器不存在";
         Map<String,Object> sMap= sensorService.getSensorInfo(sid);
         if(sMap!=null){
             sName= MapUtils.getString(sMap,"name","此传感器不存在");
         }
         model.put("sName",sName);
-        return "/chart/temperaturek";
+        String userName=(String)session.getAttribute("userName");
+        model.put("sids",sensorService.getTemperatureSids(userName));
+        modelAndView.setViewName("/chart/temperaturek");
+        return modelAndView;
     }
     @RequestMapping("/chart/threephasek")
     public ModelAndView threephasek(@RequestParam String aSid,@RequestParam String bSid,@RequestParam String cSid,@RequestParam("sName") String sName,HttpSession session){
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
        Map<String,Object> model= modelAndView.getModel();
+
         model.put("aSid",aSid);
         model.put("bSid",bSid);
         model.put("cSid",cSid);
         model.put("sName",sName);
+        String userName=(String)session.getAttribute("userName");
+        model.put("sids",sensorService.getThreephaseSids(userName));
+
         modelAndView.setViewName("/chart/threephasek");
         return modelAndView;
     }
@@ -114,11 +122,13 @@ public class SensorController {
         return "/chart/humidity";
     }
     @RequestMapping("/chart/humidityk")
-    public ModelAndView humidityk(@RequestParam String tSid,@RequestParam String hSid,@RequestParam("sName") String sName,HttpSession session) {
+    public ModelAndView humidityk(@RequestParam String tSid,@RequestParam String hSid,String tSid1,String hSid1,@RequestParam("sName") String sName,HttpSession session) {
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         Map<String,Object> model= modelAndView.getModel();
         model.put("tSid",tSid);
         model.put("hSid",hSid);
+        model.put("tSid1",tSid1);
+        model.put("hSid1",hSid1);
         model.put("sName",sName);
         modelAndView.setViewName("/chart/humidityk");
         return modelAndView;
@@ -162,8 +172,8 @@ public class SensorController {
     }
     @RequestMapping("/temphumk/list")
     @ResponseBody
-    public List<Map<String,Object>> temphumk(  String tSid,String hSid) {
-        List<Map<String, Object>> result = sensorService.getTempHumData(tSid, hSid);
+    public Map<String,List<Map<String,Object>>> temphumk(  String tSid,String hSid,String tSid1,String hSid1) {
+        Map<String,List<Map<String, Object>> >result = sensorService.getTempHumData(tSid, hSid,tSid1,hSid1);
         return result;
     }
     @RequestMapping("/map/jinshan")
