@@ -183,7 +183,68 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         });
         return result;
     }
-
+    public List<Map<String,Object>> getSensorDatasByDayAndPage(String day,int startPage,Integer limit){
+        String sql="select t.sid,t.idx,s.name,t.days,t.update_time,CONCAT(t.sv,type.unit) sv,  case   when \n" +
+                "c.type='UpperLimit' and sv>c.value then '异常'\n" +
+                "else '正常'\n" +
+                "end status,\n" +
+                "t.tmax,t.tmin from t_sensor_data  t inner join T_SENSORS s\n" +
+                "on t.sid=s.sid \n" +
+                "left join T_SENSORS_TYPE type on s.type=type.type\n" +
+                "left join T_SENSORS_GROUP g \n" +
+                "on s.key=g.skey  left join T_SENSORS_GROUP_ALERT_CONF c \n" +
+                "on g.key=c.group_key\n" +
+                " where t.days=? \n" +
+                "\n" +
+                " and t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
+                "\tand t.sid=e.sid and t.idx=e.idx \n" +
+                " )   \n" +
+                "limit ?,?";
+        int startIdx=(startPage-1)*limit;
+        int endIdx=startPage*limit;
+       return  jdbcTemplate.query(sql,new Object[]{day,startIdx,endIdx},new ColumnMapRowMapper());
+    }
+    public List<Map<String,Object>> getSensorDatasByDayAndPageAndSName(String day,String sensorName,int startPage,Integer limit){
+        String sql="select t.sid,t.idx,s.name,t.days,t.update_time,CONCAT(t.sv,type.unit) sv,  case   when \n" +
+                "c.type='UpperLimit' and sv>c.value then '异常'\n" +
+                "else '正常'\n" +
+                "end status,\n" +
+                "t.tmax,t.tmin from t_sensor_data  t inner join T_SENSORS s\n" +
+                "on t.sid=s.sid \n" +
+                "left join T_SENSORS_TYPE type on s.type=type.type\n" +
+                "left join T_SENSORS_GROUP g \n" +
+                "on s.key=g.skey  left join T_SENSORS_GROUP_ALERT_CONF c \n" +
+                "on g.key=c.group_key\n" +
+                " where t.days=? \n" +
+                "\n" +
+                " and t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
+                "\tand t.sid=e.sid and t.idx=e.idx \n" +
+                " )  and s.name like '%"+sensorName+"%' \n" +
+                "limit ?,?";
+        int startIdx=(startPage-1)*limit;
+        int endIdx=startPage*limit;
+        return  jdbcTemplate.query(sql,new Object[]{day,startIdx,endIdx},new ColumnMapRowMapper());
+    }
+    public Integer getSensorDatasByDay(String day){
+        String sql="select count(1) from t_sensor_data  t inner join T_SENSORS s\n" +
+                "on t.sid=s.sid\n" +
+                " where t.days=? \n" +
+                "\n" +
+                " and t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
+                "\tand t.sid=e.sid and t.idx=e.idx \n" +
+                " )  \n" ;
+        return jdbcTemplate.queryForObject(sql,new Object[]{day},Integer.class);
+    }
+    public Integer getSensorDatasByDayAndSName(String day,String sensorName){
+        String sql="select count(1) from t_sensor_data  t inner join T_SENSORS s\n" +
+                "on t.sid=s.sid\n" +
+                " where t.days=? \n" +
+                "\n" +
+                " and t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
+                "\tand t.sid=e.sid and t.idx=e.idx \n" +
+                " )  and s.name like '%"+sensorName+"%' \n" ;
+        return jdbcTemplate.queryForObject(sql,new Object[]{day},Integer.class);
+    }
     public Map<String, Object> getSensorInfo(String sid) {
         String sql = "select * from t_sensors where sid=?";
         return jdbcTemplate.queryForMap(sql, sid);

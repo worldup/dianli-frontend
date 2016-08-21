@@ -2,6 +2,10 @@ package com.mdata.thirdparty.dianli.frontend.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.beans.Menu;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
@@ -9,6 +13,7 @@ import com.mdata.thirdparty.dianli.frontend.web.services.system.IMenuService;
 import org.apache.catalina.manager.util.SessionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by administrator on 16/5/15.
@@ -26,6 +32,7 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/sensor",method = {RequestMethod.GET})
 public class SensorController {
+    final int perPageSize=20;
     @Autowired
     private SensorService sensorService;
     @Autowired
@@ -60,10 +67,58 @@ public class SensorController {
     @RequestMapping("/data/tables")
     public ModelAndView tables(HttpSession session){
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
-        Map<String,Map<String,Object>>  result=sensorService.getSensorDays("2016-01-06");
-        modelAndView.getModel().put("sensors",result.values());
+        String today=DateFormatUtils.format(new Date(),"yyyy-MM-dd");
+        Integer sensorCount= sensorService.getSensorDatasByDay(today);
+          Integer pageSize=  sensorCount/perPageSize+(sensorCount%perPageSize >0?1:0);
+        modelAndView.getModel().put("sensorPageSize",pageSize);
         modelAndView.setViewName( "/data/tables");
+
         return modelAndView;
+    }
+    @RequestMapping(value = "/data/sensordata",method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public Map<String,String> sensordata(Integer startPage,@RequestParam(name="sensorName",required = false) String sensorName){
+        String day=DateFormatUtils.format(new Date(),"yyyy-MM-dd");
+        List<Map<String,Object>> datas=Lists.newArrayList();
+        Integer sensorCount=0;
+        Integer pageSize=0;
+        Map<String,String> result= Maps.newHashMap();
+        if(StringUtils.isNotEmpty(sensorName)){
+            datas=sensorService.getSensorDatasByDayAndPageAndSName(day,sensorName,startPage,perPageSize);
+            sensorCount= sensorService.getSensorDatasByDayAndSName(day,sensorName);
+        }
+       else {
+           datas =sensorService.getSensorDatasByDayAndPage(day,startPage,perPageSize);
+             sensorCount= sensorService.getSensorDatasByDay(day);
+
+        }
+         pageSize=  sensorCount/perPageSize+(sensorCount%perPageSize >0?1:0);
+        final AtomicInteger idx=new AtomicInteger(0);
+        List<String> resultList= Lists.transform(datas, new Function<Map<String,Object>, String>() {
+            @Override
+            public String apply(Map<String, Object> input) {
+                StringBuilder sb=new StringBuilder();
+
+                sb.append("<tr>");
+                sb.append("<td>").append(String.valueOf(idx.addAndGet(1))).append("</td>");
+                sb.append("<td><span>").append(MapUtils.getString(input,"name"));
+                int sensorIdx=MapUtils.getInteger(input,"idx");
+                if(sensorIdx>0){
+                    sb.append("(").append(sensorIdx).append(")");
+                }
+                sb.append("</span></td>");
+                String status=MapUtils.getString(input,"status");
+                sb.append("<td>").append(status.equals("正常")?"正常":"<span class='am-badge am-badge-danger'>异常</span>").append("</td>");
+                sb.append("<td>").append(MapUtils.getString(input,"sv")).append("</td>");
+                sb.append("<td>").append(MapUtils.getString(input,"tmax")).append("</td>");
+                sb.append("<td><a href='").append("/sensor/chart/temperaturek.html?orderId=97").append("'>K线</a></td>");
+                sb.append("</tr>");
+                return sb.toString();
+            }
+        });
+       result.put("data",Joiner.on("").join(resultList).toString()) ;
+       result.put("pageSize",""+pageSize) ;
+        return result;
     }
     @RequestMapping("/chart/temperature")
     public String temperature(@RequestParam String sid,Map<String,Object> model){

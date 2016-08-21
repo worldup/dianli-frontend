@@ -25,4 +25,8 @@ public interface SensorService {
       List<Corporate> getAllCorporate(int tenantId);
       List<Map<String,String>> getThreephaseSids(String userName );
       List<Map<String,String>> getTemperatureSids(String userName );
+      List<Map<String,Object>> getSensorDatasByDayAndPage(String day,int startPage,Integer limit);
+      Integer getSensorDatasByDay(String day);
+      List<Map<String,Object>> getSensorDatasByDayAndPageAndSName(String day,String sensorName,int startPage,Integer limit);
+      Integer getSensorDatasByDayAndSName(String day,String sensorName);
 }
