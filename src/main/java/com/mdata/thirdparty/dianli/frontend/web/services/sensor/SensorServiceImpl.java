@@ -88,6 +88,25 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         return resultMapper;
     }
     @Override
+    public Map<String,List<String>> getRealData(String sid, String idx) {
+        String sql = "select  sid,idx,sv,   date_format(tmin,'%y%m%d%H%i') tmin,  date_format(tmax,'%y%m%d%H%i') tmax  from t_sensor_data where sid=? and idx=? and  tmin >DATE_ADD(now(),INTERVAL -3 month)";
+        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{sid, idx}, new ColumnMapRowMapper());
+        Map<String,List<String>> resultMap=Maps.newHashMap();
+        List<String> days=Lists.newArrayList();
+        List<String> values=Lists.newArrayList();
+        resultMap.put("days",days);
+        resultMap.put("values",values);
+         if(CollectionUtils.isNotEmpty(resultMapper)){
+             for(Map<String,Object> tempMap:resultMapper){
+                 values.add(MapUtils.getString(tempMap,"sv"));
+                 values.add(MapUtils.getString(tempMap,"sv"));
+                 days.add(MapUtils.getString(tempMap,"tmax"));
+                 days.add(MapUtils.getString(tempMap,"tmin"));
+             }
+         }
+        return resultMap;
+    }
+    @Override
     public List<Map<String, Object>> getThreePhaseData(String aSid, String bSid, String cSid) {
         String sql = "select sum(case s.type  when 'CurrentA' then  d.smax else 0 end) asmax,\n" +
                 "sum(case s.type  when 'CurrentB' then  d.smax else 0 end) bsmax,\n" +
@@ -188,7 +207,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "c.type='UpperLimit' and sv>c.value then '异常'\n" +
                 "else '正常'\n" +
                 "end status,\n" +
-                "t.tmax,t.tmin from t_sensor_data  t inner join T_SENSORS s\n" +
+                "t.tmax,t.tmin ,c.value from t_sensor_data  t inner join T_SENSORS s\n" +
                 "on t.sid=s.sid \n" +
                 "left join T_SENSORS_TYPE type on s.type=type.type\n" +
                 "left join T_SENSORS_GROUP g \n" +
@@ -209,7 +228,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "c.type='UpperLimit' and sv>c.value then '异常'\n" +
                 "else '正常'\n" +
                 "end status,\n" +
-                "t.tmax,t.tmin from t_sensor_data  t inner join T_SENSORS s\n" +
+                "t.tmax,t.tmin,c.value from t_sensor_data  t inner join T_SENSORS s\n" +
                 "on t.sid=s.sid \n" +
                 "left join T_SENSORS_TYPE type on s.type=type.type\n" +
                 "left join T_SENSORS_GROUP g \n" +

@@ -98,20 +98,22 @@ public class SensorController {
             @Override
             public String apply(Map<String, Object> input) {
                 StringBuilder sb=new StringBuilder();
+                String sname=MapUtils.getString(input,"name");
 
                 sb.append("<tr>");
                 sb.append("<td>").append(String.valueOf(idx.addAndGet(1))).append("</td>");
-                sb.append("<td><span>").append(MapUtils.getString(input,"name"));
+
                 int sensorIdx=MapUtils.getInteger(input,"idx");
                 if(sensorIdx>0){
-                    sb.append("(").append(sensorIdx).append(")");
+                    sname+=("("+sensorIdx+")");
                 }
+                sb.append("<td><span>").append(sname);
                 sb.append("</span></td>");
                 String status=MapUtils.getString(input,"status");
                 sb.append("<td>").append(status.equals("正常")?"正常":"<span class='am-badge am-badge-danger'>异常</span>").append("</td>");
                 sb.append("<td>").append(MapUtils.getString(input,"sv")).append("</td>");
                 sb.append("<td>").append(MapUtils.getString(input,"tmax")).append("</td>");
-                sb.append("<td><a href='").append("/sensor/chart/temperaturek.html?orderId=97").append("'>K线</a></td>");
+                sb.append("<td><a href='").append("/sensor/data/realdatapage?sid=").append(MapUtils.getString(input,"sid")).append("&sName=").append(sname).append("&idx=").append(sensorIdx).append("&cvalue=").append(MapUtils.getString(input,"value")).append("'>K线</a></td>");
                 sb.append("</tr>");
                 return sb.toString();
             }
@@ -188,6 +190,18 @@ public class SensorController {
         modelAndView.setViewName("/chart/humidityk");
         return modelAndView;
     }
+    @RequestMapping("/data/realdatapage")
+    public ModelAndView realdatapage(@RequestParam String sid,@RequestParam("sName") String sName,@RequestParam (value = "cvalue",required = false) String cvalue, HttpSession session) {
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        Map<String,Object> model= modelAndView.getModel();
+        model.put("sid",sid);
+        model.put("sName",sName);
+        //阈值
+            model.put("cvalue",cvalue==null?100:cvalue);
+
+        modelAndView.setViewName("/data/realdata");
+        return modelAndView;
+    }
     @RequestMapping("/data/calendar")
     public String calendar(){
         return "/data/calendar";
@@ -211,6 +225,12 @@ public class SensorController {
     public List<Map<String,Object>> listDayData(  String sid,String idx,long date){
         String days= FastDateFormat.getInstance("yyyy-MM-dd").format(new Date(date));
         List<Map<String,Object>>    result=  sensorService.getData(sid,idx,days);
+        return result ;
+    }
+    @RequestMapping("/data/realdata")
+    @ResponseBody
+    public Map<String,List<String>> realdata(  String sid,String idx){
+        Map<String,List<String>>    result=  sensorService.getRealData(sid,idx);
         return result ;
     }
     @RequestMapping("/threephase/list")

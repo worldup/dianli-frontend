@@ -1,0 +1,36 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <th:block layout:fragment="stylesheet">
+        <style type="text/css">
+            html, body{
+                height: 95%;
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+<div class="admin-content-body" layout:fragment="content"  id="container">
+
+    <div id="main" style="width: 100%;height:80%;"></div>
+</div>
+<th:block layout:fragment="script">
+    <script type="text/javascript"  th:inline="javascript">
+        /*<![CDATA[*/
+        var sid=/*[[${sid}]]*/'111_05_A_0_00CD01';
+        var idx=/*[[${idx}]]*/'0';
+        var sName=/*[[${sName}]]*/'浦东10kV文登南泉站0.4kV室';
+        var cvalue=/*[[${cvalue}]]*/'10';
+        var contextPath=/*[[@{'/'}]]*/'/';
+        /*]]>*/
+    </script>
+    <script  type="text/javascript" th:src="@{/assets/js/echarts.common.min.js}" src="../../static/assets/js/echarts.common.min.js"></script>
+    <script  type="text/javascript" th:src="@{/assets/js/data/realdata.js}" src="../../static/assets/js/data/realdata.js"></script>
+
+</th:block>
+</body>
+</html>
+
+

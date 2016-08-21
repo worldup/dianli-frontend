@@ -16,6 +16,7 @@ public interface SensorService {
       List<Map<String,Object>>  getDataBetweenTimeRange(String sid, long beginTime, long endTime);
       List<Map<String,Object>>  getKData(String sid, String idx);
       List<Map<String,Object>>  getData(String sid, String idx,String days);
+      Map<String,List<String>>  getRealData(String sid, String idx);
       List<Map<String,Object>>  getThreePhaseData(String aSid,String bSid,String cSid);
       Map<String,List<Map<String, Object>>> getTempHumData(String tSid,String hSid,String tSid1,String hSid1);
       Map<String,Map<String,Object>> getSensorDays(String day);
