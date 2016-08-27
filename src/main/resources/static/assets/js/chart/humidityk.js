@@ -181,27 +181,13 @@ $(document).ready(function() {
                 },
                 {
                     name: '湿度(%RH)',
-                    nameLocation: 'start',
-                    type: 'value',
-                    splitLine: {
-                        show: false
-                    }
-                },
-                {
-                    name: '温度(℃)',
-                    type: 'value',
-                    splitLine: {
-                        show: false
-                    }
-                },
-                {
-                    name: '湿度(%RH)',
-                    nameLocation: 'start',
                     type: 'value',
                     splitLine: {
                         show: false
                     }
                 }
+
+
             ],
             series: [
                 {
