@@ -5,6 +5,8 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.mdata.thirdparty.dianli.frontend.beans.Menu;
+import com.mdata.thirdparty.dianli.frontend.beans.TenantLayout;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -65,4 +67,15 @@ public class MenuServiceImpl  implements  IMenuService{
             }
         }).toList();
     }
+
+    @Override
+    public TenantLayout getTenantLayoutById(int tenantId){
+        String sql="select * from t_tenant_layout where id=?";
+       List<TenantLayout> tenantLayouts= jdbcTemplate.query(sql,new Object[]{tenantId},new BeanPropertyRowMapper<TenantLayout>(TenantLayout.class));
+        if(CollectionUtils.isNotEmpty(tenantLayouts)){
+            return tenantLayouts.get(0);
+        }
+        return new TenantLayout();
+    }
+
 }

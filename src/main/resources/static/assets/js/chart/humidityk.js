@@ -58,7 +58,8 @@ $(document).ready(function() {
                 }
             },
             legend: {
-                data:['温度','湿度','温度1','湿度1'],
+                data:[{name:'温度'},
+                    {name:'湿度'},{name:'温度1'},{name:'湿度1'}],
                 x: 'left'
             },
             dataZoom: [
@@ -206,6 +207,7 @@ $(document).ready(function() {
                 {
                     name:'温度',
                     type:'line',
+                    symbol:'roundRect',
                     hoverAnimation: false,
                     data: data.tSid.data,
                     markPoint:{
@@ -214,6 +216,11 @@ $(document).ready(function() {
                             // 支持 'average', 'min', 'max'
                             type: 'max'
                         },]
+                    },
+                    lineStyle:{
+                        normal:{
+                            color:'#009966'
+                        }
                     },
                     markLine:{
 
@@ -229,8 +236,13 @@ $(document).ready(function() {
                     name:'湿度',
                     type:'line',
                     yAxisIndex:1,
+                    symbol:'roundRect',
                     hoverAnimation: false,
-
+                    lineStyle:{
+                       normal:{
+                           color:'#FF3300'
+                       }
+                    },
                     data:  data.hSid.data,
                     markPoint:{
                         data:[{
@@ -262,6 +274,11 @@ $(document).ready(function() {
                             type: 'max'
                         },]
                     },
+                    lineStyle:{
+                        normal:{
+                            color:'#00CC99'
+                        }
+                    },
                     markLine:{
 
                         symbol: ['none'],
@@ -277,7 +294,11 @@ $(document).ready(function() {
                     type:'line',
                     yAxisIndex:1,
                     hoverAnimation: false,
-
+                    lineStyle:{
+                        normal:{
+                            color:'#FFCCCC'
+                        }
+                    },
                     data:  data.hSid1.data,
                     markPoint:{
                         data:[{

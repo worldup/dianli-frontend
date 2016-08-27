@@ -6,6 +6,7 @@ import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.beans.Menu;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
 import com.mdata.thirdparty.dianli.frontend.web.services.system.IMenuService;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import java.util.Map;
  */
 @Controller
 public class AuthController {
+    final int perPageSize=20;
     @Autowired
     private ModelAndViewUtils modelAndViewUtils;
     @Autowired
@@ -30,6 +32,8 @@ public class AuthController {
 
         Integer tenantId=(Integer)session.getAttribute("tenantId");
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+
+
         if(tenantId==1){
             List<Corporate> corporates=sensorService.getAllCorporate(tenantId);
 
@@ -45,7 +49,11 @@ public class AuthController {
             modelAndView.setViewName("jshome");
         }
         else if(tenantId==2){
-            modelAndView.setViewName("index");
+            String today= DateFormatUtils.format(new Date(),"yyyy-MM-dd");
+            Integer sensorCount= sensorService.getSensorDatasByDay(today);
+            Integer pageSize=  sensorCount/perPageSize+(sensorCount%perPageSize >0?1:0);
+            modelAndView.getModel().put("sensorPageSize",pageSize);
+            modelAndView.setViewName( "/data/tables");
         }
 
         return modelAndView;

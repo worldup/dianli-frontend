@@ -1,6 +1,7 @@
 package com.mdata.thirdparty.dianli.frontend.web.services.system;
 
 import com.mdata.thirdparty.dianli.frontend.beans.Menu;
+import com.mdata.thirdparty.dianli.frontend.beans.TenantLayout;
 
 import java.util.List;
 
@@ -10,4 +11,5 @@ import java.util.List;
 public interface IMenuService {
     List<Menu> listAllMenu(int tenantId);
     List<Menu> listAllMenu(int tenantId,String userName);
+    TenantLayout getTenantLayoutById(int tenantId);
 }
