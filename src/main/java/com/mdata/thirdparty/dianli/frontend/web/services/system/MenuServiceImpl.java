@@ -77,5 +77,10 @@ public class MenuServiceImpl  implements  IMenuService{
         }
         return new TenantLayout();
     }
+    @Override
+    public Integer getSensorWarningCount(){
+        String sql="select count(1) from t_warning where status=0 and end_time  > DATE_ADD(now(), INTERVAL -2 MONTH)";
+        return jdbcTemplate.queryForObject(sql,new Object[]{},Integer.class);
+    }
 
 }

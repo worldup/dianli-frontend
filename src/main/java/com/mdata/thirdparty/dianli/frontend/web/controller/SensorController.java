@@ -122,6 +122,50 @@ public class SensorController {
        result.put("pageSize",""+pageSize) ;
         return result;
     }
+    @RequestMapping("/data/warning")
+    public ModelAndView warning(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        Integer warningCount= sensorService.getWarningDatasCount();
+        Integer pageSize=  warningCount/perPageSize+(warningCount%perPageSize >0?1:0);
+        modelAndView.getModel().put("sensorPageSize",pageSize);
+        modelAndView.setViewName( "/data/warning");
+
+        return modelAndView;
+    }
+    @RequestMapping(value = "/data/warningdata",method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public Map<String,String> warningdata(Integer startPage){
+        String day=DateFormatUtils.format(new Date(),"yyyy-MM-dd");
+        List<Map<String,Object>> datas=Lists.newArrayList();
+        Map<String,String> result= Maps.newHashMap();
+
+            datas =sensorService.getWarningDatas(startPage,perPageSize);
+            Integer warningCount= sensorService.getWarningDatasCount();
+
+        Integer pageSize=  warningCount/perPageSize+(warningCount%perPageSize >0?1:0);
+        final AtomicInteger idx=new AtomicInteger(0);
+        List<String> resultList= Lists.transform(datas, new Function<Map<String,Object>, String>() {
+            @Override
+            public String apply(Map<String, Object> input) {
+                StringBuilder sb=new StringBuilder();
+
+                sb.append("<tr>");
+                sb.append("<td>").append(String.valueOf(idx.addAndGet(1))).append("</td>");
+                sb.append("<td>").append(MapUtils.getString(input,"name")).append("</td>");
+                sb.append("<td>").append(MapUtils.getString(input,"content")).append("</td>");
+                sb.append("<td>").append(MapUtils.getString(input,"begin_time")).append("</td>");
+                sb.append("<td>").append(MapUtils.getString(input,"end_time")).append("</td>");
+                sb.append("<td>").append(MapUtils.getString(input,"count")).append("</td>");
+                sb.append("<td>").append(MapUtils.getString(input,"status")).append("</td>");
+
+                sb.append("</tr>");
+                return sb.toString();
+            }
+        });
+        result.put("data",Joiner.on("").join(resultList).toString()) ;
+        result.put("pageSize",""+pageSize) ;
+        return result;
+    }
     @RequestMapping("/chart/temperature")
     public String temperature(@RequestParam String sid,Map<String,Object> model){
         model.put("sid",sid);

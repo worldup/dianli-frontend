@@ -17,6 +17,7 @@ import com.mdata.thirdparty.dianli.frontend.web.controller.api.SensorData;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
 
     Cache<String, SensorData> lastSensorCache;
     Cache<String, TSensorDays> sensorDaysCache;
+    Cache<String, List<Map<String,Object>>> sensorWarningConfCache;
     static final String listSql = "select * from t_sensors_group where `parentkey`=?";
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -274,10 +276,39 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         if (CollectionUtils.isNotEmpty(sensorDatas)) {
             for (SensorData sensorData : sensorDatas) {
                 insertSensorValue(sensorData);
+                insertSensorWarning(sensorData);
             }
         }
     }
+    private void insertSensorWarning(SensorData sensorData){
+       String sid= sensorData.getSid();
+       double val= sensorData.getSv();
+       List<Map<String,Object>>  warningConfList=sensorWarningConfCache.getIfPresent(sid);
+        if(CollectionUtils.isEmpty(warningConfList)){
+            warningConfList=getSensorWarningConf(sid);
+            if(warningConfList!=null){
+                sensorWarningConfCache.put(sid,warningConfList);
+            }
+        }
+        if(CollectionUtils.isNotEmpty(warningConfList)){
+            for(Map<String,Object> map:warningConfList){
+              String  type= MapUtils.getString(map,"type","");
+                if("UpperLimit".equals(type)){
+                   double confVal= MapUtils.getDouble(map,"value",100000d);
+                    if(val>confVal){
+                        updateSensorWarning(sensorData,"当前温度"+sensorData.getSv()+"超过上限");
+                    }
+                }
+                else if("LowerLimit".equals(type)){
+                    double confVal= MapUtils.getDouble(map,"value",-100000d);
+                    if(val<confVal){
+                        updateSensorWarning(sensorData,"当前温度"+sensorData.getSv()+"低于上限");
+                    }
+                }
+            }
+        }
 
+    }
     final String insertSensorDataSql = "insert into t_sensor_data(sid,idx,days,sv,tmax,tmin,create_time) values(?,?,?,?,?,?,now())";
 
     public void insertSensorValue(final SensorData sensorData) throws  Exception {
@@ -419,6 +450,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         lastSensorCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
         sensorDaysCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
+        sensorWarningConfCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
     }
     @Override
     public  List<Corporate> getAllCorporate(int tenantId){
@@ -482,5 +514,59 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             });
         }
         return Lists.newArrayList();
+    }
+    @Override
+    public Integer getWarningDatasCount(){
+        String sql="select count(1) from t_warning where status <>1 and end_time >DATE_ADD(now(),INTERVAL -2 month) ";
+        return jdbcTemplate.queryForObject(sql,new Object[]{},Integer.class);
+    }
+    @Override
+   public List<Map<String,Object>> getWarningDatas(int startPage,Integer limit){
+        String sql="SELECT\n" +
+                "w.id,w.count,w.content,w.begin_time,w.end_time,\n" +
+                "case \n" +
+                "w.status when 0 then '未处理'  \n" +
+                "when 1 then '已处理'\n" +
+                "when 2 then '已恢复,未处理' end  status, s.`name`\n" +
+                "FROM\n" +
+                "t_warning  w left join t_sensors  s on w.sid=s.sid\n" +
+                "WHERE\n" +
+                "w.STATUS <> 1\n" +
+                "AND w.end_time > DATE_ADD(now(), INTERVAL -2 MONTH)\n" +
+                "ORDER BY\n" +
+                "w.end_time DESC limit ?,? ";
+        int startIdx=(startPage-1)*limit;
+        int endIdx=startPage*limit;
+       List<Map<String,Object>>  result= jdbcTemplate.query(sql,new Object[]{startIdx,endIdx},new ColumnMapRowMapper());
+        if(CollectionUtils.isNotEmpty(result)){
+            return result;
+        }
+       return Lists.newArrayList();
+    }
+    @Override
+    public List<Map<String,Object>> getSensorWarningConf(String sid){
+        String sql=  "select ac.type,ac.value from T_SENSORS_GROUP_ALERT_CONF ac ,T_SENSORS_GROUP  g,t_sensors s\n" +
+                "where ac.group_key=g.key and s.key=g.skey\n" +
+                "and  s.sid=?";
+        return jdbcTemplate.query(sql,new Object[]{sid},new ColumnMapRowMapper());
+    }
+    private  void updateSensorWarning(SensorData sensorData,String content){
+        String sid=sensorData.getSid();
+        int idx= sensorData.getIdx();
+        double sv= sensorData.getSv();
+        long tg= sensorData.getTg();
+        Date date= new Date(tg);
+        String insertSql="insert into t_warning (sid,idx,begin_time,end_time,content,count,lastVal,status) values (?,?,?,?,?,1,?,0)";
+        String updateSql="update t_warning  set end_time=?,lastVal=?,count=count+1  where id=? ";
+        String selectSql="select id from t_warning where sid=? and idx=? and DATE_FORMAT(?,'%Y%m%d')=DATE_FORMAT(end_time,'%Y%m%d')";
+        List<Map<String,Object>> selectResult=jdbcTemplate.query(selectSql,new Object[]{sid,idx,date},new ColumnMapRowMapper());
+        if(CollectionUtils.isNotEmpty(selectResult)){
+            Map<String,Object> warning=selectResult.get(0);
+            Long id= MapUtils.getLong(warning,"id");
+            jdbcTemplate.update(updateSql,new Object[]{date,sv,id});
+        }
+        else{
+            jdbcTemplate.update(insertSql,new Object[]{sid,idx,date,date,content,sv});
+        }
     }
 }

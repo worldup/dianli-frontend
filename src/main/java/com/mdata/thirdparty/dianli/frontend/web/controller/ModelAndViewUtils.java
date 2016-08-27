@@ -29,8 +29,9 @@ public class ModelAndViewUtils {
         Map<String,Object> model=modelAndView.getModel();
         List<Menu> menus=menuService.listAllMenu(tenantId,userName);
         TenantLayout tenantLayout=menuService.getTenantLayoutById(tenantId);
+        Integer warningCount=menuService.getSensorWarningCount();
         model.put("menus",menus);
-
+        model.put("warningCount",warningCount);
          String     layoutTitle=tenantLayout.getTitle();
         String   strongHeader=tenantLayout.getStrongHeader();
         String    smallHeader=tenantLayout.getSmallHeader();

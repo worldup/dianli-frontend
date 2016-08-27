@@ -1,0 +1,43 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+
+<body>
+<div class="admin-content-body" layout:fragment="content"  id="container">
+    <div class="am-scrollable-horizontal">
+
+        <ul class="am-pagination am-pagination-right">
+        </ul>
+        <table class="am-table am-table-bordered  am-table-striped am-table-compact am-table-radius ">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>内容</th>
+                <th>开始时间</th>
+                <th>最后更新时间</th>
+                <th>异常次数</th>
+                <th>状态</th>
+            </tr>
+            </thead>
+            <tbody id="databody">
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script type="text/javascript"  th:inline="javascript">
+        /*<![CDATA[*/
+        var sensorPageSize=/*[[${sensorPageSize}]]*/0;
+        var contextPath=/*[[@{'/'}]]*/'/';
+        /*]]>*/
+    </script>
+    <script type="text/javascript" th:src="@{/assets/js/amazeui-pagination.min.js}" src="../../static/assets/js/amazeui-pagination.min.js"></script>
+    <script type="text/javascript" th:src="@{/assets/js/data/warning.js}" src="../../static/assets/js/data/warning.js"></script>
+
+</th:block>
+</body>
+</html>

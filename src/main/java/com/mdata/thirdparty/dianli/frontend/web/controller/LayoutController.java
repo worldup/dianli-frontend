@@ -29,6 +29,7 @@ public class LayoutController {
     @RequestMapping("/")
     public ModelAndView layout(HttpSession session){
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+
         modelAndView.setViewName("layout");
         return modelAndView;
     }

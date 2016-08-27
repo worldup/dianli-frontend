@@ -12,4 +12,6 @@ public interface IMenuService {
     List<Menu> listAllMenu(int tenantId);
     List<Menu> listAllMenu(int tenantId,String userName);
     TenantLayout getTenantLayoutById(int tenantId);
+
+    Integer getSensorWarningCount();
 }
