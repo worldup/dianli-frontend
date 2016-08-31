@@ -5,7 +5,7 @@ if(sensorPageSize>0){
     showSensorPage(1)
 }
 $("#searchBtn").on("click",function(){
-    showSensorPage(1,$("#searchSName").val());
+    showSensorPage(curPage,$("#searchSName").val());
 
 })
 function showSensorPage(page,sensorName){
@@ -15,7 +15,7 @@ function showSensorPage(page,sensorName){
     }
     $.post(dataUrl,data,function(result){
         $("#databody").html(result.data);
-        initPagination(result.pageSize);
+      //  initPagination(result.pageSize);
     });
 
 }
@@ -23,6 +23,7 @@ function initPagination(pageSize){
     new Pagination({
         wrap: $('.am-pagination'),
         count: pageSize,
+        current:curPage,
         prevText: '上一页',
         nextText: '下一页',
         callback: function(page) {
@@ -30,7 +31,7 @@ function initPagination(pageSize){
             showSensorPage(page)
         }});
 }
-function autoRefresh(){
+/*function autoRefresh(){
     showSensorPage(curPage,$("#searchSName").val());
-}
-setInterval(autoRefresh, 30000);
+}*/
+//setInterval(autoRefresh, 30000);

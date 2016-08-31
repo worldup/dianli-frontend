@@ -91,8 +91,15 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     }
     @Override
     public Map<String,List<String>> getRealData(String sid, String idx) {
-        String sql = "select  sid,idx,sv,   date_format(tmin,'%y%m%d%H%i') tmin,  date_format(tmax,'%y%m%d%H%i') tmax  from t_sensor_data where sid=? and idx=? and  tmin >DATE_ADD(now(),INTERVAL -3 month)";
-        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{sid, idx}, new ColumnMapRowMapper());
+      //  String sql = "select    sid,idx,sv,   date_format(tmin,'%y%m%d%H%i') tmin,  date_format(tmax,'%y%m%d%H%i') tmax  from t_sensor_data where sid=? and idx=? and  tmin >DATE_ADD(now(),INTERVAL -1 month)";
+      //查询一小时的最高和最低点
+        String sql =  "select    sid,idx,max(sv) sv,  tmin,tmax from t_sensor_data where sid=? and idx=? and  tmin >DATE_ADD(now(),INTERVAL -2 month)\n" +
+                "group by  date_format(tmin,'%y%m%d%H') \n" +
+                "union all \n" +
+                "\n" +
+                "select    sid,idx,min(sv) sv,  tmin,tmax from t_sensor_data where sid=? and idx=? and  tmin >DATE_ADD(now(),INTERVAL -2 month)\n" +
+                "group by  date_format(tmin,'%y%m%d%H') ";
+        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{sid, idx,sid,idx}, new ColumnMapRowMapper());
         Map<String,List<String>> resultMap=Maps.newHashMap();
         List<String> days=Lists.newArrayList();
         List<String> values=Lists.newArrayList();
@@ -205,7 +212,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         return result;
     }
     public List<Map<String,Object>> getSensorDatasByDayAndPage(String day,int startPage,Integer limit){
-        String sql="select t.sid,t.idx,s.name,t.days,t.update_time,CONCAT(t.sv,type.unit) sv,  case   when \n" +
+        String sql="select t.sid,t.idx,s.name,t.days,t.update_time,CONCAT(t.sv,ifnull(type.unit,'')) sv,  case   when \n" +
                 "c.type='UpperLimit' and sv>c.value then '异常'\n" +
                 "else '正常'\n" +
                 "end status,\n" +
@@ -216,15 +223,15 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "on s.key=g.skey  left join T_SENSORS_GROUP_ALERT_CONF c \n" +
                 "on g.key=c.group_key\n" +
                 " where   t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
-                "\tand t.sid=e.sid and t.idx=e.idx \n" +
-                " )   \n" +
+                "\tand t.sid=e.sid and t.idx=e.idx  \n" +
+                " )   and t.days =DATE_FORMAT(now(),'%Y-%m-%d') \n" +
                 "limit ?,?";
         int startIdx=(startPage-1)*limit;
-        int endIdx=startPage*limit;
+        int endIdx=limit;
        return  jdbcTemplate.query(sql,new Object[]{startIdx,endIdx},new ColumnMapRowMapper());
     }
     public List<Map<String,Object>> getSensorDatasByDayAndPageAndSName(String day,String sensorName,int startPage,Integer limit){
-        String sql="select t.sid,t.idx,s.name,t.days,t.update_time,CONCAT(t.sv,type.unit) sv,  case   when \n" +
+        String sql="select t.sid,t.idx,s.name,t.days,t.update_time,CONCAT(t.sv,ifnull(type.unit,'')) sv,  case   when \n" +
                 "c.type='UpperLimit' and sv>c.value then '异常'\n" +
                 "else '正常'\n" +
                 "end status,\n" +
@@ -236,10 +243,10 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "on g.key=c.group_key\n" +
                 " where  t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
                 "\tand t.sid=e.sid and t.idx=e.idx \n" +
-                " )  and s.name like '%"+sensorName+"%' \n" +
+                " )  and t.days =DATE_FORMAT(now(),'%Y-%m-%d')  and s.name like '%"+sensorName+"%' \n" +
                 "limit ?,?";
         int startIdx=(startPage-1)*limit;
-        int endIdx=startPage*limit;
+        int endIdx=limit;
         return  jdbcTemplate.query(sql,new Object[]{startIdx,endIdx},new ColumnMapRowMapper());
     }
     public Integer getSensorDatasByDay(String day){
@@ -254,8 +261,8 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "on t.sid=s.sid\n" +
                 " where  t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
                 "\tand t.sid=e.sid and t.idx=e.idx \n" +
-                " )  \n" ;
-        return jdbcTemplate.queryForObject(sql,new Object[]{ },Integer.class);
+                " )  and t.days =? \n" ;
+        return jdbcTemplate.queryForObject(sql,new Object[]{ day},Integer.class);
     }
     public Integer getSensorDatasByDayAndSName(String day,String sensorName){
         String sql="select count(1) from t_sensor_data  t inner join T_SENSORS s\n" +
@@ -263,8 +270,8 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 " where t.days=? \n" +
                 "\n" +
                 " and t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
-                "\tand t.sid=e.sid and t.idx=e.idx \n" +
-                " )  and s.name like '%"+sensorName+"%' \n" ;
+                "\tand t.sid=e.sid and t.idx=e.idx  \n" +
+                " )   and s.name like '%"+sensorName+"%' \n" ;
         return jdbcTemplate.queryForObject(sql,new Object[]{day},Integer.class);
     }
     public Map<String, Object> getSensorInfo(String sid) {
@@ -322,7 +329,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         final String day = FastDateFormat.getInstance("yyyy-MM-dd").format(date);
         final String cacheKey = sid + "@@" + idx + "@@" + day;
         final SensorData cachedData = lastSensorCache.getIfPresent(cacheKey);
-        if (cachedData != null && sv == cachedData.getSv()) {
+        if (cachedData != null && !needInsert(sv , cachedData.getSv())) {
             jdbcTemplate.update("update t_sensor_data set tmax=? ,count=count+1 where id=? ", new Object[]{times, cachedData.getId()});
         } else {
             KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -536,7 +543,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "ORDER BY\n" +
                 "w.end_time DESC limit ?,? ";
         int startIdx=(startPage-1)*limit;
-        int endIdx=startPage*limit;
+        int endIdx=limit;
        List<Map<String,Object>>  result= jdbcTemplate.query(sql,new Object[]{startIdx,endIdx},new ColumnMapRowMapper());
         if(CollectionUtils.isNotEmpty(result)){
             return result;
@@ -568,5 +575,24 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         else{
             jdbcTemplate.update(insertSql,new Object[]{sid,idx,date,date,content,sv});
         }
+    }
+    static final double chgRate=0.01;
+    private boolean needInsert(double cur,double pre){
+        if(cur==pre){
+            return false;
+        }
+        else {
+            if(pre!=0d ){
+                System.out.println(Math.abs((cur-pre)/pre));
+                return Math.abs((cur-pre)/pre)>chgRate;
+            }
+            else {
+                return Math.abs((cur-pre)/cur)>chgRate;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println( new SensorServiceImpl().needInsert(228.56,225.4));
     }
 }

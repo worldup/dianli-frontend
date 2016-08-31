@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Controller
 @RequestMapping(value = "/sensor",method = {RequestMethod.GET})
 public class SensorController {
-    final int perPageSize=20;
+    final int perPageSize=10;
     @Autowired
     private SensorService sensorService;
     @Autowired
