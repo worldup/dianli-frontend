@@ -48,6 +48,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     Cache<String, SensorData> lastSensorCache;
     Cache<String, TSensorDays> sensorDaysCache;
     Cache<String, List<Map<String,Object>>> sensorWarningConfCache;
+    Cache<String,Long> sensorDateCache;
     static final String listSql = "select * from t_sensors_group where `parentkey`=?";
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -321,6 +322,18 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     public void insertSensorValue(final SensorData sensorData) throws  Exception {
         final String sid = sensorData.getSid();
         final int idx = sensorData.getIdx();
+        final String sensorCacheTimeKey= sid+"@"+idx;
+        Long lastCacheTime=sensorDateCache.getIfPresent(sensorCacheTimeKey);
+        long now=new Date().getTime();
+        //5分钟采集一次
+        if(lastCacheTime!=null&&now-lastCacheTime<300000){
+            return ;
+        }
+        else{
+            sensorDateCache.put(sensorCacheTimeKey,now);
+        }
+
+
         long tg = sensorData.getTg();
         final double sv = sensorData.getSv();
 
@@ -458,6 +471,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         lastSensorCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
         sensorDaysCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
         sensorWarningConfCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
+        sensorDateCache=CacheBuilder.newBuilder().build();
     }
     @Override
     public  List<Corporate> getAllCorporate(int tenantId){
