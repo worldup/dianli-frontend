@@ -304,13 +304,13 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 if("UpperLimit".equals(type)){
                    double confVal= MapUtils.getDouble(map,"value",100000d);
                     if(val>confVal){
-                        updateSensorWarning(sensorData,"当前温度"+sensorData.getSv()+"超过上限");
+                        updateSensorWarning(sensorData,"当前值"+sensorData.getSv()+",超过上限"+confVal);
                     }
                 }
                 else if("LowerLimit".equals(type)){
                     double confVal= MapUtils.getDouble(map,"value",-100000d);
                     if(val<confVal){
-                        updateSensorWarning(sensorData,"当前温度"+sensorData.getSv()+"低于上限");
+                        updateSensorWarning(sensorData,"当前值"+sensorData.getSv()+",低于上限"+confVal);
                     }
                 }
             }

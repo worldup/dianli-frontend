@@ -353,6 +353,21 @@ gallery.html css
 /*
  404.html css
 */
+.am-selected{
+    width:100%;
+}
+.am-selected-list .am-selected-text{
+    float: right;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+.am-dropdown-content{
+    float:right;
+    magin-right:-5px;
+}
+.am-selected-list .am-selected-text{
+    font-size: smaller;
+}
 
 .page-404 {
     background: #fff;
