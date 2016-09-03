@@ -45,8 +45,8 @@
                         <li th:each="subMenu:${menu.subMenu}"><a th:href="${subMenu.url}" href="#"><span th:class="${subMenu.iconClass}" class="am-icon-cog"></span> <span th:text="${subMenu.name}">设置</span></a></li>
                     </ul>
                 </li>
-                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span
-                        class="am-icon-arrows-alt"></span> <span class="admin-fullText">全屏模式</span></a></li>
+                <!--<li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span-->
+                        <!--class="am-icon-arrows-alt"></span> <span class="admin-fullText">全屏模式</span></a></li>-->
             </ul>
         </div>
     </header>
@@ -68,17 +68,12 @@
 </div>
 
 
-<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
 
-<!--[if (gte IE 9)|!(IE)]><!-->
+
 <script th:src="@{/assets/js/jquery.min.js}" src="../static/assets/js/jquery.min.js"></script>
-<!--<![endif]-->
 <script th:src="@{/assets/js/amazeui.min.js}" src="../static/assets/js/amazeui.min.js"></script>
-<script th:src="@{/assets/js/home.js}" src="../static/assets/js/home.js"></script>
+<!--<script th:src="@{/assets/js/home.js}" src="../static/assets/js/home.js"></script>-->
+<script  type="text/javascript" th:src="@{/assets/js/echarts.common.min.js}" src="../../static/assets/js/echarts.common.min.js"></script>
 
 <th:block layout:fragment="script"></th:block>
 </body>
