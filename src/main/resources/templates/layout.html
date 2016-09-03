@@ -12,10 +12,10 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="icon" type="image/jpg" th:href="@{/assets/img/favorite.jpg}" href="../static/assets/img/favorite.jpg"/>
     <meta name="apple-mobile-web-app-title" th:content="${layoutTitle}"/>
-    <link rel="stylesheet" th:href="@{/assets/css/amazeui.min.css}" href="../static/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" th:href="${'//cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css'}" href="../static/assets/css/amazeui.min.css"/>
     <link rel="stylesheet" th:href="@{/assets/css/home.css}" href="../static/assets/css/home.css"/>
     <link rel="stylesheet" th:href="@{/assets/css/amap/style.css}" href="../static/assets/css/amap/style.css"/>
-    <link rel="stylesheet" th:href="@{/assets/css/font-awesome.css}" href="../static/assets/css/font-awesome.css"/>
+    <link rel="stylesheet" th:href="${'//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css'}" href="../static/assets/css/font-awesome.css"/>
     <th:block layout:fragment="stylesheet"></th:block>
 </head>
 <body>
@@ -70,10 +70,10 @@
 
 
 
-<script th:src="@{/assets/js/jquery.min.js}" src="../static/assets/js/jquery.min.js"></script>
-<script th:src="@{/assets/js/amazeui.min.js}" src="../static/assets/js/amazeui.min.js"></script>
+<script th:src="${'//cdn.bootcss.com/jquery/3.1.0/jquery.min.js'}" src="../static/assets/js/jquery.min.js"></script>
+<script th:src="${'//cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js'}" src="../static/assets/js/amazeui.min.js"></script>
 <!--<script th:src="@{/assets/js/home.js}" src="../static/assets/js/home.js"></script>-->
-<script  type="text/javascript" th:src="@{/assets/js/echarts.common.min.js}" src="../../static/assets/js/echarts.common.min.js"></script>
+<script  type="text/javascript"  th:src="${'//cdn.bootcss.com/echarts/3.2.2/echarts.common.min.js'}" src="../../static/assets/js/echarts.common.min.js"></script>
 
 <th:block layout:fragment="script"></th:block>
 </body>
