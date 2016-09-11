@@ -9,16 +9,26 @@
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" >
                 <li>
                     <div class="am-gallery-item ">
-                        <a  th:href="@{'/sensor/data/tables'}" href="/sensor/data/tables">
-                        <img th:src="@{/assets/img/diaodu.png}" src="../static/assets/img/diaodu.png"
-                             alt="监控调度"/>
-                            </a>
-                        <h3 class="am-gallery-title am-text-center">监控调度</h3>
+                        <a th:href="@{'/sensor/data/tables'}"  href="/sensor/data/tables">
+
+                            <img  th:src="@{/assets/img/peiwang.png}" src="../static/assets/img/peiwang.png"
+                                  alt="电力配网在线监控" />
+                        </a>
+                        <h3 class="am-gallery-title am-text-center">电力配网在线监控</h3>
                     </div>
                 </li>
                 <li>
                     <div class="am-gallery-item ">
-                        <a  th:href="@{'/home'}" href="/">
+                        <a  th:href="@{'/home'}" href="/sensor/data/tables">
+                        <img th:src="@{/assets/img/diaodu.png}" src="../static/assets/img/diaodu.png"
+                             alt="环保设备状态在线监控"/>
+                            </a>
+                        <h3 class="am-gallery-title am-text-center">环保设备状态在线监控</h3>
+                    </div>
+                </li>
+                <li>
+                    <div class="am-gallery-item ">
+                        <a  th:href="@{'/qidai'}"  href="/qidai">
                         <img  th:src="@{/assets/img/yuanqu.png}" src="../static/assets/img/yuanqu.png"
                              alt="智慧能源" />
                             </a>
@@ -28,17 +38,7 @@
 
                 <li>
                     <div class="am-gallery-item ">
-                        <a   href="#">
-
-                        <img  th:src="@{/assets/img/peiwang.png}" src="../static/assets/img/peiwang.png"
-                             alt="配电网络" />
-                        </a>
-                        <h3 class="am-gallery-title am-text-center">配电网络</h3>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item ">
-                        <a   href="#">
+                        <a  th:href="@{'/qidai'}"  href="/qidai">
                         <img th:src="@{/assets/img/bilei.png}" src="../static/assets/img/bilei.png"
                              alt="避雷监控"/>
                         <h3 class="am-gallery-title am-text-center">避雷监控</h3>

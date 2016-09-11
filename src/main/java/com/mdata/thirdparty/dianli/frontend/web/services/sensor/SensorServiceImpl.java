@@ -110,7 +110,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     public Map<String,List<String>> getRealDataToday(String sid, String idx) {
         //  String sql = "select    sid,idx,sv,   date_format(tmin,'%y%m%d%H%i') tmin,  date_format(tmax,'%y%m%d%H%i') tmax  from t_sensor_data where sid=? and idx=? and  tmin >DATE_ADD(now(),INTERVAL -1 month)";
         //查询一小时的最高和最低点
-        String sql =  "select    sid,idx,max(sv) sv,  tmin,tmax from t_sensor_data where sid=? and idx=? and  tmax >=date(now())" ;
+        String sql =  "select    sid,idx, sv,  date_format(tmin,'%H:%i:%s') tmin, date_format(tmax,'%H:%i:%s') tmax from t_sensor_data where sid= ? and idx= ? and  tmax >=date(now()) order by tmax ;" ;
 
 
         List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{sid, idx}, new ColumnMapRowMapper());

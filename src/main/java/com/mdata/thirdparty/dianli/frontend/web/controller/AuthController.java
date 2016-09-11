@@ -76,4 +76,11 @@ public class AuthController {
         modelAndView.setViewName("welcome");
         return modelAndView;
     }
+    @RequestMapping("/qidai")
+    public ModelAndView qidai(HttpSession session) {
+        Integer tenantId=(Integer)session.getAttribute("tenantId");
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName("qidai");
+        return modelAndView;
+    }
 }
