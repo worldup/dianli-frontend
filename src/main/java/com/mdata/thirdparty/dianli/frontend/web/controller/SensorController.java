@@ -237,10 +237,11 @@ public class SensorController {
         return modelAndView;
     }
     @RequestMapping("/data/realdatapage")
-    public ModelAndView realdatapage(@RequestParam String sid,@RequestParam("sName") String sName,@RequestParam (value = "cvalue",required = false) String cvalue, HttpSession session) {
+    public ModelAndView realdatapage(@RequestParam String sid,@RequestParam("sName") String sName,@RequestParam (value = "cvalue",required = false) String cvalue, @RequestParam (value = "idx",required = false) String idx, HttpSession session) {
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         Map<String,Object> model= modelAndView.getModel();
         model.put("sid",sid);
+        model.put("idx",idx);
         model.put("sName",sName);
         //阈值
             model.put("cvalue",cvalue==null?100:cvalue);
