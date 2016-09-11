@@ -3,21 +3,15 @@ package com.mdata.thirdparty.dianli.frontend.web.services.sensor;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.base.Splitter;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.beans.TSensorDays;
 import com.mdata.thirdparty.dianli.frontend.web.controller.api.SensorData;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +23,9 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.*;
+import java.util.*;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -114,6 +104,29 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                  days.add(MapUtils.getString(tempMap,"tmin"));
              }
          }
+        return resultMap;
+    }
+    @Override
+    public Map<String,List<String>> getRealDataToday(String sid, String idx) {
+        //  String sql = "select    sid,idx,sv,   date_format(tmin,'%y%m%d%H%i') tmin,  date_format(tmax,'%y%m%d%H%i') tmax  from t_sensor_data where sid=? and idx=? and  tmin >DATE_ADD(now(),INTERVAL -1 month)";
+        //查询一小时的最高和最低点
+        String sql =  "select    sid,idx,max(sv) sv,  tmin,tmax from t_sensor_data where sid=? and idx=? and  tmax >=date(now())" ;
+
+
+        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{sid, idx}, new ColumnMapRowMapper());
+        Map<String,List<String>> resultMap=Maps.newHashMap();
+        List<String> days=Lists.newArrayList();
+        List<String> values=Lists.newArrayList();
+        resultMap.put("days",days);
+        resultMap.put("values",values);
+        if(CollectionUtils.isNotEmpty(resultMapper)){
+            for(Map<String,Object> tempMap:resultMapper){
+                values.add(MapUtils.getString(tempMap,"sv"));
+                values.add(MapUtils.getString(tempMap,"sv"));
+                days.add(MapUtils.getString(tempMap,"tmin"));
+                days.add(MapUtils.getString(tempMap,"tmax"));
+            }
+        }
         return resultMap;
     }
     @Override
@@ -590,7 +603,8 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             jdbcTemplate.update(insertSql,new Object[]{sid,idx,date,date,content,sv});
         }
     }
-    static final double chgRate=0.01;
+    //放弃变化率控制，如果哪天数据量大了，可以修改chgrate的值
+    static final double chgRate=0;
     private boolean needInsert(double cur,double pre){
         if(cur==pre){
             return false;
@@ -605,7 +619,63 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             }
         }
     }
+public List<Map<String, Object>> listSensorTree(){
+     List<Map<String,Object>> sensorLists=   jdbcTemplate.query("select `key`,isparent,name,skey,parentkey from t_sensors_group",new Object[]{},new ColumnMapRowMapper());
+     final Map<String,Object> rootNode=FluentIterable.from(sensorLists).filter(new Predicate<Map<String, Object>>() {
+         @Override
+         public boolean apply(Map<String, Object> input) {
+             return "-1".equals(MapUtils.getString(input,"parentkey"));
+         }
+     }).first().orNull();
+    if(MapUtils.isNotEmpty(rootNode)){
+     final   List<Map<String,Object>> firstLevelNodes= FluentIterable.from(sensorLists).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return rootNode.get("key").equals(input.get("parentkey"));
+            }
+        }) .toList();
+        ImmutableMap<String, Collection<Map<String, Object>>> treesMap=FluentIterable.from(sensorLists).index(new Function<Map<String,Object>, String>() {
+            public String apply(Map<String,Object> map){
+                return MapUtils.getString(map,"parentkey");
+            }
+        }).asMap();
+       final  Map<String, Collection<Map<String, Object>>> temp= Maps.filterKeys(treesMap, new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                for(Map<String,Object> node:firstLevelNodes){
+                    if(node.get("key").equals(input)){
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        List<Map<String, Object> >result=Lists.newArrayList();
+        for(Map<String,Object> node:firstLevelNodes){
+            Map<String,Object> tempMap=Maps.newHashMap();
+              List<String> vals= Lists.newArrayList(Collections2.transform(temp.get(node.get("key")), new Function<Map<String,Object>, String>() {
+                @Override
+                public String apply(Map<String, Object> input) {
+                    return MapUtils.getString(input,"name");
+                }
+            }));
+            Collections.sort(vals, new Comparator<Object>() {
+                public int compare(Object var1, Object var2) {
+                    String var3 = (String)var1;
+                    String var4 = (String)var2;
+                    return var3.compareTo(var4);
+                }
+            });
+            tempMap.put("k",MapUtils.getString(node,"name"));
+            tempMap.put("v",vals);
+            result.add(tempMap);
+        }
+        return result;
+    }
 
+    return null;
+
+}
     public static void main(String[] args) {
         System.out.println( new SensorServiceImpl().needInsert(228.56,225.4));
     }

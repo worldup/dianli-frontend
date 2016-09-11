@@ -27,7 +27,7 @@ public class AuthController {
     private ModelAndViewUtils modelAndViewUtils;
     @Autowired
     private SensorService sensorService;
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public ModelAndView home( HttpSession session) {
 
         Integer tenantId=(Integer)session.getAttribute("tenantId");
@@ -51,8 +51,10 @@ public class AuthController {
         else if(tenantId==2){
             String today= DateFormatUtils.format(new Date(),"yyyy-MM-dd");
             Integer sensorCount= sensorService.getSensorDatasByDay(today);
+            List<Map<String, Object>> sensorTrees=sensorService.listSensorTree();
             Integer pageSize=  sensorCount/perPageSize+(sensorCount%perPageSize >0?1:0);
             modelAndView.getModel().put("sensorPageSize",pageSize);
+            modelAndView.getModel().put("sensorTrees",sensorTrees);
             modelAndView.setViewName( "/data/tables");
         }
 
@@ -66,5 +68,12 @@ public class AuthController {
     @RequestMapping("/login")
     public String login() {
        return "login";
+    }
+    @RequestMapping("/")
+    public ModelAndView index(HttpSession session) {
+        Integer tenantId=(Integer)session.getAttribute("tenantId");
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName("welcome");
+        return modelAndView;
     }
 }

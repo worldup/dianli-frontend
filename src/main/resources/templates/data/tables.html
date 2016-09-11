@@ -2,10 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout">
-
+<head>
+    <link href="//cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body>
 <div class="admin-content-body" layout:fragment="content"  id="container">
-    <div class="am-scrollable-horizontal">
+    <div class="am-g am-scrollable-horizontal">
+        <div id="tree" class="am-u-md-4 am-u-sm-0">
+
+
+        </div>
+
+    <div class=" am-u-md-8 am-u-sm-12">
         <div class="am-input-group am-input-group-primary">
 
             <input type="text" id="searchSName" placeholder="输入过滤条件" class="am-form-field"/>
@@ -31,15 +40,18 @@
 
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 <th:block layout:fragment="script">
     <script type="text/javascript"  th:inline="javascript">
         /*<![CDATA[*/
         var sensorPageSize=/*[[${sensorPageSize}]]*/0;
+        var sensorTrees=/*[[${sensorTrees}]]*/[];
         var contextPath=/*[[@{'/'}]]*/'/';
         /*]]>*/
     </script>
+    <script src="//cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>
     <script type="text/javascript" th:src="@{/assets/js/amazeui-pagination.min.js}" src="../../static/assets/js/amazeui-pagination.min.js"></script>
     <script type="text/javascript" th:src="@{/assets/js/data/tables.js}" src="../../static/assets/js/data/tables.js"></script>
 

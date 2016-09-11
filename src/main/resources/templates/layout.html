@@ -22,7 +22,10 @@
 
 <div >
     <header class="am-topbar am-topbar-inverse admin-header" >
+
+
         <div class="am-topbar-brand">
+
             <strong th:text="${strongHeader}">上海金山工业区</strong>
             <small th:text="${smallHeader}">能效管理服务平台</small>
         </div>
@@ -45,10 +48,17 @@
                         <li th:each="subMenu:${menu.subMenu}"><a th:href="${subMenu.url}" href="#"><span th:class="${subMenu.iconClass}" class="am-icon-cog"></span> <span th:text="${subMenu.name}">设置</span></a></li>
                     </ul>
                 </li>
+                <li>
+                   <a ><span class="am-icon-chevron-circle-left" id="btn-back">后退</span></a>
+                </li>
+                <li>
+                   <a><span class="am-icon-chevron-circle-right" id="btn-forward">前进</span></a>
+                </li>
                 <!--<li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span-->
                         <!--class="am-icon-arrows-alt"></span> <span class="admin-fullText">全屏模式</span></a></li>-->
             </ul>
         </div>
+
     </header>
 </div>
 <div class="am-cf admin-main">
@@ -72,7 +82,7 @@
 
 <script th:src="${'//cdn.bootcss.com/jquery/3.1.0/jquery.min.js'}" src="../static/assets/js/jquery.min.js"></script>
 <script th:src="${'//cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js'}" src="../static/assets/js/amazeui.min.js"></script>
-<!--<script th:src="@{/assets/js/home.js}" src="../static/assets/js/home.js"></script>-->
+<script th:src="@{/assets/js/home.js}" src="../static/assets/js/home.js"></script>
 <script  type="text/javascript"  th:src="${'//cdn.bootcss.com/echarts/3.2.2/echarts.common.min.js'}" src="../../static/assets/js/echarts.common.min.js"></script>
 
 <th:block layout:fragment="script"></th:block>

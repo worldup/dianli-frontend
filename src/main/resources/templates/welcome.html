@@ -1,0 +1,57 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<body>
+<div class="am-g" layout:fragment="content"  id="container">
+
+        <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" >
+                <li>
+                    <div class="am-gallery-item ">
+                        <a  th:href="@{'/sensor/data/tables'}" href="/sensor/data/tables">
+                        <img th:src="@{/assets/img/diaodu.png}" src="../static/assets/img/diaodu.png"
+                             alt="监控调度"/>
+                            </a>
+                        <h3 class="am-gallery-title am-text-center">监控调度</h3>
+                    </div>
+                </li>
+                <li>
+                    <div class="am-gallery-item ">
+                        <a  th:href="@{'/home'}" href="/">
+                        <img  th:src="@{/assets/img/yuanqu.png}" src="../static/assets/img/yuanqu.png"
+                             alt="智慧能源" />
+                            </a>
+                        <h3 class="am-gallery-title am-text-center">智慧能源</h3>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="am-gallery-item ">
+                        <a   href="#">
+
+                        <img  th:src="@{/assets/img/peiwang.png}" src="../static/assets/img/peiwang.png"
+                             alt="配电网络" />
+                        </a>
+                        <h3 class="am-gallery-title am-text-center">配电网络</h3>
+                    </div>
+                </li>
+                <li>
+                    <div class="am-gallery-item ">
+                        <a   href="#">
+                        <img th:src="@{/assets/img/bilei.png}" src="../static/assets/img/bilei.png"
+                             alt="避雷监控"/>
+                        <h3 class="am-gallery-title am-text-center">避雷监控</h3>
+                            </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+

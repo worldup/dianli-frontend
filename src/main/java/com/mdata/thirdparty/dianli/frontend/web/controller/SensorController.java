@@ -69,8 +69,10 @@ public class SensorController {
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         String today=DateFormatUtils.format(new Date(),"yyyy-MM-dd");
         Integer sensorCount= sensorService.getSensorDatasByDay(today);
+        List<Map<String, Object>> sensorTrees=sensorService.listSensorTree();
           Integer pageSize=  sensorCount/perPageSize+(sensorCount%perPageSize >0?1:0);
         modelAndView.getModel().put("sensorPageSize",pageSize);
+        modelAndView.getModel().put("sensorTrees",sensorTrees);
         modelAndView.setViewName( "/data/tables");
 
         return modelAndView;
@@ -274,7 +276,7 @@ public class SensorController {
     @RequestMapping("/data/realdata")
     @ResponseBody
     public Map<String,List<String>> realdata(  String sid,String idx){
-        Map<String,List<String>>    result=  sensorService.getRealData(sid,idx);
+        Map<String,List<String>>    result=  sensorService.getRealDataToday(sid,idx);
         return result ;
     }
     @RequestMapping("/threephase/list")

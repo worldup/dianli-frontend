@@ -23,8 +23,8 @@ $(document).ready(function() {
                 var option = {
 
                     title: {
-                        text: '三项电流不平衡日K线',
-                        subtext: sName,
+                        text: sName,
+                        subtext:'注：不平衡度为(max(A,B,C)-min(A,B,C))/min(A,B,C)*100' ,
                         x: 'center',
                         align: 'right'
                     },

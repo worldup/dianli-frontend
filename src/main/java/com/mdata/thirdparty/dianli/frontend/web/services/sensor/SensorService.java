@@ -3,7 +3,7 @@ package com.mdata.thirdparty.dianli.frontend.web.services.sensor;
 import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.web.controller.api.SensorData;
 
-import java.util.Date;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +16,10 @@ public interface SensorService {
       List<Map<String,Object>>  getDataBetweenTimeRange(String sid, long beginTime, long endTime);
       List<Map<String,Object>>  getKData(String sid, String idx);
       List<Map<String,Object>>  getData(String sid, String idx,String days);
+      //绘制2月内 ，按照小时为单位，取每小时的最高和最低点
       Map<String,List<String>>  getRealData(String sid, String idx);
+      //绘制每日数据，取样每个点
+      Map<String,List<String>>  getRealDataToday(String sid, String idx);
       List<Map<String,Object>>  getThreePhaseData(String aSid,String bSid,String cSid);
       Map<String,List<Map<String, Object>>> getTempHumData(String tSid,String hSid,String tSid1,String hSid1);
       Map<String,Map<String,Object>> getSensorDays(String day);
@@ -34,5 +37,6 @@ public interface SensorService {
       List<Map<String,Object>> getWarningDatas(int startPage,Integer limit);
       //获取传感器告警配置
       List<Map<String,Object>> getSensorWarningConf(String sid);
+      List<Map<String, Object>> listSensorTree();
 
 }
