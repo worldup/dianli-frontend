@@ -236,6 +236,18 @@ public class SensorController {
         modelAndView.setViewName("/chart/humidityk");
         return modelAndView;
     }
+    @RequestMapping("/chart/tempcurrentk")
+    public ModelAndView tempcurrentk(@RequestParam String tSid,@RequestParam String hSid,@RequestParam("sName") String sName,HttpSession session) {
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        Map<String,Object> model= modelAndView.getModel();
+        model.put("tSid",tSid);
+        model.put("hSid",hSid);
+        model.put("sName",sName);
+        String userName=(String)session.getAttribute("userName");
+        model.put("sids",sensorService.getTempCurrentSids(userName));
+        modelAndView.setViewName("/chart/tempcurrentk");
+        return modelAndView;
+    }
     @RequestMapping("/data/realdatapage")
     public ModelAndView realdatapage(@RequestParam String sid,@RequestParam("sName") String sName,@RequestParam (value = "cvalue",required = false) String cvalue, @RequestParam (value = "idx",required = false) String idx, HttpSession session) {
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
@@ -296,6 +308,12 @@ public class SensorController {
     @ResponseBody
     public Map<String,List<Map<String,Object>>> temphumk(  String tSid,String hSid,String tSid1,String hSid1) {
         Map<String,List<Map<String, Object>> >result = sensorService.getTempHumData(tSid, hSid,tSid1,hSid1);
+        return result;
+    }
+    @RequestMapping("/tempcurrentk/list")
+    @ResponseBody
+    public Map<String,List<Map<String,Object>>> tempcurrentk(  String tSid,String hSid) {
+        Map<String,List<Map<String, Object>> >result = sensorService.getTempCurrentData(tSid, hSid);
         return result;
     }
     @RequestMapping("/map/jinshan")

@@ -163,7 +163,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
 
     @Override
     public Map<String,List<Map<String, Object>>> getTempHumData(final String tSid, final String hSid, final  String tSid1, final String hSid1) {
-        String sql = "SELECT sid,savg, days FROM t_sensor_days\n" +
+        String sql = "SELECT sid,format( savg,2) savg, days FROM t_sensor_days\n" +
                 "\tWHERE STR_TO_DATE(days, '%Y-%m-%d') > date_add(now(), INTERVAL - 1 YEAR)\n" +
                 "\t\tAND sid IN (?,?,?,?)\n" +
                 "\t\tAND idx = '0'";
@@ -192,6 +192,29 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             @Override
             public boolean apply(Map<String, Object> input) {
                 return input.get("sid").equals(hSid1);
+            }
+        }).toList());
+        return result;
+    }
+    @Override
+    public Map<String,List<Map<String, Object>>> getTempCurrentData(final String tSid, final String hSid) {
+        String sql = "SELECT sid,format(savg,2) savg, days FROM t_sensor_days\n" +
+                "\tWHERE STR_TO_DATE(days, '%Y-%m-%d') > date_add(now(), INTERVAL - 1 YEAR)\n" +
+                "\t\tAND sid IN (?,?)\n" +
+                "\t\tAND idx = '0'";
+
+        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{tSid, hSid}, new ColumnMapRowMapper());
+        Map<String,List<Map<String,Object>>> result=Maps.newHashMap();
+        result.put("tSid",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return input.get("sid").equals(tSid);
+            }
+        }).toList());
+        result.put("hSid",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return input.get("sid").equals(hSid);
             }
         }).toList());
         return result;
@@ -498,6 +521,30 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             }
         });
         return  corporates;
+    }
+    @Override
+    public List<Map<String,String>> getTempCurrentSids(String userName ){
+        String sql="select tm.* from t_tempcurrent_mapping  tm where tm.resource_id in (\n" +
+                "select ga.authority  from group_authorities ga ,\n" +
+                "group_members gm  \n" +
+                "where gm.username=? and gm.group_id=ga.group_id\n" +
+                " \n" +
+                ")";
+        List<Map<String,Object>> result=jdbcTemplate.query(sql,new Object[]{userName}, new ColumnMapRowMapper());
+        if(CollectionUtils.isNotEmpty(result)){
+            return Lists.transform(result, new Function<Map<String, Object>, Map<String, String>>() {
+                @Override
+                public Map<String, String> apply(Map<String, Object> input) {
+                    Map<String,String> map=Maps.newHashMap();
+                    String sname=MapUtils.getString(input,"sname");
+                    map.put("name",String.valueOf(input.get("sname")));
+                    String pageHref=new StringBuilder("sensor/chart/tempcurrentk.html?tSid=").append(MapUtils.getString(input,"temp_sid")).append("&hSid=").append(MapUtils.getString(input,"current_sid")).append("&sName=").append(sname).toString();
+                    map.put("pageHref",pageHref);
+                    return map;
+                }
+            });
+        }
+        return Lists.newArrayList();
     }
 
     @Override
