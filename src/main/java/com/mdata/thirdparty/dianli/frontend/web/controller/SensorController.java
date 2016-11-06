@@ -7,10 +7,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
-import com.mdata.thirdparty.dianli.frontend.beans.Menu;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
-import com.mdata.thirdparty.dianli.frontend.web.services.system.IMenuService;
-import org.apache.catalina.manager.util.SessionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -19,11 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -67,9 +69,10 @@ public class SensorController {
     @RequestMapping("/data/tables")
     public ModelAndView tables(HttpSession session){
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        String userName=(String)session.getAttribute("userName");
         String today=DateFormatUtils.format(new Date(),"yyyy-MM-dd");
-        Integer sensorCount= sensorService.getSensorDatasByDay(today);
-        List<Map<String, Object>> sensorTrees=sensorService.listSensorTree();
+        Integer sensorCount= sensorService.getSensorDatasByDay(userName,today);
+        List<Map<String, Object>> sensorTrees=sensorService.listSensorTree(userName);
           Integer pageSize=  sensorCount/perPageSize+(sensorCount%perPageSize >0?1:0);
         modelAndView.getModel().put("sensorPageSize",pageSize);
         modelAndView.getModel().put("sensorTrees",sensorTrees);
@@ -79,19 +82,20 @@ public class SensorController {
     }
     @RequestMapping(value = "/data/sensordata",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public Map<String,String> sensordata(Integer startPage,@RequestParam(name="sensorName",required = false) String sensorName){
+    public Map<String,String> sensordata(Integer startPage,HttpSession session,@RequestParam(name="sensorName",required = false) String sensorName){
         String day=DateFormatUtils.format(new Date(),"yyyy-MM-dd");
+        String userName=(String)session.getAttribute("userName");
         List<Map<String,Object>> datas=Lists.newArrayList();
         Integer sensorCount=0;
         Integer pageSize=0;
         Map<String,String> result= Maps.newHashMap();
         if(StringUtils.isNotEmpty(sensorName)){
-            datas=sensorService.getSensorDatasByDayAndPageAndSName(day,sensorName,startPage,perPageSize);
-            sensorCount= sensorService.getSensorDatasByDayAndSName(day,sensorName);
+            datas=sensorService.getSensorDatasByDayAndPageAndSName(day,sensorName,userName,startPage,perPageSize);
+            sensorCount= sensorService.getSensorDatasByDayAndSName(day,sensorName,userName);
         }
        else {
-           datas =sensorService.getSensorDatasByDayAndPage(day,startPage,perPageSize);
-             sensorCount= sensorService.getSensorDatasByDay(day);
+           datas =sensorService.getSensorDatasByDayAndPage(day,userName,startPage,perPageSize);
+             sensorCount= sensorService.getSensorDatasByDay(day,userName);
 
         }
          pageSize=  sensorCount/perPageSize+(sensorCount%perPageSize >0?1:0);

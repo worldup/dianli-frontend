@@ -13,6 +13,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.*;
@@ -150,7 +151,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 if (min != 0d) {
                     BigDecimal bmax=BigDecimal.valueOf(max);
                     BigDecimal bmin=BigDecimal.valueOf(min);
-                    value=  bmax.subtract(bmin).multiply(new BigDecimal(100)).divide(bmin,BigDecimal.ROUND_HALF_UP).setScale(2).doubleValue();
+                    value=  bmax.subtract(bmin).multiply(new BigDecimal(100)).divide(bmax,BigDecimal.ROUND_HALF_UP).setScale(2).doubleValue();
                 }
                 result.put("days", days);
                 result.put("value", String.valueOf(value));
@@ -205,18 +206,49 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
 
         List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{tSid, hSid}, new ColumnMapRowMapper());
         Map<String,List<Map<String,Object>>> result=Maps.newHashMap();
-        result.put("tSid",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+        List<Map<String,Object>> tSidList=FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
             @Override
             public boolean apply(Map<String, Object> input) {
                 return input.get("sid").equals(tSid);
             }
-        }).toList());
-        result.put("hSid",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+        }).toList();
+       // result.put("tSid",tSidList);
+        List<Map<String,Object>>hSidList=FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
             @Override
             public boolean apply(Map<String, Object> input) {
                 return input.get("sid").equals(hSid);
             }
-        }).toList());
+        }).toList();
+        final Map<String,BigDecimal> hDayResult=Maps.newHashMap();
+        if(CollectionUtils.isNotEmpty(hSidList)){
+            for(Map<String,Object> map:hSidList){
+                String days=MapUtils.getString(map,"days");
+                BigDecimal v=BigDecimal.valueOf(MapUtils.getDoubleValue(map,"savg"));
+                hDayResult.put(days,v);
+            }
+        }
+       // result.put("hSid",hSidList);
+
+       result.put("tSid", Lists.transform(tSidList, new Function<Map<String,Object>, Map<String,Object>>() {
+
+            @Override
+            public Map<String, Object> apply(Map<String, Object> input) {
+                Map<String,Object> rMap=Maps.newHashMap();
+                String days=MapUtils.getString(input,"days");
+                rMap.put("days",days);
+                rMap.put("sid",input.get("sid"));
+                BigDecimal tv=BigDecimal.valueOf(MapUtils.getDoubleValue(input,"savg"));
+                BigDecimal cv=BigDecimal.valueOf(MapUtils.getDoubleValue(hDayResult,days,0d));
+                if(cv.doubleValue()!=0d){
+                    rMap.put("savg", String.valueOf(tv.multiply(new BigDecimal(100)).divide(cv,BigDecimal.ROUND_HALF_UP).setScale(2).doubleValue()));
+                }
+                else{
+                    rMap.put("savg", "0");
+
+                }
+                return rMap;
+            }
+        }));
         return result;
     }
 
@@ -248,7 +280,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         });
         return result;
     }
-    public List<Map<String,Object>> getSensorDatasByDayAndPage(String day,int startPage,Integer limit){
+    public List<Map<String,Object>> getSensorDatasByDayAndPage(String day,String userName,int startPage,Integer limit){
         String sql="select t.sid,t.idx,s.name,t.days,t.update_time,CONCAT(t.sv,ifnull(type.unit,'')) sv,  case   when \n" +
                 "c.type='UpperLimit' and sv>c.value then '异常'\n" +
                 "else '正常'\n" +
@@ -260,33 +292,47 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "on s.key=g.skey  left join T_SENSORS_GROUP_ALERT_CONF c \n" +
                 "on g.key=c.group_key\n" +
                 " where   t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
-                "\tand t.sid=e.sid and t.idx=e.idx  \n" +
-                " )   and t.days =DATE_FORMAT(now(),'%Y-%m-%d') \n" +
+                " and t.sid=e.sid and t.idx=e.idx  \n" +
+                " ) and t.sid in (select  s.sid from    T_SENSORS_GROUP  g ,group_authorities ga,t_sensors s ,group_members gm\n" +
+                "where  authority like 'sensorgroup:%'\n" +
+                "and CONCAT('sensorgroup:',g.key)=ga.authority\n" +
+                "and s.`key` in( select skey from t_sensors_group tmpg where tmpg.parentkey=g.key\n" +
+                "and gm.group_id=ga.group_id\n" +
+                "and gm.username=?\n" +
+                "))  and t.days =DATE_FORMAT(now(),'%Y-%m-%d') \n" +
                 "limit ?,?";
         int startIdx=(startPage-1)*limit;
         int endIdx=limit;
-       return  jdbcTemplate.query(sql,new Object[]{startIdx,endIdx},new ColumnMapRowMapper());
+       return  jdbcTemplate.query(sql,new Object[]{userName,startIdx,endIdx},new ColumnMapRowMapper());
     }
-    public List<Map<String,Object>> getSensorDatasByDayAndPageAndSName(String day,String sensorName,int startPage,Integer limit){
+    public List<Map<String,Object>> getSensorDatasByDayAndPageAndSName(String day,String sensorName,String groupId,int startPage,Integer limit){
         String sql="select t.sid,t.idx,s.name,t.days,t.update_time,CONCAT(t.sv,ifnull(type.unit,'')) sv,  case   when \n" +
-                "c.type='UpperLimit' and sv>c.value then '异常'\n" +
-                "else '正常'\n" +
-                "end status,\n" +
-                "t.tmax,t.tmin,c.value from t_sensor_data  t inner join T_SENSORS s\n" +
-                "on t.sid=s.sid \n" +
-                "left join T_SENSORS_TYPE type on s.type=type.type\n" +
-                "left join T_SENSORS_GROUP g \n" +
-                "on s.key=g.skey  left join T_SENSORS_GROUP_ALERT_CONF c \n" +
-                "on g.key=c.group_key\n" +
-                " where  t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
-                "\tand t.sid=e.sid and t.idx=e.idx \n" +
-                " )  and t.days =DATE_FORMAT(now(),'%Y-%m-%d')  and s.name like '%"+sensorName+"%' \n" +
+                "               c.type='UpperLimit' and sv>c.value then '异常' \n" +
+                "                else '正常' \n" +
+                "                end status, \n" +
+                "                t.tmax,t.tmin,c.value from t_sensor_data  t inner join T_SENSORS s \n" +
+                "                on t.sid=s.sid \n" +
+                "                left join T_SENSORS_TYPE type on s.type=type.type \n" +
+                "                left join T_SENSORS_GROUP g  \n" +
+                "                on s.key=g.skey  left join T_SENSORS_GROUP_ALERT_CONF c  \n" +
+                "                on g.key=c.group_key \n" +
+                "                 where  t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days \n" +
+                "                and t.sid=e.sid and t.idx=e.idx  \n" +
+                "                 )  and t.days =DATE_FORMAT(now(),'%Y-%m-%d')\n" +
+                "                 and t.sid in (select  s.sid from    T_SENSORS_GROUP  g ,group_authorities ga,t_sensors s ,group_members gm\n" +
+                "where  authority like 'sensorgroup:%'\n" +
+                "and CONCAT('sensorgroup:',g.key)=ga.authority\n" +
+                "and s.`key` in( select skey from t_sensors_group tmpg where tmpg.parentkey=g.key\n" +
+                "and gm.group_id=ga.group_id\n" +
+                "and gm.username=?\n" +
+                ")) and " +
+                "s.name like '%"+sensorName+"%' \n" +
                 "limit ?,?";
         int startIdx=(startPage-1)*limit;
         int endIdx=limit;
-        return  jdbcTemplate.query(sql,new Object[]{startIdx,endIdx},new ColumnMapRowMapper());
+        return  jdbcTemplate.query(sql,new Object[]{groupId,startIdx,endIdx},new ColumnMapRowMapper());
     }
-    public Integer getSensorDatasByDay(String day){
+    public Integer getSensorDatasByDay(String userName,String day){
         /*String sql="select count(1) from t_sensor_data  t inner join T_SENSORS s\n" +
                 "on t.sid=s.sid\n" +
                 " where t.days=? \n" +
@@ -298,18 +344,30 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "on t.sid=s.sid\n" +
                 " where  t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
                 "\tand t.sid=e.sid and t.idx=e.idx \n" +
-                " )  and t.days =? \n" ;
-        return jdbcTemplate.queryForObject(sql,new Object[]{ day},Integer.class);
+                " ) and t.sid in(select  s.sid from    T_SENSORS_GROUP  g ,group_authorities ga,t_sensors s ,group_members gm\n" +
+                "where  authority like 'sensorgroup:%'\n" +
+                "and CONCAT('sensorgroup:',g.key)=ga.authority\n" +
+                "and s.`key` in( select skey from t_sensors_group tmpg where tmpg.parentkey=g.key\n" +
+                "and gm.group_id=ga.group_id\n" +
+                "and gm.username=?\n" +
+                ")) and t.days =? \n" ;
+        return jdbcTemplate.queryForObject(sql,new Object[]{ userName,day},Integer.class);
     }
-    public Integer getSensorDatasByDayAndSName(String day,String sensorName){
+    public Integer getSensorDatasByDayAndSName(String day,String sensorName,String userName){
         String sql="select count(1) from t_sensor_data  t inner join T_SENSORS s\n" +
                 "on t.sid=s.sid\n" +
-                " where t.days=? \n" +
+                " where t.sid in(select  s.sid from    T_SENSORS_GROUP  g ,group_authorities ga,t_sensors s ,group_members gm\n" +
+                "where  authority like 'sensorgroup:%'\n" +
+                "and CONCAT('sensorgroup:',g.key)=ga.authority\n" +
+                "and s.`key` in( select skey from t_sensors_group tmpg where tmpg.parentkey=g.key\n" +
+                "and gm.group_id=ga.group_id\n" +
+                "and gm.username=?\n" +
+                ")) and  t.days=? \n" +
                 "\n" +
                 " and t.tmax =(select max(tmax) from t_sensor_data e where t.days=e.days\n" +
                 "\tand t.sid=e.sid and t.idx=e.idx  \n" +
                 " )   and s.name like '%"+sensorName+"%' \n" ;
-        return jdbcTemplate.queryForObject(sql,new Object[]{day},Integer.class);
+        return jdbcTemplate.queryForObject(sql,new Object[]{userName,day},Integer.class);
     }
     public Map<String, Object> getSensorInfo(String sid) {
         String sql = "select * from t_sensors where sid=?";
@@ -319,12 +377,13 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     public void insertSensorValues(List<SensorData> sensorDatas) throws Exception {
         if (CollectionUtils.isNotEmpty(sensorDatas)) {
             for (SensorData sensorData : sensorDatas) {
-                insertSensorValue(sensorData);
-                insertSensorWarning(sensorData);
+                boolean needChgWarningInsert=insertSensorValue(sensorData);
+                insertSensorWarning(sensorData,needChgWarningInsert);
             }
         }
     }
-    private void insertSensorWarning(SensorData sensorData){
+    //如果传感器值变化超过10%，也需要告警
+    private void insertSensorWarning(SensorData sensorData,boolean needChgRateWarning){
        String sid= sensorData.getSid();
        double val= sensorData.getSv();
        List<Map<String,Object>>  warningConfList=sensorWarningConfCache.getIfPresent(sid);
@@ -333,6 +392,9 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             if(warningConfList!=null){
                 sensorWarningConfCache.put(sid,warningConfList);
             }
+        }
+        if(needChgRateWarning){
+            updateSensorWarning(sensorData,"传感器变化幅度过快，超过10%");
         }
         if(CollectionUtils.isNotEmpty(warningConfList)){
             for(Map<String,Object> map:warningConfList){
@@ -355,7 +417,8 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     }
     final String insertSensorDataSql = "insert into t_sensor_data(sid,idx,days,sv,tmax,tmin,create_time) values(?,?,?,?,?,?,now())";
 
-    public void insertSensorValue(final SensorData sensorData) throws  Exception {
+    public boolean insertSensorValue(final SensorData sensorData) throws  Exception {
+        boolean needChgWarningInsert=false;
         final String sid = sensorData.getSid();
         final int idx = sensorData.getIdx();
         final String sensorCacheTimeKey= sid+"@"+idx;
@@ -363,7 +426,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         long now=new Date().getTime();
         //5分钟采集一次
         if(lastCacheTime!=null&&now-lastCacheTime<300000){
-            return ;
+            return false ;
         }
         else{
             sensorDateCache.put(sensorCacheTimeKey,now);
@@ -378,6 +441,10 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         final String day = FastDateFormat.getInstance("yyyy-MM-dd").format(date);
         final String cacheKey = sid + "@@" + idx + "@@" + day;
         final SensorData cachedData = lastSensorCache.getIfPresent(cacheKey);
+        if(cachedData!=null){
+            needChgWarningInsert = needChgWarningInsert(sv,cachedData.getSv());
+        }
+
         if (cachedData != null && !needInsert(sv , cachedData.getSv())) {
             jdbcTemplate.update("update t_sensor_data set tmax=? ,count=count+1 where id=? ", new Object[]{times, cachedData.getId()});
         } else {
@@ -498,6 +565,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
 
             });
         }
+        return needChgWarningInsert;
     }
 
 
@@ -666,8 +734,26 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             }
         }
     }
-public List<Map<String, Object>> listSensorTree(){
-     List<Map<String,Object>> sensorLists=   jdbcTemplate.query("select `key`,isparent,name,skey,parentkey from t_sensors_group",new Object[]{},new ColumnMapRowMapper());
+    //添加告警控制，如果变化率超过10%告警
+    static final double chgWarningRate=10;
+    private boolean needChgWarningInsert(double cur,double pre){
+            if(pre!=0d ){
+                return Math.abs((cur-pre)/pre)>chgWarningRate;
+            }
+             return false;
+
+    }
+public List<Map<String, Object>> listSensorTree(String userName){
+     List<Map<String,Object>> sensorLists=   jdbcTemplate.query("select `key`,isparent,name,skey,parentkey from t_sensors_group where parentkey in (\n" +
+             "select `key` from t_sensors_group g ,group_authorities ga\n" +
+             " ,group_members gm where CONCAT('sensorgroup:',g.key)=ga.authority \n" +
+             "and gm.group_id=ga.group_id\n" +
+             "and gm.username=?\n" +
+             ")or parentkey ='-1' union  \n" +
+             "select `key`,isparent,name,skey,parentkey from t_sensors_group g ,group_authorities ga\n" +
+             " ,group_members gm where CONCAT('sensorgroup:',g.key)=ga.authority \n" +
+             "and gm.group_id=ga.group_id\n" +
+             "and gm.username=?",new Object[]{userName,userName},new ColumnMapRowMapper());
      final Map<String,Object> rootNode=FluentIterable.from(sensorLists).filter(new Predicate<Map<String, Object>>() {
          @Override
          public boolean apply(Map<String, Object> input) {

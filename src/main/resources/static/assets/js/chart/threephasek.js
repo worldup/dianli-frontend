@@ -24,7 +24,7 @@ $(document).ready(function() {
 
                     title: {
                         text: sName,
-                        subtext:'注：不平衡度为(max(A,B,C)-min(A,B,C))/min(A,B,C)*100' ,
+                        subtext:'注：不平衡度为(max(A,B,C)-min(A,B,C))/max(A,B,C)*100' ,
                         x: 'center',
                         align: 'right'
                     },
@@ -64,7 +64,7 @@ $(document).ready(function() {
                             show: false
                         },
                         min:0,
-                        max:500
+                        max:100
                     },
                     dataZoom: [
                         {
@@ -86,7 +86,7 @@ $(document).ready(function() {
                         markLine:{
                             data:[{
                                 name: '阈值',
-                                yAxis: 100
+                                yAxis: 15
                             }]
                         },
                         data: data.value

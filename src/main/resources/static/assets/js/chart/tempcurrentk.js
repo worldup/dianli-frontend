@@ -14,21 +14,17 @@ $(document).ready(function() {
     $.get("/sensor/tempcurrentk/list",{tSid:tSid,hSid:hSid},function(result){
         var data={};
         data.tSid=result.tSid;
-        data.hSid=result.hSid;
+
 
         data.tSid.days=[];
-        data.hSid.days=[];
+
 
         data.tSid.data=[];
-        data.hSid.data=[];
+
 
         for(var i=0;i<data.tSid.length;i++){
             data.tSid.days.push(data.tSid[i].days);
             data.tSid.data.push(data.tSid[i].savg);
-        }
-        for(var i=0;i<data.hSid.length;i++){
-            data.hSid.days.push(data.hSid[i].days);
-            data.hSid.data.push(data.hSid[i].savg);
         }
 
        var  option = {
@@ -55,8 +51,7 @@ $(document).ready(function() {
                 }
             },
             legend: {
-                data:[{name:'温度'},
-                    {name:'电流'},{name:'温度1'},{name:'电流1'}],
+                data:[{name:'温度电流比'}],
                 x: 'left'
             },
             dataZoom: [
@@ -97,41 +92,11 @@ $(document).ready(function() {
                         }
                     },
                     data :  data.tSid.days
-                },
-                {
-                    type : 'category',
-                    boundaryGap : false,
-                    splitLine: {
-                        show: false
-                    },
-                    axisLine: {onZero: false},
-                    axisLabel:{
-                        interval:0 ,
-                        rotate:45,
-                        formatter:function(val){
-                            if(val){
-                                var tmp= val.split("-");
-                                if(tmp[2]%5==0){
-                                    return val;
-                                }
-                            }
-
-                            return  "";
-                        }
-                    },
-                    data : data.hSid.days
                 }
             ],
             yAxis: [
                 {
-                    name: '温度(℃)',
-                    type: 'value',
-                    splitLine: {
-                        show: false
-                    }
-                },
-                {
-                    name: '电流(A)',
+                    name: '温度电流比(%)',
                     type: 'value',
                     splitLine: {
                         show: false
@@ -142,7 +107,7 @@ $(document).ready(function() {
             ],
             series: [
                 {
-                    name:'温度',
+                    name:'温度电流比',
                     type:'line',
                     symbol:'roundRect',
                     hoverAnimation: false,
@@ -164,37 +129,7 @@ $(document).ready(function() {
                         symbol: ['none'],
                         data:[{
                             name: '阈值',
-                            yAxis: 28,
-                            scale:true
-                        }]
-                    }
-                },
-                {
-                    name:'电流',
-                    type:'line',
-                    yAxisIndex:1,
-                    symbol:'roundRect',
-                    hoverAnimation: false,
-                    lineStyle:{
-                       normal:{
-                           color:'#FF3300'
-                       }
-                    },
-                    data:  data.hSid.data,
-                    markPoint:{
-                        data:[{
-                            name: '最高值',
-                            symbolSize:[70,40],
-                            // 支持 'average', 'min', 'max'
-                            type: 'max'
-                        },]
-                    },
-                    markLine:{
-
-                        symbol: ['none'],
-                        data:[{
-                            name: '阈值',
-                            yAxis: 40,
+                            yAxis: 50,
                             scale:true
                         }]
                     }

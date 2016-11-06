@@ -31,6 +31,7 @@ public class AuthController {
     public ModelAndView home( HttpSession session) {
 
         Integer tenantId=(Integer)session.getAttribute("tenantId");
+        String userName=(String)session.getAttribute("userName");
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
 
 
@@ -50,8 +51,8 @@ public class AuthController {
         }
         else if(tenantId==2){
             String today= DateFormatUtils.format(new Date(),"yyyy-MM-dd");
-            Integer sensorCount= sensorService.getSensorDatasByDay(today);
-            List<Map<String, Object>> sensorTrees=sensorService.listSensorTree();
+            Integer sensorCount= sensorService.getSensorDatasByDay(userName,today);
+            List<Map<String, Object>> sensorTrees=sensorService.listSensorTree(userName);
             Integer pageSize=  sensorCount/perPageSize+(sensorCount%perPageSize >0?1:0);
             modelAndView.getModel().put("sensorPageSize",pageSize);
             modelAndView.getModel().put("sensorTrees",sensorTrees);

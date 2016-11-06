@@ -57,9 +57,10 @@ $(document).ready(function() {
                     animation: false
                 }
             },
+           color:["#CCFFCC","#99CC66","#FFCCCC","#FF6666"],
             legend: {
-                data:[{name:'温度'},
-                    {name:'湿度'},{name:'温度1'},{name:'湿度1'}],
+                data:[{name:'冷凝温度'},
+                    {name:'冷凝湿度'},{name:'加热温度'},{name:'加热湿度'}],
                 x: 'left'
             },
             dataZoom: [
@@ -191,10 +192,11 @@ $(document).ready(function() {
             ],
             series: [
                 {
-                    name:'温度',
+                    name:'冷凝温度',
                     type:'line',
-                    symbol:'roundRect',
+                    smooth:'true',
                     hoverAnimation: false,
+                    showSymbol:false,
                     data: data.tSid.data,
                     markPoint:{
                         data:[{
@@ -205,28 +207,20 @@ $(document).ready(function() {
                     },
                     lineStyle:{
                         normal:{
-                            color:'#009966'
+                            color:'#CCFFCC'
                         }
-                    },
-                    markLine:{
-
-                        symbol: ['none'],
-                        data:[{
-                            name: '阈值',
-                            yAxis: 28,
-                            scale:true
-                        }]
                     }
                 },
                 {
-                    name:'湿度',
+                    name:'冷凝湿度',
                     type:'line',
+                    smooth:'true',
                     yAxisIndex:1,
-                    symbol:'roundRect',
+                    showSymbol:false,
                     hoverAnimation: false,
                     lineStyle:{
                        normal:{
-                           color:'#FF3300'
+                           color:'#99CC66'
                        }
                     },
                     data:  data.hSid.data,
@@ -237,21 +231,14 @@ $(document).ready(function() {
                             // 支持 'average', 'min', 'max'
                             type: 'max'
                         },]
-                    },
-                    markLine:{
-
-                        symbol: ['none'],
-                        data:[{
-                            name: '阈值',
-                            yAxis: 58,
-                            scale:true
-                        }]
                     }
                 },
                 {
-                    name:'温度1',
+                    name:'加热温度',
                     type:'line',
+                    smooth:'true',
                     hoverAnimation: false,
+                    showSymbol:false,
                     data: data.tSid1.data,
                     markPoint:{
                         data:[{
@@ -262,27 +249,20 @@ $(document).ready(function() {
                     },
                     lineStyle:{
                         normal:{
-                            color:'#00CC99'
+                            color:'#FFCCCC'
                         }
-                    },
-                    markLine:{
-
-                        symbol: ['none'],
-                        data:[{
-                            name: '阈值',
-                            yAxis: 28,
-                            scale:true
-                        }]
                     }
                 },
                 {
-                    name:'湿度1',
+                    name:'加热湿度',
                     type:'line',
+                    smooth:'true',
                     yAxisIndex:1,
+                    showSymbol:false,
                     hoverAnimation: false,
                     lineStyle:{
                         normal:{
-                            color:'#FFCCCC'
+                            color:'#FF6666'
                         }
                     },
                     data:  data.hSid1.data,
@@ -293,15 +273,6 @@ $(document).ready(function() {
                             // 支持 'average', 'min', 'max'
                             type: 'max'
                         },]
-                    },
-                    markLine:{
-
-                        symbol: ['none'],
-                        data:[{
-                            name: '阈值',
-                            yAxis: 58,
-                            scale:true
-                        }]
                     }
                 }
             ]

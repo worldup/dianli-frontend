@@ -26,19 +26,19 @@ public interface SensorService {
       Map<String,Map<String,Object>> getSensorDays(String day);
       Map<String,Object> getSensorInfo(String sid);
       void insertSensorValues(List<SensorData> sensorDatas) throws Exception;
-      void insertSensorValue(SensorData sensorData) throws Exception;
+      boolean  insertSensorValue(SensorData sensorData) throws Exception;
       List<Corporate> getAllCorporate(int tenantId);
       List<Map<String,String>> getThreephaseSids(String userName );
       List<Map<String,String>> getTempCurrentSids(String userName );
       List<Map<String,String>> getTemperatureSids(String userName );
-      List<Map<String,Object>> getSensorDatasByDayAndPage(String day,int startPage,Integer limit);
-      Integer getSensorDatasByDay(String day);
-      List<Map<String,Object>> getSensorDatasByDayAndPageAndSName(String day,String sensorName,int startPage,Integer limit);
-      Integer getSensorDatasByDayAndSName(String day,String sensorName);
+      List<Map<String,Object>> getSensorDatasByDayAndPage(String day,String userName,int startPage,Integer limit);
+      Integer getSensorDatasByDay(String userName,String day);
+      List<Map<String,Object>> getSensorDatasByDayAndPageAndSName(String day,String sensorName,String userName,int startPage,Integer limit);
+      Integer getSensorDatasByDayAndSName(String day,String sensorName,String userName);
       Integer getWarningDatasCount();
       List<Map<String,Object>> getWarningDatas(int startPage,Integer limit);
       //获取传感器告警配置
       List<Map<String,Object>> getSensorWarningConf(String sid);
-      List<Map<String, Object>> listSensorTree();
+      List<Map<String, Object>> listSensorTree(String userName);
 
 }
