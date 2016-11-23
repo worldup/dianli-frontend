@@ -35,8 +35,8 @@ public interface SensorService {
       Integer getSensorDatasByDay(String userName,String day);
       List<Map<String,Object>> getSensorDatasByDayAndPageAndSName(String day,String sensorName,String userName,int startPage,Integer limit);
       Integer getSensorDatasByDayAndSName(String day,String sensorName,String userName);
-      Integer getWarningDatasCount();
-      List<Map<String,Object>> getWarningDatas(int startPage,Integer limit);
+      Integer getWarningDatasCount(String userName);
+      List<Map<String,Object>> getWarningDatas(int startPage,Integer limit,String userName);
       //获取传感器告警配置
       List<Map<String,Object>> getSensorWarningConf(String sid);
       List<Map<String, Object>> listSensorTree(String userName);

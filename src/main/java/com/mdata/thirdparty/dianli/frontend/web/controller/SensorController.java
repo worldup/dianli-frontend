@@ -131,7 +131,8 @@ public class SensorController {
     @RequestMapping("/data/warning")
     public ModelAndView warning(HttpSession session){
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
-        Integer warningCount= sensorService.getWarningDatasCount();
+        String userName=(String)session.getAttribute("userName");
+        Integer warningCount= sensorService.getWarningDatasCount(userName);
         Integer pageSize=  warningCount/perPageSize+(warningCount%perPageSize >0?1:0);
         modelAndView.getModel().put("sensorPageSize",pageSize);
         modelAndView.setViewName( "/data/warning");
@@ -140,13 +141,13 @@ public class SensorController {
     }
     @RequestMapping(value = "/data/warningdata",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public Map<String,String> warningdata(Integer startPage){
+    public Map<String,String> warningdata(Integer startPage,HttpSession session){
         String day=DateFormatUtils.format(new Date(),"yyyy-MM-dd");
         List<Map<String,Object>> datas=Lists.newArrayList();
         Map<String,String> result= Maps.newHashMap();
-
-            datas =sensorService.getWarningDatas(startPage,perPageSize);
-            Integer warningCount= sensorService.getWarningDatasCount();
+        String userName=(String)session.getAttribute("userName");
+            datas =sensorService.getWarningDatas(startPage,perPageSize,userName);
+            Integer warningCount= sensorService.getWarningDatasCount(userName);
 
         Integer pageSize=  warningCount/perPageSize+(warningCount%perPageSize >0?1:0);
         final AtomicInteger idx=new AtomicInteger(0);

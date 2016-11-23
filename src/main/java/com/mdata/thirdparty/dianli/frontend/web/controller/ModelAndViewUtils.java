@@ -2,6 +2,7 @@ package com.mdata.thirdparty.dianli.frontend.web.controller;
 
 import com.mdata.thirdparty.dianli.frontend.beans.Menu;
 import com.mdata.thirdparty.dianli.frontend.beans.TenantLayout;
+import com.mdata.thirdparty.dianli.frontend.web.services.sensor.SensorService;
 import com.mdata.thirdparty.dianli.frontend.web.services.system.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import java.util.Map;
 public class ModelAndViewUtils {
     @Autowired
     private IMenuService menuService;
+    @Autowired
+    private SensorService sensorService;
     public ModelAndView newInstance(HttpSession session){
 
         Integer tenantId=(Integer)session.getAttribute("tenantId");
@@ -29,7 +32,7 @@ public class ModelAndViewUtils {
         Map<String,Object> model=modelAndView.getModel();
         List<Menu> menus=menuService.listAllMenu(tenantId,userName);
         TenantLayout tenantLayout=menuService.getTenantLayoutById(tenantId);
-        Integer warningCount=menuService.getSensorWarningCount();
+        Integer warningCount=sensorService.getWarningDatasCount(userName);
         model.put("menus",menus);
         model.put("warningCount",warningCount);
          String     layoutTitle=tenantLayout.getTitle();

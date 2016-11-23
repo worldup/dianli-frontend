@@ -12,7 +12,7 @@ function showSensorPage(page,sensorName){
     }
     $.post(dataUrl,data,function(result){
         $("#databody").html(result.data);
-        initPagination(result.pageSize);
+      //  initPagination(result.pageSize);
     });
 
 }

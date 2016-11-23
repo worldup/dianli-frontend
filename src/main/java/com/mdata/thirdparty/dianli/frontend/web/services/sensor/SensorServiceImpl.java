@@ -161,7 +161,45 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
 
         return resultMapper;
     }
+       //获取所有的天数信息
+        private  List<String > getAllSensorDays(List<Map<String,Object>> sensorsResultMap){
+            Set<String> result=  Sets.newHashSet();
+            if(CollectionUtils.isNotEmpty(sensorsResultMap)){
+                for(Map<String,Object> map:sensorsResultMap){
+                    result.add(map.get("days").toString());
+                }
+            }
+            List<String> rr=Lists.newArrayList(result);
+              Collections.sort(rr);
+            return rr;
+        }
 
+        private List<Map<String,Object>> fillMap(List<Map<String,Object>> map,List<String> allDays){
+            List<Map<String,Object>> result= Lists.newArrayList();
+            for(String day:allDays){
+                if(CollectionUtils.isNotEmpty(map)){
+                    boolean bingo=false;
+                    Object sid="";
+                    for(Map<String,Object> tmp:map){
+                        sid=tmp.get("sid");
+                        if(tmp.get("days").equals(day)){
+                            result.add(tmp);
+                            bingo=true;
+                            continue;
+                        }
+                    }
+                    if(!bingo){
+                      Map<String,Object> tmp=Maps.newHashMap();
+                        tmp.put("sid",sid);
+                        tmp.put("days",day);
+                        tmp.put("savg","0");
+                        result.add(tmp);
+                    }
+                }
+
+            }
+            return result;
+        }
     @Override
     public Map<String,List<Map<String, Object>>> getTempHumData(final String tSid, final String hSid, final  String tSid1, final String hSid1) {
         String sql = "SELECT sid,format( savg,2) savg, days FROM t_sensor_days\n" +
@@ -170,31 +208,32 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "\t\tAND idx = '0'";
 
         List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{tSid, hSid,tSid1,hSid1}, new ColumnMapRowMapper());
+        List<String> allDays=getAllSensorDays(resultMapper);
         Map<String,List<Map<String,Object>>> result=Maps.newHashMap();
-         result.put("tSid",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+         result.put("tSid",fillMap(FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
              @Override
              public boolean apply(Map<String, Object> input) {
                  return input.get("sid").equals(tSid);
              }
-         }).toList());
-        result.put("hSid",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+         }).toList(),allDays));
+        result.put("hSid",fillMap(FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
             @Override
             public boolean apply(Map<String, Object> input) {
                 return input.get("sid").equals(hSid);
             }
-        }).toList());
-        result.put("tSid1",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+        }).toList(),allDays));
+        result.put("tSid1",fillMap(FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
             @Override
             public boolean apply(Map<String, Object> input) {
                 return input.get("sid").equals(tSid1);
             }
-        }).toList());
-        result.put("hSid1",FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+        }).toList(),allDays));
+        result.put("hSid1",fillMap(FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
             @Override
             public boolean apply(Map<String, Object> input) {
                 return input.get("sid").equals(hSid1);
             }
-        }).toList());
+        }).toList(),allDays));
         return result;
     }
     @Override
@@ -299,7 +338,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "and s.`key` in( select skey from t_sensors_group tmpg where tmpg.parentkey=g.key\n" +
                 "and gm.group_id=ga.group_id\n" +
                 "and gm.username=?\n" +
-                "))  and t.days =DATE_FORMAT(now(),'%Y-%m-%d') \n" +
+                "))  and t.days =DATE_FORMAT(now(),'%Y-%m-%d') order by s.name \n" +
                 "limit ?,?";
         int startIdx=(startPage-1)*limit;
         int endIdx=limit;
@@ -326,7 +365,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "and gm.group_id=ga.group_id\n" +
                 "and gm.username=?\n" +
                 ")) and " +
-                "s.name like '%"+sensorName+"%' \n" +
+                "s.name like '%"+sensorName+"%' order by s.name  \n" +
                 "limit ?,?";
         int startIdx=(startPage-1)*limit;
         int endIdx=limit;
@@ -665,12 +704,17 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         return Lists.newArrayList();
     }
     @Override
-    public Integer getWarningDatasCount(){
-        String sql="select count(1) from t_warning where status <>1 and end_time >DATE_ADD(now(),INTERVAL -2 month) ";
-        return jdbcTemplate.queryForObject(sql,new Object[]{},Integer.class);
+    public Integer getWarningDatasCount(String userName){
+        String sql="select count(1) from t_warning where status <>1 and end_time >DATE_ADD(now(),INTERVAL -2 month) and sid in( select  s.sid from    T_SENSORS_GROUP  g ,group_authorities ga,t_sensors s ,group_members gm\n" +
+                "               where  authority like 'sensorgroup:%' \n" +
+                "               and CONCAT('sensorgroup:',g.key)=ga.authority \n" +
+                "                and s.`key` in( select skey from t_sensors_group tmpg where tmpg.parentkey=g.key   \n" +
+                "              and gm.group_id=ga.group_id \n" +
+                "               and gm.username= ?))";
+        return jdbcTemplate.queryForObject(sql,new Object[]{userName},Integer.class);
     }
     @Override
-   public List<Map<String,Object>> getWarningDatas(int startPage,Integer limit){
+   public List<Map<String,Object>> getWarningDatas(int startPage,Integer limit,String userName){
         String sql="SELECT\n" +
                 "w.id,w.count,w.content,w.begin_time,w.end_time,\n" +
                 "case \n" +
@@ -681,12 +725,17 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 "t_warning  w left join t_sensors  s on w.sid=s.sid\n" +
                 "WHERE\n" +
                 "w.STATUS <> 1\n" +
-                "AND w.end_time > DATE_ADD(now(), INTERVAL -2 MONTH)\n" +
+                "AND w.end_time > DATE_ADD(now(), INTERVAL -2 MONTH) and w.sid in ( select  s.sid from    T_SENSORS_GROUP  g ,group_authorities ga,t_sensors s ,group_members gm\n" +
+                "               where  authority like 'sensorgroup:%' \n" +
+                "               and CONCAT('sensorgroup:',g.key)=ga.authority \n" +
+                "                and s.`key` in( select skey from t_sensors_group tmpg where tmpg.parentkey=g.key   \n" +
+                "              and gm.group_id=ga.group_id \n" +
+                "               and gm.username= ?))\n" +
                 "ORDER BY\n" +
                 "w.end_time DESC limit ?,? ";
         int startIdx=(startPage-1)*limit;
         int endIdx=limit;
-       List<Map<String,Object>>  result= jdbcTemplate.query(sql,new Object[]{startIdx,endIdx},new ColumnMapRowMapper());
+       List<Map<String,Object>>  result= jdbcTemplate.query(sql,new Object[]{userName,startIdx,endIdx},new ColumnMapRowMapper());
         if(CollectionUtils.isNotEmpty(result)){
             return result;
         }

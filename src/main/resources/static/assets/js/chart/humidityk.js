@@ -34,6 +34,7 @@ $(document).ready(function() {
             data.hSid1.days.push(data.hSid1[i].days);
             data.hSid1.data.push(data.hSid1[i].savg);
         }
+ 
        var  option = {
             title : {
                 text: '温湿控效率日K线',
