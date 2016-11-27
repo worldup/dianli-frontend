@@ -25,6 +25,7 @@ public interface SensorService {
       Map<String,List<Map<String, Object>>> getTempCurrentData(String tSid,String hSid);
       Map<String,Map<String,Object>> getSensorDays(String day);
       Map<String,Object> getSensorInfo(String sid);
+      Map<String, Object> getSensorInfoExt(String sid);
       void insertSensorValues(List<SensorData> sensorDatas) throws Exception;
       boolean  insertSensorValue(SensorData sensorData) throws Exception;
       List<Corporate> getAllCorporate(int tenantId);

@@ -40,6 +40,8 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     Cache<String, TSensorDays> sensorDaysCache;
     Cache<String, List<Map<String,Object>>> sensorWarningConfCache;
     Cache<String,Long> sensorDateCache;
+    Cache<String,String> sensorCache;
+
     static final String listSql = "select * from t_sensors_group where `parentkey`=?";
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -111,7 +113,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     public Map<String,List<String>> getRealDataToday(String sid, String idx) {
         //  String sql = "select    sid,idx,sv,   date_format(tmin,'%y%m%d%H%i') tmin,  date_format(tmax,'%y%m%d%H%i') tmax  from t_sensor_data where sid=? and idx=? and  tmin >DATE_ADD(now(),INTERVAL -1 month)";
         //查询一小时的最高和最低点
-        String sql =  "select    sid,idx, sv,  date_format(tmin,'%H:%i:%s') tmin, date_format(tmax,'%H:%i:%s') tmax from t_sensor_data where sid= ? and idx= ? and  tmax >=date(now()) order by tmax ;" ;
+        String sql =  "select    sid,idx, sv,  date_format(tmin,'%Y-%m-%d %H:%i:%s') tmin, date_format(tmax,'%Y-%m-%d %H:%i:%s') tmax from t_sensor_data where sid= ? and idx= ? and  tmax >= DATE_SUB(date(now()),INTERVAL 6 day) order by tmax ;" ;
 
 
         List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{sid, idx}, new ColumnMapRowMapper());
@@ -413,6 +415,14 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         return jdbcTemplate.queryForMap(sql, sid);
     }
 
+
+    //获取传感器配置及阈值
+    public Map<String, Object> getSensorInfoExt(String sid) {
+        String sql = " select s.*,c.value cvalue from t_sensors  s"  +
+                "    left join t_sensors_group g on s.key=g.skey " +
+                "    left join t_sensors_group_alert_conf c on c.group_key=g.key where  s.sid=?";
+        return jdbcTemplate.queryForMap(sql, sid);
+    }
     public void insertSensorValues(List<SensorData> sensorDatas) throws Exception {
         if (CollectionUtils.isNotEmpty(sensorDatas)) {
             for (SensorData sensorData : sensorDatas) {
@@ -481,11 +491,15 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         final String cacheKey = sid + "@@" + idx + "@@" + day;
         final SensorData cachedData = lastSensorCache.getIfPresent(cacheKey);
         if(cachedData!=null){
+            //添加传感器类型控制
+
             needChgWarningInsert = needChgWarningInsert(sv,cachedData.getSv());
+            needChgWarningInsert=(needChgWarningInsert&isNeededSensorType(sid));
         }
 
         if (cachedData != null && !needInsert(sv , cachedData.getSv())) {
             jdbcTemplate.update("update t_sensor_data set tmax=? ,count=count+1 where id=? ", new Object[]{times, cachedData.getId()});
+
         } else {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(new PreparedStatementCreator() {
@@ -504,9 +518,8 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             }, keyHolder);
             long id = keyHolder.getKey().longValue();
             sensorData.setId(id);
-            lastSensorCache.put(cacheKey, sensorData);
-
         }
+            lastSensorCache.put(cacheKey, sensorData);
           TSensorDays cachedSensorDays = sensorDaysCache.getIfPresent(cacheKey);
         if (cachedSensorDays == null) {
             List<TSensorDays> results = jdbcTemplate.query("select * from t_sensor_days where sid=? and idx=? and days=? limit 1", new Object[]{
@@ -614,6 +627,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         lastSensorCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
         sensorDaysCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
         sensorWarningConfCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
+        sensorCache = CacheBuilder.newBuilder().expireAfterWrite(2L, TimeUnit.DAYS).build();
         sensorDateCache=CacheBuilder.newBuilder().build();
     }
     @Override
@@ -785,6 +799,18 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     }
     //添加告警控制，如果变化率超过10%告警
     static final double chgWarningRate=10;
+    private boolean isNeededSensorType(String sid){
+       String type= sensorCache.getIfPresent(sid);
+       if(type==null) {
+           Map<String, Object> sinfos = getSensorInfo(sid);
+
+           type = MapUtils.getString(sinfos, "type");
+           sensorCache.put(sid, type);
+       }
+       //只有温湿度传感器才告警
+          return (type!=null&&(type.indexOf("Temperature")>0||type.indexOf("Humidity")>0));
+
+    }
     private boolean needChgWarningInsert(double cur,double pre){
             if(pre!=0d ){
                 return Math.abs((cur-pre)/pre)>chgWarningRate;

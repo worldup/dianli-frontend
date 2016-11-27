@@ -189,11 +189,14 @@ public class SensorController {
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         Map<String,Object> model= modelAndView.getModel();
         model.put("sid",sid);
-        Map<String,Object> sMap= sensorService.getSensorInfo(sid);
+        Map<String,Object> sMap= sensorService.getSensorInfoExt(sid);
+        Double cvalue=40d;
         if(sMap!=null){
             sName= MapUtils.getString(sMap,"name","此传感器不存在");
+            cvalue=MapUtils.getDouble(sMap,"cvalue",Double.valueOf(40d));
         }
         model.put("sName",sName);
+        model.put("cvalue",cvalue);
         String userName=(String)session.getAttribute("userName");
         model.put("sids",sensorService.getTemperatureSids(userName));
         modelAndView.setViewName("/chart/temperaturek");

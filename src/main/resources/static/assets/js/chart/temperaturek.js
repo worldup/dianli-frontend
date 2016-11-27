@@ -67,7 +67,7 @@ $(document).ready(function() {
                     splitLine: {
                         show: false
                     },
-                    max:50
+                    max:50>cvalue?50:cvalue
 
                 }
             ],
@@ -103,7 +103,7 @@ $(document).ready(function() {
                         symbol: ['none'],
                         data:[{
                             name: '阈值',
-                            yAxis: 40,
+                            yAxis: cvalue,
                             scale:true
                         }]
                     }
