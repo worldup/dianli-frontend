@@ -658,7 +658,7 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                 public Map<String, String> apply(Map<String, Object> input) {
                     Map<String,String> map=Maps.newHashMap();
                     String sname=MapUtils.getString(input,"sname");
-                    map.put("name",String.valueOf(input.get("sname")));
+                    map.put("name",sname);
                     String pageHref=new StringBuilder("sensor/chart/tempcurrentk.html?tSid=").append(MapUtils.getString(input,"temp_sid")).append("&hSid=").append(MapUtils.getString(input,"current_sid")).append("&sName=").append(sname).toString();
                     map.put("pageHref",pageHref);
                     return map;
@@ -667,7 +667,36 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         }
         return Lists.newArrayList();
     }
-
+    @Override
+    public List<Map<String,String>> getContactTempCurrentSids(String userName ){
+        String sql="select tm.* from t_contacttempcurrent_mapping  tm where tm.resource_id in (\n" +
+                "select ga.authority  from group_authorities ga ,\n" +
+                "group_members gm  \n" +
+                "where gm.username=? and gm.group_id=ga.group_id\n" +
+                " \n" +
+                ")";
+        List<Map<String,Object>> result=jdbcTemplate.query(sql,new Object[]{userName}, new ColumnMapRowMapper());
+        if(CollectionUtils.isNotEmpty(result)){
+            return Lists.transform(result, new Function<Map<String, Object>, Map<String, String>>() {
+                @Override
+                public Map<String, String> apply(Map<String, Object> input) {
+                    Map<String,String> map=Maps.newHashMap();
+                    String sname=MapUtils.getString(input,"sname");
+                    map.put("name",sname);
+                    String tSid=MapUtils.getString(input,"temp_sid");
+                    String cSid=MapUtils.getString(input,"current_sid");
+                    String ctSid=MapUtils.getString(input,"contact_sid");
+                    map.put("tSid",tSid);
+                    map.put("cSid",cSid);
+                    map.put("ctSid",ctSid);
+                    String pageHref=new StringBuilder("sensor/chart/contacttempcurrentk.html?tSid=").append(tSid).append("&cSid=").append(cSid).append("&ctSid=").append(ctSid).append("&sName=").append(sname).toString();
+                    map.put("pageHref",pageHref);
+                    return map;
+                }
+            });
+        }
+        return Lists.newArrayList();
+    }
     @Override
     public List<Map<String, String>> getThreephaseSids(String userName) {
         String sql="select tm.* from t_threephase_mapping  tm where tm.resource_id in (\n" +
@@ -684,7 +713,13 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                     Map<String,String> map=Maps.newHashMap();
                     String sname=MapUtils.getString(input,"sname");
                     map.put("name",String.valueOf(input.get("sname")));
-                    String pageHref=new StringBuilder("sensor/chart/threephasek.html?aSid=").append(MapUtils.getString(input,"aphase_sid")).append("&bSid=").append(MapUtils.getString(input,"bphase_sid")).append("&cSid=").append(MapUtils.getString(input,"cphase_sid")).append("&sName=").append(sname).toString();
+                    String aSid=MapUtils.getString(input,"aphase_sid");
+                    String bSid=MapUtils.getString(input,"bphase_sid");
+                    String cSid=MapUtils.getString(input,"cphase_sid");
+                    map.put("aSid",aSid);
+                    map.put("bSid",bSid);
+                    map.put("cSid",cSid);
+                    String pageHref=new StringBuilder("sensor/chart/threephasek.html?aSid=").append(aSid).append("&bSid=").append(bSid).append("&cSid=").append(cSid).append("&sName=").append(sname).toString();
                     map.put("pageHref",pageHref);
                     return map;
                 }
@@ -709,7 +744,9 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                     Map<String,String> map=Maps.newHashMap();
                     String sname=MapUtils.getString(input,"sname");
                     map.put("name",String.valueOf(input.get("sname")));
-                    String pageHref=new StringBuilder("sensor/chart/temperaturek.html?sid=").append(MapUtils.getString(input,"sid")).append("&sName=").append(sname).toString();
+                    String sid=MapUtils.getString(input,"sid");
+                    map.put("sid",sid);
+                    String pageHref=new StringBuilder("sensor/chart/temperaturek.html?sid=").append(sid).append("&sName=").append(sname).toString();
                     map.put("pageHref",pageHref);
                     return map;
                 }
@@ -884,6 +921,36 @@ public List<Map<String, Object>> listSensorTree(String userName){
     return null;
 
 }
+    public  Map<String,List<Map<String,Object>>> getContactTempCurrentData(final String ctSid, final String tSid, final String cSid){
+        String sql = "SELECT sid,format( savg,2) savg, days FROM t_sensor_days\n" +
+                "\tWHERE STR_TO_DATE(days, '%Y-%m-%d') > date_add(now(), INTERVAL - 1 YEAR)\n" +
+                "\t\tAND sid IN (?,?,?)\n" +
+                "\t\tAND idx = '0'";
+
+        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{ctSid, tSid,cSid}, new ColumnMapRowMapper());
+        List<String> allDays=getAllSensorDays(resultMapper);
+        Map<String,List<Map<String,Object>>> result=Maps.newHashMap();
+        result.put("ctSid",fillMap(FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return input.get("sid").equals(ctSid);
+            }
+        }).toList(),allDays));
+        result.put("tSid",fillMap(FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return input.get("sid").equals(tSid);
+            }
+        }).toList(),allDays));
+        result.put("cSid",fillMap(FluentIterable.from(resultMapper).filter(new Predicate<Map<String, Object>>() {
+            @Override
+            public boolean apply(Map<String, Object> input) {
+                return input.get("sid").equals(cSid);
+            }
+        }).toList(),allDays));
+
+        return result;
+    }
     public static void main(String[] args) {
         System.out.println( new SensorServiceImpl().needInsert(228.56,225.4));
     }

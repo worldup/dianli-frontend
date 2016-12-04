@@ -31,6 +31,7 @@ public interface SensorService {
       List<Corporate> getAllCorporate(int tenantId);
       List<Map<String,String>> getThreephaseSids(String userName );
       List<Map<String,String>> getTempCurrentSids(String userName );
+      List<Map<String,String>> getContactTempCurrentSids(String userName );
       List<Map<String,String>> getTemperatureSids(String userName );
       List<Map<String,Object>> getSensorDatasByDayAndPage(String day,String userName,int startPage,Integer limit);
       Integer getSensorDatasByDay(String userName,String day);
@@ -41,5 +42,7 @@ public interface SensorService {
       //获取传感器告警配置
       List<Map<String,Object>> getSensorWarningConf(String sid);
       List<Map<String, Object>> listSensorTree(String userName);
+      //获取触点温度，环境温度，电流
+      Map<String,List<Map<String,Object>>>getContactTempCurrentData(String ctSid,String tSid,String cSid);
 
 }

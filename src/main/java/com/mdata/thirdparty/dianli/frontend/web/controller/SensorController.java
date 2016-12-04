@@ -185,9 +185,17 @@ public class SensorController {
         return "/chart/temperature";
     }
     @RequestMapping("/chart/temperaturek")
-    public ModelAndView temperaturek(@RequestParam String sid,@RequestParam("sName") String sName,HttpSession session){
+    public ModelAndView temperaturek(@RequestParam(required = false) String sid,@RequestParam(required = false) String sName,HttpSession session){
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         Map<String,Object> model= modelAndView.getModel();
+        String userName=(String)session.getAttribute("userName");
+        List<Map<String,String>> sids=sensorService.getTemperatureSids(userName);
+        model.put("sids",sids);
+        if(StringUtils.isEmpty(sid)&&!CollectionUtils.isEmpty(sids)){
+            Map<String,String> map=sids.get(0);
+            sid=map.get("sid");
+            sName=map.get("name");
+        }
         model.put("sid",sid);
         Map<String,Object> sMap= sensorService.getSensorInfoExt(sid);
         Double cvalue=40d;
@@ -197,23 +205,33 @@ public class SensorController {
         }
         model.put("sName",sName);
         model.put("cvalue",cvalue);
-        String userName=(String)session.getAttribute("userName");
-        model.put("sids",sensorService.getTemperatureSids(userName));
+
         modelAndView.setViewName("/chart/temperaturek");
         return modelAndView;
     }
     @RequestMapping("/chart/threephasek")
-    public ModelAndView threephasek(@RequestParam String aSid,@RequestParam String bSid,@RequestParam String cSid,@RequestParam("sName") String sName,HttpSession session){
+    public ModelAndView threephasek(@RequestParam (required = false)String aSid,@RequestParam (required = false) String bSid,@RequestParam (required = false) String cSid,@RequestParam (required = false) String sName,HttpSession session){
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
        Map<String,Object> model= modelAndView.getModel();
 
+
+        String userName=(String)session.getAttribute("userName");
+        List<Map<String,String>> sids=sensorService.getThreephaseSids(userName);
+        model.put("sids",sids);
+        //如果
+        if(StringUtils.isEmpty(aSid)&&StringUtils.isEmpty(bSid)&&StringUtils.isEmpty(cSid)){
+            if(!CollectionUtils.isEmpty(sids)){
+                Map<String,String> map= sids.get(0);
+                aSid=MapUtils.getString(map,"aSid");
+                bSid=MapUtils.getString(map,"bSid");
+                cSid=MapUtils.getString(map,"cSid");
+                sName= MapUtils.getString(map,"name");
+            }
+        }
         model.put("aSid",aSid);
         model.put("bSid",bSid);
         model.put("cSid",cSid);
         model.put("sName",sName);
-        String userName=(String)session.getAttribute("userName");
-        model.put("sids",sensorService.getThreephaseSids(userName));
-
         modelAndView.setViewName("/chart/threephasek");
         return modelAndView;
     }
@@ -231,6 +249,31 @@ public class SensorController {
         model.put("hSid",hSid);
         model.put("sName","名称需要配置");
         return "/chart/humidity";
+    }
+    @RequestMapping("/chart/contacttempcurrentk")
+    public ModelAndView contacttempcurrent(@RequestParam(required = false) String ctSid,@RequestParam (required = false)String tSid,@RequestParam (required = false)String cSid,@RequestParam (required = false)String sName,HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        Map<String,Object> model= modelAndView.getModel();
+
+        String userName=(String)session.getAttribute("userName");
+        List<Map<String,String>> sids=sensorService.getContactTempCurrentSids(userName);
+        model.put("sids",sids);
+        //如果
+        if(StringUtils.isEmpty(tSid)&&StringUtils.isEmpty(cSid)&&StringUtils.isEmpty(ctSid)){
+            if(!CollectionUtils.isEmpty(sids)){
+               Map<String,String> map= sids.get(0);
+               tSid=MapUtils.getString(map,"tSid");
+               cSid=MapUtils.getString(map,"cSid");
+               ctSid=MapUtils.getString(map,"ctSid");
+               sName= MapUtils.getString(map,"name");
+            }
+        }
+        model.put("ctSid",ctSid);
+        model.put("tSid",tSid);
+        model.put("cSid",cSid);
+        model.put("sName",sName);
+        modelAndView.setViewName("/chart/contacttempcurrentk");
+        return modelAndView;
     }
     @RequestMapping("/chart/humidityk")
     public ModelAndView humidityk(@RequestParam String tSid,@RequestParam String hSid,String tSid1,String hSid1,@RequestParam("sName") String sName,HttpSession session) {
@@ -324,6 +367,13 @@ public class SensorController {
         Map<String,List<Map<String, Object>> >result = sensorService.getTempCurrentData(tSid, hSid);
         return result;
     }
+    @RequestMapping("/contacttempcurrentk/list")
+    @ResponseBody
+    public Map<String,List<Map<String,Object>>> contacttempcurrentk(  String ctSid,String tSid,String cSid) {
+        Map<String,List<Map<String, Object>> >result = sensorService.getContactTempCurrentData(ctSid,tSid,cSid);
+        return result;
+    }
+
     @RequestMapping("/map/jinshan")
     public String jinshan(String tSid, String hSid, Model model) {
         int tenantId=1;
