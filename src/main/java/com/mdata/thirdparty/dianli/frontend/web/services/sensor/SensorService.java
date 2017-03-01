@@ -20,6 +20,7 @@ public interface SensorService {
       Map<String,List<String>>  getRealData(String sid, String idx);
       //绘制每日数据，取样每个点
       Map<String,List<String>>  getRealDataToday(String sid, String idx);
+      List<Map<String,Object>>  getTempForecast(String aSid,String bSid,String cSid);
       List<Map<String,Object>>  getThreePhaseData(String aSid,String bSid,String cSid);
       Map<String,List<Map<String, Object>>> getTempHumData(String tSid,String hSid,String tSid1,String hSid1);
       Map<String,List<Map<String, Object>>> getTempCurrentData(String tSid,String hSid);
@@ -30,6 +31,7 @@ public interface SensorService {
       boolean  insertSensorValue(SensorData sensorData) throws Exception;
       List<Corporate> getAllCorporate(int tenantId);
       List<Map<String,String>> getThreephaseSids(String userName );
+      List<Map<String,String>> getTempForecast(String userName );
       List<Map<String,String>> getTempCurrentSids(String userName );
       List<Map<String,String>> getContactTempCurrentSids(String userName );
       List<Map<String,String>> getTemperatureSids(String userName );

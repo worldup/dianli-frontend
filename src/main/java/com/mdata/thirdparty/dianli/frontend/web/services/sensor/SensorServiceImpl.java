@@ -133,6 +133,34 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         return resultMap;
     }
     @Override
+    public List<Map<String, Object>> getTempForecast(String aSid, String bSid, String cSid) {
+        String sql = "select  max(case when sid =? then d.smax else 0 end ) asmax,\n" +
+                "max(case when sid =? then d.smax  else 0 end) bsmax,\n" +
+                "max(case when sid =? then d.smax else 0 end) csmax,\n" +
+                " d.days from t_sensor_days  d   where d.sid in(?,?, ?)\n" +
+                "  group by  d.days ";
+        List<Map<String, Object>> resultMapper = jdbcTemplate.query(sql, new Object[]{aSid, bSid, cSid,aSid, bSid, cSid}, new RowMapper<Map<String, Object>>() {
+            @Override
+            public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Map<String, Object> result = new HashMap<String, Object>();
+                String days = rs.getString("days");
+                double asmax = rs.getDouble("asmax");
+                double bsmax = rs.getDouble("bsmax");
+                double csmax = rs.getDouble("csmax");
+                    BigDecimal basmax=BigDecimal.valueOf(asmax);
+                    BigDecimal bcsmax=BigDecimal.valueOf(csmax);
+                double value=  basmax.multiply(new BigDecimal(1.03008d)).subtract(bcsmax.multiply(new BigDecimal(0.0204d))).add(new BigDecimal(7.02417d)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+
+                result.put("days", days);
+                result.put("fvalue", String.valueOf(value));
+                result.put("rvalue",String.valueOf(bsmax));
+                return result;
+            }
+        });
+
+        return resultMapper;
+    }
+    @Override
     public List<Map<String, Object>> getThreePhaseData(String aSid, String bSid, String cSid) {
         String sql = "select sum(case s.type  when 'CurrentA' then  d.smax else 0 end) asmax,\n" +
                 "sum(case s.type  when 'CurrentB' then  d.smax else 0 end) bsmax,\n" +
@@ -690,6 +718,37 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
                     map.put("cSid",cSid);
                     map.put("ctSid",ctSid);
                     String pageHref=new StringBuilder("sensor/chart/contacttempcurrentk.html?tSid=").append(tSid).append("&cSid=").append(cSid).append("&ctSid=").append(ctSid).append("&sName=").append(sname).toString();
+                    map.put("pageHref",pageHref);
+                    return map;
+                }
+            });
+        }
+        return Lists.newArrayList();
+    }
+
+    @Override
+    public List<Map<String, String>> getTempForecast(String userName) {
+        String sql="select tm.* from t_tempforecast_mapping  tm where tm.resource_id in (\n" +
+                "select ga.authority  from group_authorities ga ,\n" +
+                "group_members gm  \n" +
+                "where gm.username=? and gm.group_id=ga.group_id\n" +
+                " \n" +
+                ")";
+        List<Map<String,Object>> result=jdbcTemplate.query(sql,new Object[]{userName}, new ColumnMapRowMapper());
+        if(CollectionUtils.isNotEmpty(result)){
+            return Lists.transform(result, new Function<Map<String, Object>, Map<String, String>>() {
+                @Override
+                public Map<String, String> apply(Map<String, Object> input) {
+                    Map<String,String> map=Maps.newHashMap();
+                    String sname=MapUtils.getString(input,"sname");
+                    map.put("name",String.valueOf(input.get("sname")));
+                    String aSid=MapUtils.getString(input,"outdoor_temp_sid");
+                    String bSid=MapUtils.getString(input,"sensor_temp_sid");
+                    String cSid=MapUtils.getString(input,"current_sid");
+                    map.put("aSid",aSid);
+                    map.put("bSid",bSid);
+                    map.put("cSid",cSid);
+                    String pageHref=new StringBuilder("sensor/chart/tempforecast.html?aSid=").append(aSid).append("&bSid=").append(bSid).append("&cSid=").append(cSid).append("&sName=").append(sname).toString();
                     map.put("pageHref",pageHref);
                     return map;
                 }

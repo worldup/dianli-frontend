@@ -1,0 +1,33 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+
+<body>
+<div class="admin-content-body" layout:fragment="content"  id="container">
+    <div class="am-dropdown" data-am-dropdown style="height: 5%">
+        <select id="sid-select" data-am-selected="{searchBox: 1,maxHeight: 200}">
+            <option  th:each="sid : ${sids}" th:value="${sid.pageHref}"  th:text="${sid.name}"value="a">Apple</option>
+        </select>
+    </div>
+    <div id="main" style="width: 100%;height:93%;">
+
+    </div>
+
+
+</div>
+<th:block layout:fragment="script">
+    <script type="text/javascript"  th:inline="javascript">
+        /*<![CDATA[*/
+        var aSid=/*[[${aSid}]]*/'111_A4_A_0_00CF72';
+        var bSid=/*[[${bSid}]]*/'111_05_A_0_00359A';
+        var cSid=/*[[${cSid}]]*/'111_05_A_0_00810A';
+        var sName=/*[[${sName}]]*/'青浦银涛3号配电站银涛1号低压柜A相';
+        var contextPath=/*[[@{'/'}]]*/'/';
+        /*]]>*/
+    </script>
+    <script type="text/javascript" th:src="@{/assets/js/chart/tempforecast.js}" src="../../static/assets/js/chart/tempforecast.js"></script>
+</th:block>
+</body>
+</html>
+

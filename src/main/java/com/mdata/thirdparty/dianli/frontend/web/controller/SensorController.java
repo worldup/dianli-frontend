@@ -235,6 +235,33 @@ public class SensorController {
         modelAndView.setViewName("/chart/threephasek");
         return modelAndView;
     }
+    //温度预测
+    @RequestMapping("/chart/tempforecast")
+    public ModelAndView tempforecast(@RequestParam (required = false)String aSid,@RequestParam (required = false) String bSid,@RequestParam (required = false) String cSid,@RequestParam (required = false) String sName,HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        Map<String,Object> model= modelAndView.getModel();
+
+
+        String userName=(String)session.getAttribute("userName");
+        List<Map<String,String>> sids=sensorService.getThreephaseSids(userName);
+        model.put("sids",sids);
+        //如果
+        if(StringUtils.isEmpty(aSid)&&StringUtils.isEmpty(bSid)&&StringUtils.isEmpty(cSid)){
+            if(!CollectionUtils.isEmpty(sids)){
+                Map<String,String> map= sids.get(0);
+                aSid=MapUtils.getString(map,"aSid");
+                bSid=MapUtils.getString(map,"bSid");
+                cSid=MapUtils.getString(map,"cSid");
+                sName= MapUtils.getString(map,"name");
+            }
+        }
+        model.put("aSid",aSid);
+        model.put("bSid",bSid);
+        model.put("cSid",cSid);
+        model.put("sName",sName);
+        modelAndView.setViewName("/chart/tempforecast");
+        return modelAndView;
+    }
     @RequestMapping("/chart/threephase")
     public String threephase(@RequestParam String aSid,@RequestParam String bSid,@RequestParam String cSid,Map<String, Object> model){
         model.put("aSid",aSid);
@@ -353,6 +380,12 @@ public class SensorController {
     @ResponseBody
     public List<Map<String,Object>> threephasek(  String aSid,String bSid,String cSid) {
         List<Map<String, Object>> result = sensorService.getThreePhaseData(aSid, bSid, cSid);
+        return result;
+    }
+    @RequestMapping("/tempforecast/list")
+    @ResponseBody
+    public List<Map<String,Object>> tempforecast(  String aSid,String bSid,String cSid) {
+        List<Map<String, Object>> result = sensorService.getTempForecast(aSid, bSid, cSid);
         return result;
     }
     @RequestMapping("/temphumk/list")
