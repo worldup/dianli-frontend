@@ -243,7 +243,7 @@ public class SensorController {
 
 
         String userName=(String)session.getAttribute("userName");
-        List<Map<String,String>> sids=sensorService.getThreephaseSids(userName);
+        List<Map<String,String>> sids=sensorService.getTempForecast(userName);
         model.put("sids",sids);
         //如果
         if(StringUtils.isEmpty(aSid)&&StringUtils.isEmpty(bSid)&&StringUtils.isEmpty(cSid)){

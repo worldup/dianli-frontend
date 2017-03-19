@@ -144,9 +144,9 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
             public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Map<String, Object> result = new HashMap<String, Object>();
                 String days = rs.getString("days");
-                double asmax = rs.getDouble("asmax");
+                double asmax = rs.getDouble("asmax"); //outdoor
                 double bsmax = rs.getDouble("bsmax");
-                double csmax = rs.getDouble("csmax");
+                double csmax = rs.getDouble("csmax");//current
                     BigDecimal basmax=BigDecimal.valueOf(asmax);
                     BigDecimal bcsmax=BigDecimal.valueOf(csmax);
                 double value=  basmax.multiply(new BigDecimal(1.03008d)).subtract(bcsmax.multiply(new BigDecimal(0.0204d))).add(new BigDecimal(7.02417d)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();

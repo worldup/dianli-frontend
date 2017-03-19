@@ -30,7 +30,7 @@ $(document).ready(function() {
                         x: 'center',
                         align: 'right'
                     },
-                    color:["#CCFFCC","#99CC66"],
+                    color:["#99CC66","#FF7711"],
                     legend: {
                         data:[{name:'预测温度'},
                             {name:'实际温度'}],
@@ -64,14 +64,7 @@ $(document).ready(function() {
                     ],
                     yAxis: [
                         {
-                            name: '预测温度(℃)',
-                            type: 'value',
-                            splitLine: {
-                                show: false
-                            }
-                        },
-                        {
-                            name: '实际温度(℃)',
+                            name: '温度(℃)',
                             type: 'value',
                             splitLine: {
                                 show: false
