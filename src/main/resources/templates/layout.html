@@ -1,89 +1,216 @@
+<!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:rs="http://www.galadata.cn"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       class="no-js fixed-layout">
-
-<head >
+<head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title th:text="${layoutTitle}">上海金山工业区能效管理服务平台</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="renderer" content="webkit"/>
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="icon" type="image/jpg" th:href="@{/assets/img/favorite.jpg}" href="../static/assets/img/favorite.jpg"/>
     <meta name="apple-mobile-web-app-title" th:content="${layoutTitle}"/>
-    <link rel="stylesheet" th:href="${'//cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css'}" href="../static/assets/css/amazeui.min.css"/>
-    <link rel="stylesheet" th:href="@{/assets/css/home.css}" href="../static/assets/css/home.css"/>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <link rel="icon" type="image/jpg" th:href="@{/assets/img/favorite.jpg}" href="../static/assets/img/favorite.jpg"/>
+    <!-- Bootstrap 3.3.7 -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">    <!-- Font Awesome -->
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Ionicons -->
+    <link href="//cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <!-- Theme style -->
+    <link href="//cdn.bootcss.com/admin-lte/2.3.11/css/AdminLTE.min.css" rel="stylesheet">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="//cdn.bootcss.com/admin-lte/2.3.11/css/skins/_all-skins.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.css.network/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+    <!-- 引入element样式 -->
+    <link href="https://cdn.bootcss.com/element-ui/1.3.7/theme-default/index.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/element-ui/1.3.7/theme-default/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css"/>
+    <link rel="stylesheet" rs:href="@{/assets/css/home.css}" href="../static/assets/css/home.css"/>
     <link rel="stylesheet" th:href="@{/assets/css/amap/style.css}" href="../static/assets/css/amap/style.css"/>
-    <link rel="stylesheet" th:href="${'//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css'}" href="../static/assets/css/font-awesome.css"/>
     <th:block layout:fragment="stylesheet"></th:block>
 </head>
-<body>
+<!-- ADD THE CLASS fixed TO GET A FIXED HEADER AND SIDEBAR LAYOUT -->
+<!-- the fixed layout is not compatible with sidebar-mini -->
+<body class="hold-transition skin-blue fixed sidebar-mini" >
+<!-- Site wrapper -->
+<div class="wrapper" >
 
-<div >
-    <header class="am-topbar am-topbar-inverse admin-header" >
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="/index.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>OE</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><strong>欧忆</strong><small>配电站智能监测平台</small></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" style="height: 50px !important;">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
 
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a th:href="@{'/sensor/data/warning'}" href="#">
+                            <i class="fa fa-exclamation-triangle">告警信息</i>
+                            <span class="label label-warning" th:text="${warningCount}">2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ><span class="am-icon-chevron-circle-left" onclick="javascript:history.back()">后退</span></a>
+                    </li>
+                    <li>
+                        <a><span class="am-icon-chevron-circle-right" onclick="javascript:history.forward()">前进</span></a>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/assets/img/dianli.png" class="user-image" alt="User Image"/>
+                            <span class="hidden-xs" th:text="${session.userName}">某某</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="/assets/img/dianli.png" class="img-circle" alt="User Image"/>
 
-        <div class="am-topbar-brand">
+                                <p>
+                                    <span th:if="${session.tenantId}==1">金山</span>
+                                    <span th:if="${session.tenantId}==2">电力</span>
 
-            <strong th:text="${strongHeader}">上海金山工业区</strong>
-            <small th:text="${smallHeader}">能效管理服务平台</small>
-        </div>
+                                    <small th:text="${session.userName}">某某</small>
+                                </p>
+                            </li>
 
-        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-                data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-                class="am-icon-bars"></span></button>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
 
-        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+                                <div class="pull-right">
+                                    <a href="/logout" class="btn btn-default btn-flat">登出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-                <li><a th:href="@{'/sensor/data/warning'}" href="javascript:;"><span class="am-icon-exclamation-triangle"></span> 告警信息 <span
-                        class="am-badge am-badge-warning" th:text="${warningCount}">0</span></a></li>
-                
-                <li th:each="menu : ${menus}" class="am-dropdown" data-am-dropdown="">
-                    <a class="am-dropdown-toggle" data-am-dropdown-toggle="" href="javascript:;">
-                        <span th:class="${menu.iconClass}" class="am-icon-users"></span><span th:text="${menu.name}">管理员</span>  <span class="am-icon-caret-down"></span>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar" style="height:auto">
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+
+                <li class="treeview "  th:each="menu:${session.menus}"   th:classappend="${menu.active}?'active'" >
+
+                    <a href="#">
+                        <i class="fa fa-files-o" th:class="${menu.iconClass}"></i>
+                        <span th:text="${menu.label}">Layout Options</span>
+                        <span class="pull-right-container">
+               <i class="fa fa-angle-left pull-right"></i>
+            </span>
                     </a>
-                    <ul th:if="${not #lists.isEmpty(menu.subMenu)}"  class="am-dropdown-content">
-                        <li th:each="subMenu:${menu.subMenu}"><a th:href="${subMenu.url}" href="#"><span th:class="${subMenu.iconClass}" class="am-icon-cog"></span> <span th:text="${subMenu.name}">设置</span></a></li>
+                    <ul class="treeview-menu">
+
+                        <li th:each="childMenu:${menu.children}"><a  th:href="${childMenu.href}"href="../layout/top-nav.html"><i th:class="${childMenu.iconClass}" class="fa fa-circle-o"></i> <span th:text="${childMenu.label}">Top Navigation</span></a></li>
                     </ul>
                 </li>
-                <li>
-                   <a ><span class="am-icon-chevron-circle-left" id="btn-back">后退</span></a>
-                </li>
-                <li>
-                   <a><span class="am-icon-chevron-circle-right" id="btn-forward">前进</span></a>
-                </li>
-                <!--<li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span-->
-                        <!--class="am-icon-arrows-alt"></span> <span class="admin-fullText">全屏模式</span></a></li>-->
+
+
             </ul>
-        </div>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
 
-    </header>
-</div>
-<div class="am-cf admin-main">
+    <!-- =============================================== -->
 
-    <!-- content start -->
-    <div class="admin-content">
-        <div class="admin-content-body" style="width:100%;height: 100%" layout:fragment="content">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
 
-        </div>
+        <!-- Content Header (Page header) -->
+        <div layout:fragment="content"  ></div>
 
-        <footer class="admin-content-footer">
-            <hr> </hr>
-            <p class="am-padding-left" th:text="${layoutFoot}">© 2016 上海欧忆智能网络</p>
-        </footer>
+        <!-- /.content -->
     </div>
-    <!-- content end -->
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer" >
+        <div class="pull-right hidden-xs">
+            <b>version</b> 1.2.0
+        </div>
+        <strong>copyright &copy; 2016 <a href="//www.oeshcn.com/">上海欧忆能源科技有限公司</a>.</strong> All rights
+        reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
 </div>
+<!-- ./wrapper -->
 
+<!-- jQuery 3 -->
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
 
+<!-- 先引入 Vue -->
+<script src="https://cdn.bootcss.com/vue/2.4.1/vue.min.js"></script>
 
-
-<script th:src="${'//cdn.bootcss.com/jquery/3.1.0/jquery.min.js'}" src="../static/assets/js/jquery.min.js"></script>
-<script th:src="${'//cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js'}" src="../static/assets/js/amazeui.min.js"></script>
-<script th:src="@{/assets/js/home.js}" src="../static/assets/js/home.js"></script>
+<!-- 引入组件库 -->
+<script src="//cdn.bootcss.com/element-ui/1.3.7/index.js"></script>
+<script src="//cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
 <script  type="text/javascript"  th:src="${'//cdn.bootcss.com/echarts/3.2.2/echarts.common.min.js'}" src="../../static/assets/js/echarts.common.min.js"></script>
+
+<!-- AdminLTE for demo purposes -->
+<script  src="/dist/js/demo.js" rs:src="@{/dist/js/demo.js}"></script>
+<script  src="/api.js" rs:src="@{/api.js}"></script>
 
 <th:block layout:fragment="script"></th:block>
 </body>

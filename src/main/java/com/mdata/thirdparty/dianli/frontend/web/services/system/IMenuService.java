@@ -9,6 +9,11 @@ import java.util.List;
  * Created by administrator on 16/7/18.
  */
 public interface IMenuService {
+    List<com.mdata.thirdparty.dianli.frontend.web.model.base.Menu> getAllMenus();
+    List<com.mdata.thirdparty.dianli.frontend.web.model.base.Menu> getAllMenusByTenantId(Integer tenantId);
+    void addMenu(com.mdata.thirdparty.dianli.frontend.web.model.base.Menu menu);
+    com.mdata.thirdparty.dianli.frontend.web.model.base.Menu getMenuTreeByTenantId(Integer tenantId);
+
     List<Menu> listAllMenu(int tenantId);
     List<Menu> listAllMenu(int tenantId,String userName);
     TenantLayout getTenantLayoutById(int tenantId);

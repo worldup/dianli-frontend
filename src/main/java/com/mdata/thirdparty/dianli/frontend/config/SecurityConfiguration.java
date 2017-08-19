@@ -1,6 +1,7 @@
 package com.mdata.thirdparty.dianli.frontend.config;
 
 import com.mdata.thirdparty.dianli.frontend.auth.AuthService;
+import com.mdata.thirdparty.dianli.frontend.web.model.base.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by administrator on 16/6/18.
@@ -44,6 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                 super.onAuthenticationSuccess(request, response, authentication);
                 String userName=((User) authentication.getPrincipal()).getUsername();
+                List<Menu> menus=authService.getMenusByUserId(userName);
+                request.getSession().setAttribute("menus",menus);
                 request.getSession().setAttribute("userName",userName);
                 request.getSession().setAttribute("tenantId", authService.getUserTenantId(userName));
             }

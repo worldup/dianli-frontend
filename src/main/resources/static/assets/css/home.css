@@ -92,7 +92,17 @@ ul {
     flex-direction: column;
     background: #fff;
 }
+a.sidebar-toggle,
+.main-header .logo {
+    height: 50px!important;
+}
 
+.main-footer{
+    background: #f0f0f0;
+    padding: 2px;
+    color: #444;
+    border-top: 1px solid #d2d6de;
+}
 .admin-content,
 .admin-sidebar {
     height: 100%;
@@ -106,6 +116,7 @@ ul {
     -webkit-flex: 1 0 auto;
     -ms-flex: 1 0 auto;
     flex: 1 0 auto;
+    height:500px!important;
 }
 
 .admin-content-footer {

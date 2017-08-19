@@ -21,8 +21,8 @@ import java.util.List;
  * Created by administrator on 16/6/4.
  */
 @Component
-@Configurable
-@EnableScheduling
+//@Configurable
+//@EnableScheduling
 public class CronService {
     @Autowired
     private JdbcTemplate jdbcTemplate;

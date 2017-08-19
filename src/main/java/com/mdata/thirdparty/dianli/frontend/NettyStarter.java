@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * Created by administrator on 17/8/13.
  */
 @Service
-public class NettyStarter implements InitializingBean {
+public class NettyStarter  implements  InitializingBean {
     @Value("${lora_host}")
     private String host;
     @Value("${lora_port}")
@@ -43,12 +43,27 @@ public class NettyStarter implements InitializingBean {
     protected final HashedWheelTimer timer = new HashedWheelTimer();
 
     private Bootstrap boot;
-
+    private  EventLoopGroup group;
     private final ConnectorIdleStateTrigger idleStateTrigger = new ConnectorIdleStateTrigger();
+    public  void reconnect() {
+        try{
+            disconnect();
+            connect();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-    public void connect(String host,int port) throws Exception {
 
-        EventLoopGroup group = new NioEventLoopGroup();
+    }
+    private void disconnect() throws  Exception{
+        if(group!=null && !group.isTerminated()){
+            group.shutdownGracefully().sync();
+        }
+
+    }
+    private  void connect() throws Exception {
+
+          group = new NioEventLoopGroup();
 
         boot = new Bootstrap();
         boot.group(group).channel(NioSocketChannel.class).handler(new LoggingHandler(LogLevel.INFO));
@@ -57,7 +72,7 @@ public class NettyStarter implements InitializingBean {
 
             public ChannelHandler[] handlers() {
                 return new ChannelHandler[] {
-                        this,
+                       // this,
                         new IdleStateHandler(0, 4, 0, TimeUnit.SECONDS),
                         idleStateTrigger,
                         new StringDecoder(),
@@ -93,9 +108,9 @@ public class NettyStarter implements InitializingBean {
             throw new Exception("connects to  fails", t);
         }
     }
+
     @Override
     public void afterPropertiesSet() throws Exception {
-
-        connect(host,port);
+        connect();
     }
 }

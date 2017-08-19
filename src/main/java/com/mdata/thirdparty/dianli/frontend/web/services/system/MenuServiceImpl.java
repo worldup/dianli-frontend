@@ -6,6 +6,8 @@ import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.mdata.thirdparty.dianli.frontend.beans.Menu;
 import com.mdata.thirdparty.dianli.frontend.beans.TenantLayout;
+import com.mdata.thirdparty.dianli.frontend.util.TreeUtils;
+import com.mdata.thirdparty.dianli.frontend.web.repository.MenuRepository;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -20,6 +22,29 @@ import java.util.List;
 
 @Service
 public class MenuServiceImpl  implements  IMenuService{
+
+
+    @Autowired
+    private MenuRepository repository;
+    @Override
+    public List<com.mdata.thirdparty.dianli.frontend.web.model.base.Menu> getAllMenus() {
+        return Lists.newArrayList(repository.findAll());
+    }
+    @Override
+    public    List<com.mdata.thirdparty.dianli.frontend.web.model.base.Menu> getAllMenusByTenantId(Integer tenantId){
+        return  Lists.newArrayList(repository.findByTenantId(tenantId));
+    }
+    @Override
+    public  com.mdata.thirdparty.dianli.frontend.web.model.base.Menu getMenuTreeByTenantId(Integer tenantId){
+        List<com.mdata.thirdparty.dianli.frontend.web.model.base.Menu> menus=getAllMenusByTenantId(tenantId);
+        return TreeUtils.transMenuTree(menus,-1);
+    }
+
+    @Override
+    public void addMenu(com.mdata.thirdparty.dianli.frontend.web.model.base.Menu menu) {
+        repository.save(menu);
+    }
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
     public List<Menu>  listAllMenu(int tenantId){

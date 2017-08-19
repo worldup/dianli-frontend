@@ -16,6 +16,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -440,7 +441,14 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
     }
     public Map<String, Object> getSensorInfo(String sid) {
         String sql = "select * from t_sensors where sid=?";
-        return jdbcTemplate.queryForMap(sql, sid);
+
+        Map<String,Object> result=null;
+        try{
+            jdbcTemplate.queryForMap(sql, sid);
+        }catch (EmptyResultDataAccessException e){
+
+        }
+        return result;
     }
 
 
@@ -899,9 +907,11 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
        String type= sensorCache.getIfPresent(sid);
        if(type==null) {
            Map<String, Object> sinfos = getSensorInfo(sid);
+            if(MapUtils.isNotEmpty(sinfos)){
+                type = MapUtils.getString(sinfos, "type");
+                sensorCache.put(sid, type);
+            }
 
-           type = MapUtils.getString(sinfos, "type");
-           sensorCache.put(sid, type);
        }
        //只有温湿度传感器才告警
           return (type!=null&&(type.indexOf("Temperature")>0||type.indexOf("Humidity")>0));

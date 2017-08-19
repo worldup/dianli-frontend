@@ -1,0 +1,90 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      class="no-js fixed-layout">
+
+<head >
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title th:text="${layoutTitle}">上海金山工业区能效管理服务平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/jpg" th:href="@{/assets/img/favorite.jpg}" href="../static/assets/img/favorite.jpg"/>
+    <meta name="apple-mobile-web-app-title" th:content="${layoutTitle}"/>
+    <link rel="stylesheet" th:href="${'//cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css'}" href="../static/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/home.css}" href="../static/assets/css/home.css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/amap/style.css}" href="../static/assets/css/amap/style.css"/>
+    <link rel="stylesheet" th:href="${'//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css'}" href="../static/assets/css/font-awesome.css"/>
+    <th:block layout:fragment="stylesheet"></th:block>
+</head>
+<body>
+
+<div >
+    <header class="am-topbar am-topbar-inverse admin-header" >
+
+
+        <div class="am-topbar-brand">
+
+            <strong th:text="${strongHeader}">上海金山工业区</strong>
+            <small th:text="${smallHeader}">能效管理服务平台</small>
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+                <li><a th:href="@{'/sensor/data/warning'}" href="javascript:;"><span class="am-icon-exclamation-triangle"></span> 告警信息 <span
+                        class="am-badge am-badge-warning" th:text="${warningCount}">0</span></a></li>
+                
+                <li th:each="menu : ${menus}" class="am-dropdown" data-am-dropdown="">
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle="" href="javascript:;">
+                        <span th:class="${menu.iconClass}" class="am-icon-users"></span><span th:text="${menu.name}">管理员</span>  <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul th:if="${not #lists.isEmpty(menu.subMenu)}"  class="am-dropdown-content">
+                        <li th:each="subMenu:${menu.subMenu}"><a th:href="${subMenu.url}" href="#"><span th:class="${subMenu.iconClass}" class="am-icon-cog"></span> <span th:text="${subMenu.name}">设置</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                   <a ><span class="am-icon-chevron-circle-left" id="btn-back">后退</span></a>
+                </li>
+                <li>
+                   <a><span class="am-icon-chevron-circle-right" id="btn-forward">前进</span></a>
+                </li>
+                <!--<li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span-->
+                        <!--class="am-icon-arrows-alt"></span> <span class="admin-fullText">全屏模式</span></a></li>-->
+            </ul>
+        </div>
+
+    </header>
+</div>
+<div class="am-cf admin-main">
+
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body" style="width:100%;height: 100%" layout:fragment="content">
+
+        </div>
+
+        <footer class="admin-content-footer">
+            <hr> </hr>
+            <p class="am-padding-left" th:text="${layoutFoot}">© 2016 上海欧忆智能网络</p>
+        </footer>
+    </div>
+    <!-- content end -->
+</div>
+
+
+
+
+<script th:src="${'//cdn.bootcss.com/jquery/3.1.0/jquery.min.js'}" src="../static/assets/js/jquery.min.js"></script>
+<script th:src="${'//cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js'}" src="../static/assets/js/amazeui.min.js"></script>
+<script th:src="@{/assets/js/home.js}" src="../static/assets/js/home.js"></script>
+<script  type="text/javascript"  th:src="${'//cdn.bootcss.com/echarts/3.2.2/echarts.common.min.js'}" src="../../static/assets/js/echarts.common.min.js"></script>
+
+<th:block layout:fragment="script"></th:block>
+</body>
+</html>

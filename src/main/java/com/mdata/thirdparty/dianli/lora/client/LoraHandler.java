@@ -42,6 +42,7 @@ public class LoraHandler extends ChannelInboundHandlerAdapter {
                    public SensorData apply(LoraSensorData input) {
                        String address=input.getAddress();
                        SensorValue sensorValue=input.getSensorValue();
+                       String type=input.getType();
                        Date date=input.getDatetime();
                        SensorData sensorData=new SensorData();
                        sensorData.setIdx(0);
@@ -51,7 +52,7 @@ public class LoraHandler extends ChannelInboundHandlerAdapter {
                            e.printStackTrace();
                        }
 
-                       sensorData.setSid(station+"_"+address);
+                       sensorData.setSid(station+"_"+address+"_"+type);
                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                        sensorData.setDay(sdf.format(date));
                        sensorData.setTg(date.getTime());
