@@ -9,6 +9,9 @@ import com.google.common.collect.*;
 import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.beans.TSensorDays;
 import com.mdata.thirdparty.dianli.frontend.web.controller.api.SensorData;
+import com.mdata.thirdparty.dianli.lora.client.LoraData;
+import com.mdata.thirdparty.dianli.lora.client.LoraSensorData;
+import com.mdata.thirdparty.dianli.lora.client.SensorValue;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -1019,6 +1022,34 @@ public List<Map<String, Object>> listSensorTree(String userName){
         }).toList(),allDays));
 
         return result;
+    }
+    public void saveBileiqiSensorConfig(final LoraData loraData) {
+        String sql="replace into t_bileiqi_sensors (sid,sid_addr,type,unit,station) values(?,?,?,?,?)";
+        final String station=loraData.getStation();
+        final  List<LoraSensorData> loraSensorDataList=loraData.getSensorData();
+        if(CollectionUtils.isNotEmpty(loraSensorDataList)){
+            jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
+                    LoraSensorData sensorData= loraSensorDataList.get(i);
+                    SensorValue sensorValue= sensorData.getSensorValue();
+                    String unit=sensorValue.getUnit();
+                    String sid_addr=sensorData.getAddress();
+                    String type=sensorData.getType();
+                    preparedStatement.setString(1,station+"_"+sid_addr+"_"+type);
+                    preparedStatement.setString(2,sid_addr);
+                    preparedStatement.setString(3,type);
+                    preparedStatement.setString(4,unit);
+                    preparedStatement.setString(5,station);
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return loraSensorDataList.size();
+                }
+            });
+        }
+
     }
     public static void main(String[] args) {
         System.out.println( new SensorServiceImpl().needInsert(228.56,225.4));

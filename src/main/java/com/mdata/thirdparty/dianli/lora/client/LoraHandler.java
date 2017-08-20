@@ -34,7 +34,9 @@ public class LoraHandler extends ChannelInboundHandlerAdapter {
         System.out.println("receive from lora -->"+msg);
         LoraData loraData= new LoraData(String.valueOf(msg));
         if(loraData!=null){
-           List<LoraSensorData> loraSensorDataList= loraData.getSensorData();
+            //添加避雷器传感器
+            sensorService.saveBileiqiSensorConfig( loraData);
+            List<LoraSensorData> loraSensorDataList= loraData.getSensorData();
            if(CollectionUtils.isNotEmpty(loraSensorDataList)){
                final String station= loraData.getStation();
                List<SensorData> sensorDataList= Lists.transform(loraSensorDataList, new Function<LoraSensorData, SensorData>() {

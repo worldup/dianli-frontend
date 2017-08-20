@@ -2,6 +2,7 @@ package com.mdata.thirdparty.dianli.frontend.web.services.sensor;
 
 import com.mdata.thirdparty.dianli.frontend.beans.Corporate;
 import com.mdata.thirdparty.dianli.frontend.web.controller.api.SensorData;
+import com.mdata.thirdparty.dianli.lora.client.LoraData;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Map;
  * Created by administrator on 16/5/15.
  */
 public interface SensorService {
+        void saveBileiqiSensorConfig(final LoraData loraData);
       void testConnect();
       List<Map<String,Object>> list(String pkey);
       List<Map<String,Object>>  getDataBetweenTimeRange(String sid, long beginTime, long endTime);

@@ -1,0 +1,216 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+
+<body>
+<div class="admin-content-body" layout:fragment="content"  id="container">
+    <div id="main" style="width: 100%;height:93%;">
+        <div style="padding: 15px 25px ">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item >首页</el-breadcrumb-item>
+                <el-breadcrumb-item>数据展示</el-breadcrumb-item>
+                <el-breadcrumb-item>避雷器</el-breadcrumb-item>
+                <el-breadcrumb-item>周日曲线</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="col-lg-12 col-md-12 table-wrap" >
+            <el-cascader :options="options"  v-model="selectedOptions" :show-all-levels="false" ></el-cascader>
+            <el-button type="primary" @click="initChart">加载</el-button>
+
+            <div id="chart" style="width: 100%;height:400px">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script src="//cdn.bootcss.com/lodash.js/4.17.4/lodash.min.js"></script>
+    <script type="text/javascript"  th:inline="javascript">
+
+        var v=new Vue({
+            el:"#main",
+            mounted:function(){
+                var that=this;
+                axios.get("/bileiqi/sensor/category").then(function(response){
+                    var sensors=response.data;
+                   var stations=   _.groupBy(sensors,function(s){
+                        return s.station;
+                    });
+
+
+
+                    that.options=_.map(_.keys(stations),function(v){
+                        var children=_.get(stations,v);
+                       var sidAddrs= _.groupBy(children,function(s){
+                            return s.sidAddr;
+                        })
+                       var sidAddr= _.map(_.keys(sidAddrs),function(v){
+                            var children=_.get(sidAddrs,v);
+                            return {value:v,label:v,children:_.map(children,function(v){
+                                return {value:v,label:v.sid};
+                            })};
+                        })
+                       return {value:v, label:v,children:sidAddr}
+                    })
+
+
+                })
+             },
+
+            methods:{
+                initChart:function(){
+                    myChart= echarts.init(document.getElementById('chart'));
+
+                    var sid='111_05_A_0_00CD01';
+                    console.log(this.selectedOptions)
+                    sid=this.selectedOptions[2].sid;
+                    var sName=this.selectedOptions[2].type;
+                    var contextPath='/';
+                    var cvalue=/*[[${cvalue}]]*/40;
+                    var that=this;
+                    $.get("/sensor/kdata/list",{sid:sid,idx:'0'},function(result){
+                        var data={};
+                        data.days=[];
+                        data.smax=[];
+                        data.smin=[];
+                        data.savg=[];
+                        for(var i=0;i<result.length;i++){
+                            var tmp=result[i];
+                            data.days.push(tmp.days);
+                            data.smax.push(tmp.smax);
+                            data.smin.push(tmp.smin);
+                            data.savg.push(tmp.savg);
+                        }
+                        var option = {
+                            title: {
+                                text: that.selectedOptions[2].unit,
+                                subtext: sName,
+                                x: 'center',
+                                align: 'right'
+                            },
+                            tooltip : {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data:['最高','最低','平均'],
+                                x: 'left'
+                            },
+                            toolbox: {
+                                show:true,
+                                feature: {
+                                    magicType : {show: true, type: ['line', 'bar']},
+                                    restore : {show: true},
+                                    saveAsImage: {}
+                                }
+                            },
+
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    boundaryGap : false,
+                                    splitLine: {
+                                        show: false
+                                    },
+                                    axisLabel:{
+                                        rotate:45
+                                    },
+                                    data :data.days
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    name: '温度(℃)',
+                                    type : 'value',
+                                    splitLine: {
+                                        show: false
+                                    },
+                                    max:50>cvalue?50:cvalue
+
+                                }
+                            ],
+                            dataZoom: [
+                                {
+                                    type: 'inside',
+                                    z:-1,
+                                    top:'bottom'
+
+                                },
+                                {
+                                    show: true,
+                                    z:-1,
+                                    type: 'slider',
+                                    top:'bottom'
+                                }
+                            ],
+                            series : [
+                                {
+                                    name:'最高',
+                                    type:'line',
+                                    // smooth:true,
+                                    data:data.smax,
+                                    markPoint:{
+                                        data:[{
+                                            name: '最高值',
+                                            // 支持 'average', 'min', 'max'
+                                            type: 'max'
+                                        },]
+                                    },
+                                    markLine:{
+
+                                        symbol: ['none'],
+                                        data:[{
+                                            name: '阈值',
+                                            yAxis: cvalue,
+                                            scale:true
+                                        }]
+                                    }
+                                },
+                                {
+                                    name:'最低',
+                                    type:'line',
+                                    smooth:true,
+                                    lineStyle: {
+                                        normal: {opacity: 1}
+                                    },
+                                    data:data.smin
+                                },
+                                {
+                                    name:'平均',
+                                    type:'line',
+                                    //   smooth:true,
+                                    lineStyle: {
+                                        normal: {
+                                            //  width:1,
+                                            //  color:'#ccc',
+                                            opacity: 0.5
+                                        }
+                                    },
+                                    data:data.savg
+                                }
+                            ]
+                        };
+
+
+
+                        myChart.setOption(option)
+                    });
+
+                }
+            },
+
+            data:function(){
+                return{
+
+                    options: [],
+                    selectedOptions: []
+                }
+            }
+        })
+    </script>
+
+</th:block>
+
+</body>
+</html>

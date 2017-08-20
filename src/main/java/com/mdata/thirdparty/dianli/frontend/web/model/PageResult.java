@@ -40,5 +40,8 @@ public class PageResult implements Serializable {
         this.result=lists;
         this.total=lists==null?0:lists.size();
     }
-
+    public PageResult(List lists,Integer total){
+        this.result=lists;
+        this.total= total;
+    }
 }
