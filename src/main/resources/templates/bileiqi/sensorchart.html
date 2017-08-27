@@ -5,7 +5,7 @@
 
 <body>
 <div class="admin-content-body" layout:fragment="content"  id="container">
-    <div id="main" style="width: 100%;height:93%;">
+    <div id="vuemain" style="width: 100%;height:100px;">
         <div style="padding: 15px 25px ">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item >首页</el-breadcrumb-item>
@@ -18,10 +18,11 @@
             <el-cascader :options="options"  v-model="selectedOptions" :show-all-levels="false" ></el-cascader>
             <el-button type="primary" @click="initChart">加载</el-button>
 
-            <div id="chart" style="width: 100%;height:400px">
 
-            </div>
         </div>
+
+    </div>
+    <div id="main" style="width: 100%;height:400px">
 
     </div>
 </div>
@@ -30,7 +31,7 @@
     <script type="text/javascript"  th:inline="javascript">
 
         var v=new Vue({
-            el:"#main",
+            el:"#vuemain",
             mounted:function(){
                 var that=this;
                 axios.get("/bileiqi/sensor/category").then(function(response){
@@ -61,15 +62,14 @@
 
             methods:{
                 initChart:function(){
-                    myChart= echarts.init(document.getElementById('chart'));
+                    myChart= echarts.init(document.getElementById('main'));
 
-                    var sid='111_05_A_0_00CD01';
-                    console.log(this.selectedOptions)
-                    sid=this.selectedOptions[2].sid;
+
+                    var that=this;
+                    var sid=this.selectedOptions[2].sid;
                     var sName=this.selectedOptions[2].type;
                     var contextPath='/';
-                    var cvalue=/*[[${cvalue}]]*/40;
-                    var that=this;
+                    var cvalue=100;
                     $.get("/sensor/kdata/list",{sid:sid,idx:'0'},function(result){
                         var data={};
                         data.days=[];
@@ -85,7 +85,7 @@
                         }
                         var option = {
                             title: {
-                                text: that.selectedOptions[2].unit,
+                                text: sid,
                                 subtext: sName,
                                 x: 'center',
                                 align: 'right'
@@ -121,12 +121,12 @@
                             ],
                             yAxis : [
                                 {
-                                    name: '温度(℃)',
+                                    name: that.selectedOptions[2].unit,
                                     type : 'value',
                                     splitLine: {
                                         show: false
-                                    },
-                                    max:50>cvalue?50:cvalue
+                                    }
+                                  //  max:50>cvalue?50:cvalue
 
                                 }
                             ],
@@ -157,15 +157,15 @@
                                             type: 'max'
                                         },]
                                     },
-                                    markLine:{
-
-                                        symbol: ['none'],
-                                        data:[{
-                                            name: '阈值',
-                                            yAxis: cvalue,
-                                            scale:true
-                                        }]
-                                    }
+//                                    markLine:{
+//
+//                                        symbol: ['none'],
+//                                        data:[{
+//                                            name: '阈值',
+//                                            yAxis: cvalue,
+//                                            scale:true
+//                                        }]
+//                                    }
                                 },
                                 {
                                     name:'最低',

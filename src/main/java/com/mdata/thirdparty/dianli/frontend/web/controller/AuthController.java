@@ -70,6 +70,10 @@ public class AuthController {
     public String login() {
        return "login";
     }
+    @RequestMapping("/login-new")
+    public String login_new() {
+        return "login-new";
+    }
     @RequestMapping("/")
     public ModelAndView index(HttpSession session) {
         Integer tenantId=(Integer)session.getAttribute("tenantId");
