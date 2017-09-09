@@ -18,9 +18,9 @@ public class LoraCronService {
     private NettyStarter nettyStarter;
     @Scheduled(cron="0 0/1 * * * ?") //每分钟执行一次
     public void statusCheck() {
-        System.out.println  ("每分钟执行一次。开始……");
+        System.out.println  ("每1分钟执行一次。开始……");
         //statusTask.healthCheck();
         nettyStarter.reconnect();
-        System.out.println ("每分钟执行一次。结束。");
+        System.out.println ("每1分钟执行一次。结束。");
     }
 }

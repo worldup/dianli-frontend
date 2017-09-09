@@ -6,6 +6,7 @@ import com.mdata.thirdparty.dianli.lora.client.util.HexByteHelper;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by administrator on 17/8/2.
@@ -118,9 +119,10 @@ public class LoraSensorData implements Serializable {
 
     }
     private  Date parseDate(String datetime){
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
         Calendar calendar=Calendar.getInstance();
         int year= Integer.parseInt(datetime.substring(0,1),16);
-        int month=Integer.parseInt(datetime.substring(1,2),16);
+        int month=Integer.parseInt(datetime.substring(1,2),16)-1;
         int day=Integer.parseInt(datetime.substring(2,4),16);
         int  hour=Integer.parseInt(datetime.substring(4,6),16);
        int minute= Integer.parseInt(datetime.substring(6,8),16);
@@ -128,7 +130,7 @@ public class LoraSensorData implements Serializable {
 
           calendar.set(Calendar.MONTH,month);
           calendar.set(Calendar.DATE,day);
-          calendar.set(Calendar.HOUR,hour);
+          calendar.set(Calendar.HOUR_OF_DAY,hour);
           calendar.set(Calendar.MINUTE,minute);
           calendar.set(Calendar.SECOND,second);
         return calendar.getTime();

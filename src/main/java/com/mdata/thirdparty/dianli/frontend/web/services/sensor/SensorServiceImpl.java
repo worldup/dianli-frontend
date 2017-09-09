@@ -512,8 +512,8 @@ public class SensorServiceImpl implements SensorService, InitializingBean {
         final String sensorCacheTimeKey= sid+"@"+idx;
         Long lastCacheTime=sensorDateCache.getIfPresent(sensorCacheTimeKey);
         long now=new Date().getTime();
-        //5分钟采集一次
-        if(lastCacheTime!=null&&now-lastCacheTime<300000){
+        //5分钟采集一次,排除避雷器
+        if(lastCacheTime!=null&&now-lastCacheTime<300000&&!sensorData.isBileiqi()){
             return false ;
         }
         else{

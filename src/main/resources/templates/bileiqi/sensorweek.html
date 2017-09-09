@@ -1,0 +1,351 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+
+<body>
+<div class="admin-content-body" layout:fragment="content" id="container">
+    <div id="vuemain" style="width: 100%;height:100px;">
+        <div style="padding: 15px 25px ">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item>首页</el-breadcrumb-item>
+                <el-breadcrumb-item>数据展示</el-breadcrumb-item>
+                <el-breadcrumb-item>避雷器</el-breadcrumb-item>
+                <el-breadcrumb-item>单相故障监测曲线</el-breadcrumb-item>
+                <el-breadcrumb-item>周K</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="col-lg-12 col-md-12 table-wrap">
+            <el-cascader :options="options" v-model="selectedOptions"></el-cascader>
+            <el-button type="primary" @click="initChart">加载</el-button>
+
+
+        </div>
+
+    </div>
+    <div id="main" style="width: 100%;height:400px">
+
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script src="//cdn.bootcss.com/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="//cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        var v = new Vue({
+            el: "#vuemain",
+            data: {
+                options: [],
+                selectedOptions: ''
+
+
+
+            },
+            mounted: function () {
+                var sensorMapping = [[${sensorMapping}]];
+                var mappings = _.groupBy(sensorMapping, function (s) {
+                    return s.pole;
+                })
+                this.options = _.map(_.keys(mappings), function (v) {
+                    var children = _.map(_.get(mappings, v), function (c) {
+                        return {value: c, label: c.type + '相'}
+                    })
+                    return {value: v, label: v, children: children}
+                })
+            },
+            methods: {
+
+                initChart: function () {
+
+                    var mapping = this.selectedOptions;
+                     myChart = echarts.init(document.getElementById('main'));
+                     var m=mapping[1];
+                     var day=moment().format('YYYY-MM-DD');
+                    var fromDay= moment().add(-6,'days').format('YYYYMMDD');
+                    var toDay= moment().format('YYYYMMDD');
+
+                    axios.post("/bileiqi/sensor/weekk/data",{blWd:m.blWdSid,blLj:m.blLjSid,blDl:m.blDlSid,tqWd:m.tqWdSid,tqSd:m.tqSdSid,day:day}).then(function(response){
+                         var rData=response.data;
+                        var gxwdData =rData.blWd
+                        var lddyData =rData.blDl;
+                        var ljcsData =rData.blLj;
+                        var hjwdData =rData.tqWd;
+                        var hjsdData =rData.tqSd;
+                        //x轴时间坐标
+                        var xData=_.union(_.map(gxwdData,function(item){
+                            return item.t
+                        }),_.map(lddyData,function(item){
+                            return item.t
+                        }),_.map(ljcsData,function(item){
+                            return item.t
+                        }),_.map(hjwdData,function(item){
+                            return item.t
+                        }),_.map(hjsdData,function(item){
+                            return item.t
+                        }));
+                        var option = {
+                            title: {
+                                text: mapping[0] + mapping[1].type + '相',
+                                subtext: fromDay+'-'+toDay+'单项故障检测周K线',
+                                x: 'center',
+                                align: 'right'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                align: 'left',
+                                x:'right',
+                                data: ['管芯温度', '漏电电流', '雷击次数','环境温度','环境湿度'],
+                            },
+                            xAxis: {
+                                boundaryGap: false,
+                                data:_.sortBy(xData,function(item){
+                                    return item;
+                                })
+                            },
+                            yAxis: {
+                                splitLine: {
+                                    show: false
+                                }
+                            },
+                            series:
+                                [
+                                    {
+                                        name:'管芯温度',
+                                        type: 'line',
+                                        smooth:true,
+                                        data: _.map(gxwdData,function(item){
+                                            return [item.t,item.sv] ;
+                                        })
+                                    },
+                                    {
+                                        name:'漏电电流',
+                                        type: 'line',
+                                        smooth:true,
+                                        data: _.map(lddyData,function(item){
+                                            return [item.t,item.sv] ;
+                                        })
+                                    },
+                                    {
+                                        name:'雷击次数',
+                                        type: 'line',
+                                        smooth:true,
+                                        data: _.map(ljcsData,function(item){
+                                            return [item.t,item.sv] ;
+                                        })
+                                    },
+                                    {
+                                        name:'环境温度',
+                                        type: 'line',
+                                        smooth:true,
+                                        data: _.map(hjwdData,function(item){
+                                            return [item.t,item.sv] ;
+                                        })
+                                    },
+                                    {
+                                        name:'环境湿度',
+                                        type: 'line',
+                                        smooth:true,
+                                        data: _.map(hjsdData,function(item){
+                                            return [item.t,item.sv] ;
+                                        })
+                                    },
+                                ]
+
+
+
+                        }
+                        myChart.setOption(option);
+                    });
+
+
+                }
+            }
+
+        })
+
+
+        //        var v=new Vue({
+        //            el:"#vuemain",
+        //            mounted:function(){
+        //                var that=this;
+        //                axios.get("/bileiqi/sensor/category").then(function(response){
+        //                    var sensors=response.data;
+        //                    var stations=   _.groupBy(sensors,function(s){
+        //                        return s.station;
+        //                    });
+        //
+        //
+        //
+        //                    that.options=_.map(_.keys(stations),function(v){
+        //                        var children=_.get(stations,v);
+        //                        var sidAddrs= _.groupBy(children,function(s){
+        //                            return s.sidAddr;
+        //                        })
+        //                        var sidAddr= _.map(_.keys(sidAddrs),function(v){
+        //                            var children=_.get(sidAddrs,v);
+        //                            return {value:v,label:v,children:_.map(children,function(v){
+        //                                return {value:v,label:v.sid};
+        //                            })};
+        //                        })
+        //                        return {value:v, label:v,children:sidAddr}
+        //                    })
+        //
+        //
+        //                })
+        //            },
+        //
+        //            methods:{
+        //                initChart:function(){
+        //                    myChart= echarts.init(document.getElementById('main'));
+        //
+        //
+        //                    var that=this;
+        //                    var sid=this.selectedOptions[2].sid;
+        //                    var sName=this.selectedOptions[2].type;
+        //                    var contextPath='/';
+        //                    var cvalue=100;
+        //                    $.get("/sensor/kdata/list",{sid:sid,idx:'0'},function(result){
+        //                        var data={};
+        //                        data.days=[];
+        //                        data.smax=[];
+        //                        data.smin=[];
+        //                        data.savg=[];
+        //                        for(var i=0;i<result.length;i++){
+        //                            var tmp=result[i];
+        //                            data.days.push(tmp.days);
+        //                            data.smax.push(tmp.smax);
+        //                            data.smin.push(tmp.smin);
+        //                            data.savg.push(tmp.savg);
+        //                        }
+        //                        var option = {
+        //                            title: {
+        //                                text: sid,
+        //                                subtext: sName,
+        //                                x: 'center',
+        //                                align: 'right'
+        //                            },
+        //                            tooltip : {
+        //                                trigger: 'axis'
+        //                            },
+        //                            legend: {
+        //                                data:['最高','最低','平均'],
+        //                                x: 'left'
+        //                            },
+        //                            toolbox: {
+        //                                show:true,
+        //                                feature: {
+        //                                    magicType : {show: true, type: ['line', 'bar']},
+        //                                    restore : {show: true},
+        //                                    saveAsImage: {}
+        //                                }
+        //                            },
+        //
+        //                            xAxis : [
+        //                                {
+        //                                    type : 'category',
+        //                                    boundaryGap : false,
+        //                                    splitLine: {
+        //                                        show: false
+        //                                    },
+        //                                    axisLabel:{
+        //                                        rotate:45
+        //                                    },
+        //                                    data :data.days
+        //                                }
+        //                            ],
+        //                            yAxis : [
+        //                                {
+        //                                    name: that.selectedOptions[2].unit,
+        //                                    type : 'value',
+        //                                    splitLine: {
+        //                                        show: false
+        //                                    }
+        //                                    //  max:50>cvalue?50:cvalue
+        //
+        //                                }
+        //                            ],
+        //                            dataZoom: [
+        //                                {
+        //                                    type: 'inside',
+        //                                    z:-1,
+        //                                    top:'bottom'
+        //
+        //                                },
+        //                                {
+        //                                    show: true,
+        //                                    z:-1,
+        //                                    type: 'slider',
+        //                                    top:'bottom'
+        //                                }
+        //                            ],
+        //                            series : [
+        //                                {
+        //                                    name:'最高',
+        //                                    type:'line',
+        //                                    // smooth:true,
+        //                                    data:data.smax,
+        //                                    markPoint:{
+        //                                        data:[{
+        //                                            name: '最高值',
+        //                                            // 支持 'average', 'min', 'max'
+        //                                            type: 'max'
+        //                                        },]
+        //                                    },
+        ////                                    markLine:{
+        ////
+        ////                                        symbol: ['none'],
+        ////                                        data:[{
+        ////                                            name: '阈值',
+        ////                                            yAxis: cvalue,
+        ////                                            scale:true
+        ////                                        }]
+        ////                                    }
+        //                                },
+        //                                {
+        //                                    name:'最低',
+        //                                    type:'line',
+        //                                    smooth:true,
+        //                                    lineStyle: {
+        //                                        normal: {opacity: 1}
+        //                                    },
+        //                                    data:data.smin
+        //                                },
+        //                                {
+        //                                    name:'平均',
+        //                                    type:'line',
+        //                                    //   smooth:true,
+        //                                    lineStyle: {
+        //                                        normal: {
+        //                                            //  width:1,
+        //                                            //  color:'#ccc',
+        //                                            opacity: 0.5
+        //                                        }
+        //                                    },
+        //                                    data:data.savg
+        //                                }
+        //                            ]
+        //                        };
+        //
+        //
+        //
+        //                        myChart.setOption(option)
+        //                    });
+        //
+        //                }
+        //            },
+        //
+        //            data:function(){
+        //                return{
+        //
+        //                    options: [],
+        //                    selectedOptions: []
+        //                }
+        //            }
+        //        })
+    </script>
+
+</th:block>
+
+</body>
+</html>

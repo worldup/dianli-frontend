@@ -23,6 +23,16 @@ public class BileiqiSensor implements Serializable {
     private String unit;
     @Column(name="station")
     private String station;
+    @Column(name="pole")
+    private String pole;
+
+    public String getPole() {
+        return pole;
+    }
+
+    public void setPole(String pole) {
+        this.pole = pole;
+    }
 
     public String getSid() {
         return sid;

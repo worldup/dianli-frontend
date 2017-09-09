@@ -26,7 +26,8 @@ public class LoraHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
 
-        String join="71\n{\"CMD\":\"JOIN\",\"AppEUI\":\"2C26C501a1000001\",\"AppNonce\":1,\"Challenge\":\"1\"}" ;
+      //  String join="\n71\n{\"CMD\":\"JOIN\",\"AppEUI\":\"2C26C501a1000001\",\"CmdSeq\":1,\"AppNonce\":1,\"Challenge\":\"1\"}" ;
+       String join="\n84\n{\"CMD\":\"JOIN\",\"AppEUI\":\"2C26C501a1000001\",\"CmdSeq\":1,\"AppNonce\":1,\"Challenge\":\"1\"}" ;
         ctx.writeAndFlush(join);
     }
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -47,6 +48,7 @@ public class LoraHandler extends ChannelInboundHandlerAdapter {
                        String type=input.getType();
                        Date date=input.getDatetime();
                        SensorData sensorData=new SensorData();
+                       sensorData.setBileiqi(true);
                        sensorData.setIdx(0);
                        try{
                            sensorData.setSv(Double.valueOf(sensorValue.getValue()));

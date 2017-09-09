@@ -12,6 +12,16 @@ public class SensorData implements Serializable {
     private double sv;
     private String day;
     private long id;
+    //是否为避雷器，如果为避雷器，则避免5分钟一次采集的限制
+    private boolean bileiqi;
+
+    public boolean isBileiqi() {
+        return bileiqi;
+    }
+
+    public void setBileiqi(boolean bileiqi) {
+        this.bileiqi = bileiqi;
+    }
 
     public String getDay() {
         return day;

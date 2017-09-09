@@ -1,18 +1,18 @@
 package com.mdata.thirdparty.dianli.frontend.web.controller;
 
+import com.google.gson.Gson;
 import com.mdata.thirdparty.dianli.frontend.web.model.BileiqiSensor;
+import com.mdata.thirdparty.dianli.frontend.web.model.BileiqiSensorMapping;
 import com.mdata.thirdparty.dianli.frontend.web.model.PageResult;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.IBileiqiService;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +36,48 @@ public class BileiqiController {
         modelAndView.setViewName( "/bileiqi/managesensor");
 
         return modelAndView;
+    }
+    @RequestMapping("/sensor/dayk")
+    public ModelAndView sensorDayManager(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/sensorday");
+        modelAndView.getModel().put("sensorMapping",sensorMapping());
+        return modelAndView;
+    }
+    @RequestMapping("/sensor/weekk")
+    public ModelAndView sensorWeekManager(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/sensorweek");
+        modelAndView.getModel().put("sensorMapping",sensorMapping());
+        return modelAndView;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/sensor/dayk/data",method = {RequestMethod.POST,RequestMethod.GET})
+    //mId mappingId
+    public Map<String,List> dayKData(@RequestBody Map map ){
+        String blWd= MapUtils.getString(map,"blWd");
+        String blLj= MapUtils.getString(map,"blLj");
+        String blDl= MapUtils.getString(map,"blDl");
+        String tqSd= MapUtils.getString(map,"tqSd");
+        String tqWd= MapUtils.getString(map,"tqWd");
+        String day= MapUtils.getString(map,"day");
+       return  iBileiqiService.getDaykData(blWd,blLj,blDl,tqWd,tqSd,day);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/sensor/weekk/data",method = {RequestMethod.POST,RequestMethod.GET})
+    //mId mappingId
+    public Map<String,List> weekKData(@RequestBody Map map ){
+        String blWd= MapUtils.getString(map,"blWd");
+        String blLj= MapUtils.getString(map,"blLj");
+        String blDl= MapUtils.getString(map,"blDl");
+        String tqSd= MapUtils.getString(map,"tqSd");
+        String tqWd= MapUtils.getString(map,"tqWd");
+        String day= MapUtils.getString(map,"day");
+        return  iBileiqiService.getWeekkData(blWd,blLj,blDl,tqWd,tqSd,day);
+    }
+    private List<BileiqiSensorMapping> sensorMapping(){
+        return iBileiqiService.findAllBileiqiMapping();
+
     }
     @ResponseBody
     @RequestMapping("/sensor/all")
