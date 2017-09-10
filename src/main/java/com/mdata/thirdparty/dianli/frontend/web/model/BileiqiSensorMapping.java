@@ -1,14 +1,12 @@
 package com.mdata.thirdparty.dianli.frontend.web.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "t_bileiqi_sensors_mapping")
 public class BileiqiSensorMapping {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @Column(name = "pole")

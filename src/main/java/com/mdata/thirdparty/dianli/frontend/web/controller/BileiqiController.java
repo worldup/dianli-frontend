@@ -37,6 +37,13 @@ public class BileiqiController {
 
         return modelAndView;
     }
+    @RequestMapping("/sensormapping/manager")
+    public ModelAndView sensorMappingManager(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/managesensormapping");
+
+        return modelAndView;
+    }
     @RequestMapping("/sensor/dayk")
     public ModelAndView sensorDayManager(HttpSession session){
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
@@ -85,6 +92,23 @@ public class BileiqiController {
 
         Page<BileiqiSensor> bileiqiSensors=iBileiqiService.findAll(pageable);
         return bileiqiSensors;
+    }
+    @ResponseBody
+    @RequestMapping("/sensormapping/all")
+    public Page listSensorMappings(@PageableDefault(page=1,size=10) Pageable pageable ,String pole){
+
+        Page<BileiqiSensorMapping> bileiqiSensors=iBileiqiService.findAllBileiqiMappingByPageAndPole(pageable,pole);
+        return bileiqiSensors;
+    }
+    @ResponseBody
+    @RequestMapping(value="/sensormapping",method={RequestMethod.POST},produces="application/json;charset=UTF-8")
+    public void addSensorMapping(@RequestBody BileiqiSensorMapping mapping){
+        iBileiqiService.addBileiqiMapping(mapping);
+    }
+    @ResponseBody
+    @RequestMapping(value="/sensormapping",method={RequestMethod.DELETE},produces="application/json;charset=UTF-8")
+    public void deleteSensorMapping(@RequestBody List<Integer> ids){
+        iBileiqiService.deleteBileiqiMapping(ids);
     }
     @RequestMapping("/sensor/chart")
     public ModelAndView sensorChart(HttpSession session){

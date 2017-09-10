@@ -9,15 +9,14 @@ import com.mdata.thirdparty.dianli.frontend.web.model.BileiqiSensor;
 import com.mdata.thirdparty.dianli.frontend.web.model.BileiqiSensorMapping;
 import com.mdata.thirdparty.dianli.frontend.web.repository.BileiqiSensorMappingRepository;
 import com.mdata.thirdparty.dianli.frontend.web.repository.BileiqiSensorRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +38,20 @@ public class BileiqiServiceImpl implements IBileiqiService {
     @Override
     public Page<BileiqiSensor> findAll(Pageable pageable) {
        return  repository.findAll(pageable);
+    }
+ @Override
+  public Page<BileiqiSensorMapping> findAllBileiqiMappingByPage(Pageable pageable){
+        return mappingRepository.findAll(pageable);
+ }
+    @Override
+    public Page<BileiqiSensorMapping> findAllBileiqiMappingByPageAndPole(Pageable pageable,String pole){
+      if(StringUtils.isNotEmpty(pole)){
+          return mappingRepository.findAllByPoleLike("%"+pole+"%",pageable);
+      }
+      else{
+          return mappingRepository.findAll(pageable);
+      }
+
     }
 
     @Override
@@ -89,5 +102,19 @@ public class BileiqiServiceImpl implements IBileiqiService {
         }));
         return result;
     }
+    public void addBileiqiMapping(BileiqiSensorMapping mapping) {
+        BileiqiSensorMapping result=  mappingRepository.save(mapping);
+    }
 
+    public void deleteBileiqiMapping(List<Integer> ids){
+        Iterable<BileiqiSensorMapping> mappingList=  Iterables.transform(ids, new Function<Integer, BileiqiSensorMapping>() {
+            @Override
+            public BileiqiSensorMapping apply(Integer input) {
+                BileiqiSensorMapping mapping=new BileiqiSensorMapping();
+                mapping.setId(input);
+                return mapping;
+            }
+        });
+        mappingRepository.delete(mappingList);
+    }
 }
