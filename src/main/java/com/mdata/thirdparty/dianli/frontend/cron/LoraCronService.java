@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class LoraCronService {
     @Autowired
     private NettyStarter nettyStarter;
-    @Scheduled(cron="0 0/1 * * * ?") //每分钟执行一次
+    @Scheduled(cron="0 0/5 * * * ?") //每分钟执行一次
     public void statusCheck() {
         System.out.println  ("每1分钟执行一次。开始……");
         //statusTask.healthCheck();
