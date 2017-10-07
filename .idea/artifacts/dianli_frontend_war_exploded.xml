@@ -7,6 +7,8 @@
           <element id="module-output" name="dianli-frontend" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.json:json:20140107" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:1.4.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.4.0.RELEASE" />
@@ -43,7 +45,6 @@
           <element id="library" level="project" name="Maven: nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.0" />
           <element id="library" level="project" name="Maven: org.codehaus.groovy:groovy:2.4.7" />
           <element id="library" level="project" name="Maven: nz.net.ultraq.thymeleaf:thymeleaf-expression-processor:1.1.0" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:1.4.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-jdbc:8.5.4" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:8.5.4" />

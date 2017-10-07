@@ -62,7 +62,7 @@ public class BileiqiServiceImpl implements IBileiqiService {
     @Override
     public Map<String, List> getDaykData(final String blWd, final String blLj, final String blDl, final String tqWd, final String tqSd, String day) {
        //显示分钟级别统计
-        String sql="select sid,max(sv) sv, date_format(tmin,'%H:%i') t  from t_sensor_data where days =? and sid in(?,?,?,?,?) group by date_format(tmin,'%H:%i')" ;
+        String sql="select sid,max(sv) sv, date_format(tmin,'%H:%i') t  from t_sensor_data where days =? and sid in(?,?,?,?,?) group by sid,date_format(tmin,'%H:%i')" ;
 
 
          List <Map<String,Object>> result=jdbcTemplate.query(sql,new Object[]{day,blWd,blLj,blDl,tqWd,tqSd},new ColumnMapRowMapper());
@@ -72,7 +72,7 @@ public class BileiqiServiceImpl implements IBileiqiService {
     @Override
     public Map<String, List> getWeekkData(final String blWd, final String blLj, final String blDl, final String tqWd, final String tqSd, String day) {
         //显示分钟级别统计
-        String sql="select sid,max(sv) sv, date_format(tmin,'%Y%m%d%H%i') t  from t_sensor_data where days >=date_add(?,interval -6 day) and sid in(?,?,?,?,?) group by date_format(tmin,'%Y%m%d%H%i')" ;
+        String sql="select sid,max(sv) sv, date_format(tmin,'%Y%m%d%H%i') t  from t_sensor_data where days >=date_add(?,interval -6 day) and sid in(?,?,?,?,?) group by sid,date_format(tmin,'%Y%m%d%H%i')" ;
 
 
         List <Map<String,Object>> result=jdbcTemplate.query(sql,new Object[]{day,blWd,blLj,blDl,tqWd,tqSd},new ColumnMapRowMapper());
