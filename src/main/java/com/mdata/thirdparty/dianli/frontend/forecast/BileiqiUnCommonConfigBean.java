@@ -9,6 +9,15 @@ public class BileiqiUnCommonConfigBean {
     private Dl dl=new Dl();
     private WD wd=new WD();
     private LJ lj =new LJ();
+    private double dlZero;
+
+    public double getDlZero() {
+        return dlZero;
+    }
+
+    public void setDlZero(double dlZero) {
+        this.dlZero = dlZero;
+    }
 
     public Dl getDl() {
         return dl;
