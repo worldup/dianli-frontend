@@ -10,6 +10,24 @@ public class BileiqiUnCommonConfigBean {
     private WD wd=new WD();
     private LJ lj =new LJ();
     private double dlZero;
+    private long delay;
+    private TimeUnit.Unit unit;
+
+    public long getDelay() {
+        return delay;
+    }
+
+    public void setDelay(long delay) {
+        this.delay = delay;
+    }
+
+    public TimeUnit.Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(TimeUnit.Unit unit) {
+        this.unit = unit;
+    }
 
     public double getDlZero() {
         return dlZero;

@@ -10,8 +10,8 @@
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item >首页</el-breadcrumb-item>
                 <el-breadcrumb-item>避雷器</el-breadcrumb-item>
-                <el-breadcrumb-item>故障监测</el-breadcrumb-item>
-                <el-breadcrumb-item>无数据避雷器</el-breadcrumb-item>
+                <el-breadcrumb-item>缺陷检测</el-breadcrumb-item>
+                <el-breadcrumb-item>放电不计数</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="col-lg-12 col-md-12 table-wrap" >
@@ -23,16 +23,14 @@
                         <el-button type="primary" @click="latestMetric">查询</el-button>
                     </el-form-item>
                     <el-form-item>
-                        <el-tag type="warning">超过1天未收到数据</el-tag>
+                        <el-tag type="warning">同杆三相避雷器比较与两相计数比其他一相避雷器无计数</el-tag>
                     </el-form-item>
 
                 </el-form>
             </el-col>
             <el-table  :data="tbData"   v-loading.body="listLoading" border stripe highlight-current-row height="450"   style="width: 100%">
                 <el-table-column   prop="pole"  label="安装位置"  width="180"> </el-table-column>
-                <el-table-column  prop="ptype"  label="ABC相" width="180">  </el-table-column>
-                <el-table-column  prop="stype"  label="传感器类型" width="180">  </el-table-column>
-                <el-table-column  prop="sid"  label="传感器id" width="200">  </el-table-column>
+                <el-table-column  prop="savg"  label="三相数据" width="300">  </el-table-column>
 
             </el-table>
 
@@ -61,7 +59,7 @@
 
                     var that=this;
                     that.listLoading=true;
-                    axios.get("/bileiqi/sensor/forecast/uncommonsensor/data").then(function(resp){
+                    axios.get("/bileiqi/sensor/forecast/uncalcljsensor/data").then(function(resp){
                         that.tbData=resp.data
                         that.listLoading=false;
                     })

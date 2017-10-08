@@ -9,185 +9,67 @@
         <div style="padding: 15px 25px ">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item >首页</el-breadcrumb-item>
-                <el-breadcrumb-item>配置管理</el-breadcrumb-item>
-                <el-breadcrumb-item>传感器</el-breadcrumb-item>
-                <el-breadcrumb-item>杆位维护</el-breadcrumb-item>
+                <el-breadcrumb-item>避雷器</el-breadcrumb-item>
+                <el-breadcrumb-item>实时指标</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="col-lg-12 col-md-12 table-wrap" >
             <!--工具条-->
             <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                <el-form :inline="true" :model="listQuery">
+                <el-form :inline="true" >
+
                     <el-form-item>
-                        <el-input v-model="listQuery.pole" placeholder="安装位置"></el-input>
+                        <el-button type="primary" @click="latestMetric">查询</el-button>
                     </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="listSensors">查询</el-button>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="success" @click="handleAdd">新增</el-button>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-                    </el-form-item>
+
 
                 </el-form>
             </el-col>
-            <el-table  :data="tbData.content"  @selection-change="selsChange"  v-loading.body="listLoading" border stripe highlight-current-row height="450"   style="width: 100%">
-                <el-table-column type="selection" width="50"> </el-table-column>
-                <el-table-column   prop="id"  label="主键"  width="80"> </el-table-column>
+            <el-table  :data="tbData"   v-loading.body="listLoading" border stripe highlight-current-row height="450"   style="width: 100%">
                 <el-table-column   prop="pole"  label="安装位置"  width="180"> </el-table-column>
-                <el-table-column  prop="type"  label="ABC相" width="100">  </el-table-column>
-                <el-table-column  prop="blWdSid"  label="避雷器温度SID"  width="150">  </el-table-column>
-                <el-table-column  prop="blLjSid"   label="避雷器雷击SID"  width="150"> </el-table-column>
-                <el-table-column  prop="blDlSid"   label="避雷器电流SID"  width="150"> </el-table-column>
-                <el-table-column  prop="tqWdSid"   label="天气温度SID"  width="150"> </el-table-column>
-                <el-table-column  prop="tqSdSid"   label="天气湿度SID"  width="150"> </el-table-column>
+                <el-table-column  prop="ptype"  label="ABC相" width="100">  </el-table-column>
+                <el-table-column  prop="stype"  label="传感器类型" width="150">  </el-table-column>
+                <el-table-column  prop="sid"  label="传感器id" width="180">  </el-table-column>
+                <el-table-column    label="最后更新时间" width="300">
+
+                        <template scope="scope">
+                            <el-icon name="time"></el-icon>
+                            <span style="margin-left: 10px">{{ scope.row.tlast }}</span>
+                            <el-tag  v-if="scope.row.uncommon==1" type="danger">超1天</el-tag>
+                        </template>
+
+                </el-table-column>
+
+
             </el-table>
-            <!--新增界面-->
-            <el-dialog title="新增配置" v-model="addFormVisible" :close-on-click-modal="false">
-                <el-form :model="addForm" label-position="left" label-width="150px" :rules="addFormRules" ref="addForm">
-                    <el-form-item label="安装位置" prop="pole">
-                        <el-input v-model="addForm.pole" auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="ABC相">
-                        <el-select v-model="addForm.type" placeholder="ABC相">
-                            <el-option :key="'A'" :label="'A'" :value="'A'"></el-option>
-                            <el-option :key="'B'" :label="'B'" :value="'B'"></el-option>
-                            <el-option :key="'C'" :label="'C'" :value="'C'"></el-option>
-                        </el-select>
 
-                    </el-form-item>
-                    <el-form-item label="避雷器温度SID">
-                        <el-input v-model="addForm.blWdSid" ></el-input>
-                    </el-form-item>
-                    <el-form-item label="避雷器雷击SID">
-                        <el-input v-model="addForm.blLjSid" ></el-input>
-                    </el-form-item>
-                    <el-form-item label="避雷器电流SID">
-                        <el-input v-model="addForm.blDlSid" ></el-input>
-                    </el-form-item>
-                    <el-form-item label="天气温度SID">
-                        <el-input v-model="addForm.tqWdSid" ></el-input>
-                    </el-form-item>
-                    <el-form-item label="天气湿度SID">
-                        <el-input v-model="addForm.tqSdSid" ></el-input>
-                    </el-form-item>
-                </el-form>
-                <div slot="footer" class="dialog-footer">
-                    <el-button @click.native="addFormVisible = false">取消</el-button>
-                    <el-button type="primary" @click.native="addFormSubmit" :loading="addFormLoading">提交</el-button>
-                </div>
-            </el-dialog>
-            <div v-show="!listLoading" class="col-lg-12 col-md-12 block " >
 
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                               :page-sizes="[10,20,30,50]" style="width: 100%" :page-size="listQuery.size" layout="total, sizes, prev, pager, next, jumper" :total="tbData.totalElements">
-                </el-pagination>
-            </div>
         </div>
 
     </div>
 </div>
 <th:block layout:fragment="script">
     <script src="//cdn.bootcss.com/lodash.js/4.17.4/lodash.min.js"></script>
+
     <script type="text/javascript"  th:inline="javascript">
         var v=new Vue({
             el:"#main",
             mounted:function(){
-                this.listSensors();
+                this.latestMetric();
             },
 
             methods:{
-                selsChange:function(sels){
-                    this.sels=sels;
-                },
-                handleSearch:function(){
-                    var that =this;
-                    var para = Object.assign({},this.listQuery);
-                    axios.get("/bileiqi/sensormapping/all", {params: para}).then(function (res) {
-                        that.addLoading = false;
-                        //NProgress.done();
-                        that.$message({
-                            message: '提交成功',
-                            type: 'success'
-                        });
-                        that.$refs['addForm'].resetFields();
-                        that.addFormVisible = false;
-                        that.tbData = res.data;
 
-                    });
+                showDangerFlag:function (time) {
+                    return time>new Date();
                 },
-                batchRemove:function(){
-                    var that=this;
-                    that.$confirm('确认要删除选中吗？', '确认', {}).then(function (){
-                        var ids= _.map(that.sels,function(item){
-                            return item.id;
-                        });
-                        console.log(ids)
-                        axios({
-                            method:'delete',
-                            url:'/bileiqi/sensormapping',
-                            data: ids
-                        }).then(function(res){
-                            that.listSensors();
-                            that.$message({
-                                message: '删除成功',
-                                type: 'success'
-                            });
-                        });
-                    });
 
-                },
-                handleAdd:function(){
-                    this.addFormVisible = true;
-                    this.addForm = {
-                        pole: '',
-                        type: 'A',
-                        blWdSid: '',
-                        blLjSid: '',
-                        blDlSid: '',
-                        tqWdSid: '',
-                        tqSdSid: ''
-                    };
-                },
-                addFormSubmit:function(){
-                    var that=this;
-                    this.$refs.addForm.validate(function(valid) {
-                        if (valid) {
-                            that.$confirm('确认提交吗？', '提示', {}).then(function (){
-                                that.addLoading = true;
-
-                                axios.post("/bileiqi/sensormapping", that.addForm).then(function(res){
-                                    that.addLoading = false;
-                                    //NProgress.done();
-                                    that.$message({
-                                        message: '提交成功',
-                                        type: 'success'
-                                    });
-                                    that.$refs['addForm'].resetFields();
-                                    that.addFormVisible=false;
-                                    that.listSensors();
-                                })
-
-                        });
-                        }
-                    });
-                },
-                handleSizeChange:function(val) {
-                    this.listQuery.size = val;
-                    this.listSensors();
-                },
-                handleCurrentChange:function(val) {
-                    this.listQuery.page = val-1;
-                    this.listSensors();
-                },
-                listSensors:function( ){
+                latestMetric:function( ){
 
                     var that=this;
                     that.listLoading=true;
-                    axios.get("/bileiqi/sensormapping/all",{params:that.listQuery}).then(function(resp){
-                            that.tbData=resp.data;
+                    axios.get("/bileiqi/sensor/latest").then(function(resp){
+                            that.tbData=resp.data
                             that.listLoading=false;
                     })
                 }
@@ -195,30 +77,14 @@
 
             data:function(){
                 return{
-                    //新增界面是否显示
-                    addFormVisible:false,
-                    addFormRules: {
-                        pole: [
-                            { required: true, message: '请输入位置信息', trigger: 'blur' }
-                        ]
-                    },
-                    addFormLoading:false,
-                    addForm:{},
-                    //查询条件
-                    listQuery: {
-                        page: 0,
-                        size: 10,
-                        pole:''
-                    },
-                    sels:[],
+
                     listLoading:false,
-                    tbData:{}
+                    tbData:[]
 
                 }
             }
         })
     </script>
-    <!--<script type="text/javascript" th:src="@{/assets/js/chart/humidityk.js}" src="../../static/assets/js/chart/humidityk.js"></script>-->
 
 </th:block>
 </body>

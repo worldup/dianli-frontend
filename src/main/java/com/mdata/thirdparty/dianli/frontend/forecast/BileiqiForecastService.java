@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
-public class BileiqiService {
+public class BileiqiForecastService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -174,9 +174,9 @@ public class BileiqiService {
 
     }
     //故障监测 1.单相击穿故障监测
-    public Set<String> getSinglePhaseFailure(){
+    public Set<Map<String,String>> getSinglePhaseFailure(){
         Map<String ,Integer> tempMap=Maps.newHashMap();
-        Set<String> result=Sets.newHashSet();
+        Set<Map<String,String>> result=Sets.newHashSet();
         List<BileiqiSensorMapping> bileiqiSensorMappings= getBileiqiSensorMapping();
         Set<String>  wdSensors=getUnCommonWDSensors();
         Set<String>  dlSensors=getUnCommonDLSensors();
@@ -197,7 +197,10 @@ public class BileiqiService {
             }
             for(Map.Entry<String,Integer> entry:tempMap.entrySet()){
                 if(entry.getValue()==3){
-                    result.add(entry.getKey());
+                    Map<String,String> map=Maps.newHashMap();
+                    map.put("sid",entry.getKey());
+                    result.add(map);
+
                 }
             }
         }
@@ -230,14 +233,14 @@ public class BileiqiService {
         return null;
     }
     //故障监测 1.多相击穿故障监测
-    public Set<String> getMultiPhaseFailure(){
-        Set<String> singleFailures=getSinglePhaseFailure();
+    public Set<Map<String,String>> getMultiPhaseFailure(){
+        Set<Map<String,String>> singleFailures=getSinglePhaseFailure();
         List<BileiqiSensorMapping> bileiqiSensorMappings= getBileiqiSensorMapping();
         Map<String,Integer> result=Maps.newHashMap();
-        Set<String > failurePoles=Sets.newHashSet();
+        Set<Map<String,String> > failurePoles=Sets.newHashSet();
         if(CollectionUtils.isNotEmpty(singleFailures)){
-            for(String key:singleFailures){
-                List<String> poleAndType= Lists.newArrayList(Splitter.on("@").split(key).iterator());
+            for(Map<String,String> keyMap:singleFailures){
+                List<String> poleAndType= Lists.newArrayList(Splitter.on("@").split(keyMap.get("sid")).iterator());
                 if(CollectionUtils.isNotEmpty(poleAndType)&&poleAndType.size()==2){
                    String pole= poleAndType.get(0);
                    putAndIncrease(result,pole);
@@ -246,17 +249,19 @@ public class BileiqiService {
         }
         for(Map.Entry<String,Integer> resultEntry:result.entrySet()){
             if(resultEntry.getValue()>1){
-                failurePoles.add(resultEntry.getKey());
+                Map<String,String> map=Maps.newHashMap();
+                map.put("sid",resultEntry.getKey());
+                failurePoles.add(map);
             }
         }
         return failurePoles;
     }
 
     //隐患检测 -阀片老化
-    public Set<String> getAgingSensors(){
+    public Set<Map<String,String>>  getAgingSensors(){
 
         Map<String ,Integer> tempMap=Maps.newHashMap();
-       Set<String> result=Sets.newHashSet();
+        Set<Map<String,String>> result=Sets.newHashSet();
         List<BileiqiSensorMapping> bileiqiSensorMappings= getBileiqiSensorMapping();
         Set<String>  wdSensors=getUnCommonWDSensors();
         Set<String>  dlSensors=getUnCommonDLSensors();
@@ -277,17 +282,19 @@ public class BileiqiService {
             }
             for(Map.Entry<String,Integer> entry:tempMap.entrySet()){
                 if(entry.getValue()==3){
-                    result.add(entry.getKey());
+                    Map<String,String> map=Maps.newHashMap();
+                    map.put("sid",entry.getKey());
+                    result.add(map);
                 }
             }
         }
         return result;
     }
     //缺陷检测 -爬电/漏电
-    public Set<String> getreepageSensors(){
+    public Set<Map<String,String>> getreepageSensors(){
 
         Map<String ,Integer> tempMap=Maps.newHashMap();
-        Set<String> result=Sets.newHashSet();
+        Set<Map<String,String>> result=Sets.newHashSet();
         List<BileiqiSensorMapping> bileiqiSensorMappings= getBileiqiSensorMapping();
         Set<String>  wdSensors=getUnCommonWDSensors();
         Set<String>  dlSensors=getUnCommonDLSensors();
@@ -304,38 +311,31 @@ public class BileiqiService {
 
             for(Map.Entry<String,Integer> entry:tempMap.entrySet()){
                 if(entry.getValue()==2){
-                    result.add(entry.getKey());
+                    Map<String,String> map=Maps.newHashMap();
+                    map.put("sid",entry.getKey());
+                    result.add(map);
                 }
             }
         }
         return result;
     }
     //缺陷检测 -底座接地不良
-    public  List<String> getZeroDlSensors(){
+    public  List<Map<String,Object>> getZeroDlSensors(){
         Double dlZero=bileiqiUnCommonConfigBean.getDlZero();
         long delay= bileiqiUnCommonConfigBean.getDl().getDelay();
         TimeUnit.Unit unit= bileiqiUnCommonConfigBean.getDl().getUnit();
         TimeUnit timeUnit=new TimeUnit(delay,unit);
-        String sql=   "select  sid     from t_sensor_days where sid in( " +
-                " " +
-                "select bl_dl_sid from t_bileiqi_sensors_mapping  " +
-                ") " +
-                "and    days > date_sub(now(),interval "+timeUnit.toString()+") " +
-                "group by sid having savg <= " + dlZero;
-        List<String> stringList=  jdbcTemplate.query(sql, new RowMapper<String>() {
-            @Override
-            public String mapRow(ResultSet rs, int i) throws SQLException {
-
-
-                String sid=rs.getString("sid");
-                return sid;
-            }
-        });
+        String  sql="select  sm.pole, sm.type,'电流传感器' stype, sd.sid from t_sensor_days sd join t_bileiqi_sensors_mapping  sm   " +
+                "on sd.sid =sm.bl_dl_sid   " +
+                "where   sd.days > date_sub(now(),interval"+timeUnit.toString()+"  )  " +
+                "    and sd.savg <=   " +dlZero+
+                "   group by sd.sid ";
+        List<Map<String,Object>> stringList=  jdbcTemplate.query(sql, new ColumnMapRowMapper());
         return stringList;
     }
 
     //缺陷检测 -放电不计数
-    public Set<String> getUnCalcLj(){
+    public List<Map<String,Object>> getUnCalcLj(){
         String sql= 
                 "select  t.pole ,GROUP_CONCAT(t.savg) savg from (  " +
                 "select sm.pole ,avg(sd.savg) savg ,sd.sid  from t_sensor_days  sd join   t_bileiqi_sensors_mapping sm   " +
@@ -344,35 +344,17 @@ public class BileiqiService {
                 "group by sd.sid ) t  " +
                 "group by t.pole";
 
-        List<Map<String,String>> mapList=  jdbcTemplate.query(sql, new RowMapper<Map<String, String>>() {
-            @Override
-            public Map<String, String> mapRow(ResultSet rs, int i) throws SQLException {
-                Map<String, String> map= Maps.newHashMap();
-                String savg= rs.getString("savg");
-                String pole=rs.getString("pole");
-                map.put("pole",pole);
-                map.put("savg",savg);
-                return map;
-            }
-        });
+        List<Map<String,Object>> mapList=  jdbcTemplate.query(sql, new ColumnMapRowMapper());
         if(CollectionUtils.isNotEmpty(mapList)){
-            Set<Map<String,String>> mapSet= Sets.newHashSet(Iterables.filter(mapList, new Predicate<Map<String, String>>() {
+            List<Map<String,Object>> mapSet= Lists.newArrayList(Iterables.filter(mapList, new Predicate<Map<String, Object>>() {
                 @Override
-                public boolean apply(Map<String, String> stringObjectMap) {
-                    String savg=  stringObjectMap.get("savg");
-
-                    return isUnCalc(savg);
+                public boolean apply(Map<String, Object> stringObjectMap) {
+                    Object savg=  stringObjectMap.get("savg");
+                    String savgstr=savg==null?null:savg.toString();
+                    return isUnCalc(savgstr);
                 }
             }).iterator());
-            if(CollectionUtils.isNotEmpty(mapList)){
-              return   Sets.newHashSet(Iterables.transform(mapSet, new Function<Map<String,String>, String>() {
-                    @Override
-                    public String apply(Map<String, String> stringStringMap) {
-                        return stringStringMap.get("pole");
-                    }
-                })
-                );
-            }
+            return mapSet;
         }
         return null;
     }
@@ -403,34 +385,32 @@ public class BileiqiService {
     }
 
     //查询传感器是否异常,如果近一天没有数据则需要告警
-    public Set<Map<String,Object>> getUnCommonSensor(){
+    public List<Map<String,Object>> getUnCommonSensor(){
         long delay= bileiqiUnCommonConfigBean.getDelay();
         TimeUnit.Unit unit= bileiqiUnCommonConfigBean.getUnit();
         TimeUnit timeUnit=new TimeUnit(delay,unit);
         String sql="select a.pole,a.ptype,a.stype,a.sid,avg(sd.savg) savg  from (  " +
-                "select pole,type ptype, 'wd' stype, bl_wd_sid sid  from t_bileiqi_sensors_mapping  " +
+                "select pole,type ptype, '温度传感器' stype, bl_wd_sid sid  from t_bileiqi_sensors_mapping  " +
                 "UNION  " +
-                "select  pole,type ptype, 'lj' stype,bl_lj_sid  sid from t_bileiqi_sensors_mapping  " +
+                "select  pole,type ptype, '雷击计数器' stype,bl_lj_sid  sid from t_bileiqi_sensors_mapping  " +
                 "UNION  " +
-                "select  pole,type ptype,'dl' stype, bl_dl_sid  sid from t_bileiqi_sensors_mapping  " +
+                "select  pole,type ptype,'电流传感器' stype, bl_dl_sid  sid from t_bileiqi_sensors_mapping  " +
                 "UNION  " +
-                "select  pole,type ptype, 'twd' stype, tq_wd_sid sid from t_bileiqi_sensors_mapping  " +
+                "select  pole,type ptype, '环境温度传感器' stype, tq_wd_sid sid from t_bileiqi_sensors_mapping  " +
                 "UNION  " +
-                "select  pole,type ptype,'tsd' stype, tq_sd_sid sid  from t_bileiqi_sensors_mapping  " +
+                "select  pole,type ptype,'环境湿度传感器' stype, tq_sd_sid sid  from t_bileiqi_sensors_mapping  " +
                 ")a left join t_sensor_days sd  " +
                 "on a.sid =sd.sid   " +
-                "and  sd.days > date_sub(now(),interval "+timeUnit.toString()+") group by a.pole,a.ptype,a.stype";
+                "and  sd.days > date_sub(now(),interval "+timeUnit.toString()+") group by a.pole,a.ptype,a.stype order by a.pole,a.ptype";
         List<Map<String,Object>> mapList=  jdbcTemplate.query(sql,  new ColumnMapRowMapper());
         if(CollectionUtils.isNotEmpty(mapList)){
-            Set<Map<String,Object>> mapSet=Sets.newHashSet(Iterables.filter(mapList, new Predicate<Map<String, Object>>() {
+            List<Map<String,Object>> result=Lists.newArrayList(Iterables.filter(mapList, new Predicate<Map<String, Object>>() {
                 @Override
                 public boolean apply(Map<String, Object> stringStringMap) {
                     return stringStringMap.get("savg")==null;
                 }
             }));
-            if(CollectionUtils.isNotEmpty(mapSet)){
-               return mapSet;
-            }
+               return result;
         }
         return null;
     }

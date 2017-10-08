@@ -1,8 +1,7 @@
 package com.mdata.thirdparty.dianli.frontend.cron;
 
 import com.mdata.thirdparty.dianli.frontend.NettyStarter;
-import com.mdata.thirdparty.dianli.frontend.forecast.BileiqiService;
-import com.mdata.thirdparty.dianli.frontend.forecast.BileiqiUnCommonConfigBean;
+import com.mdata.thirdparty.dianli.frontend.forecast.BileiqiForecastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,7 +18,7 @@ public class LoraCronService {
     @Autowired
     private NettyStarter nettyStarter;
     @Autowired
-    private BileiqiService bileiqiService;
+    private BileiqiForecastService bileiqiService;
     @Scheduled(cron="0 0/5 * * * ?") //每分钟执行一次
     public void statusCheck() {
         System.out.println  ("每5分钟执行一次。开始……");

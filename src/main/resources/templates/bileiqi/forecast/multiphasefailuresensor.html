@@ -19,28 +19,16 @@
             <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 
                 <el-form :inline="true" >
-                    <el-form-item>
-                        <el-button type="primary" @click="latestMetric">查询</el-button>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-tag type="gray"> 泄漏电流突增后不恢复</el-tag>
 
-                    </el-form-item>
                     <el-form-item>
-                        <el-tag type="warning"> 管芯温度突增后不恢复</el-tag>
+                        <el-tag type="danger"> 在同一杆上，存在1相以上击穿故障</el-tag>
+                    </el-form-item>
 
-                    </el-form-item>
-                    <el-form-item>
-                        <el-tag type="danger"> 有放电计数</el-tag>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-tag type="success"> 区域雷雨天气</el-tag>
-                    </el-form-item>
                 </el-form>
             </el-col>
             <el-table  :data="tbData"   v-loading.body="listLoading" border stripe highlight-current-row height="450"   style="width: 100%">
 
-                <el-table-column  prop="sid"  label="单项击穿传感器" width="500">  </el-table-column>
+                <el-table-column  prop="sid"  label="多项击穿杆位" width="500">  </el-table-column>
 
             </el-table>
 
@@ -69,7 +57,7 @@
 
                     var that=this;
                     that.listLoading=true;
-                    axios.get("/bileiqi/sensor/forecast/reepagesensor/data").then(function(resp){
+                    axios.get("/bileiqi/sensor/forecast/multiphasefailuresensor/data").then(function(resp){
                         that.tbData=resp.data
                         that.listLoading=false;
                     })

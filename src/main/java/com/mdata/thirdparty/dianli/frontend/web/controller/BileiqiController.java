@@ -1,6 +1,7 @@
 package com.mdata.thirdparty.dianli.frontend.web.controller;
 
 import com.google.gson.Gson;
+import com.mdata.thirdparty.dianli.frontend.forecast.BileiqiForecastService;
 import com.mdata.thirdparty.dianli.frontend.web.model.BileiqiSensor;
 import com.mdata.thirdparty.dianli.frontend.web.model.BileiqiSensorMapping;
 import com.mdata.thirdparty.dianli.frontend.web.model.PageResult;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by administrator on 17/8/20.
@@ -28,6 +30,8 @@ import java.util.Map;
 public class BileiqiController {
     @Autowired
     private IBileiqiService iBileiqiService;
+    @Autowired
+    private BileiqiForecastService forecastService;
     @Autowired
     private ModelAndViewUtils modelAndViewUtils;
     @RequestMapping("/sensor/manager")
@@ -122,5 +126,94 @@ public class BileiqiController {
     public List<BileiqiSensor> category(){
         List<BileiqiSensor> bileiqiSensors=iBileiqiService.findAll();
          return bileiqiSensors;
+    }
+    @RequestMapping(value = "/sensor/latest",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String,Object>> latestMetric(){
+        return  iBileiqiService.getSensorLatestMetrics();
+    }
+    @RequestMapping(value = "/sensor/latestpage",method = RequestMethod.GET)
+    public ModelAndView latestPage(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/latestpage");
+
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/uncommonsensor",method = RequestMethod.GET)
+    public ModelAndView forecastUncommon(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/uncommonsensor");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/uncommonsensor/data",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String,Object>> uncommonsensorData(){
+       return  forecastService.getUnCommonSensor();
+    }
+    @RequestMapping(value = "/sensor/forecast/uncalcljsensor",method = RequestMethod.GET)
+    public ModelAndView uncalcljsensor(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/uncalcljsensor");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/uncalcljsensor/data",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String,Object>> uncalcljsensorData(){
+        return  forecastService.getUnCalcLj();
+    }
+    @RequestMapping(value = "/sensor/forecast/zerodlsensor",method = RequestMethod.GET)
+    public ModelAndView zerodlsensor(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/zerodlsensor");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/zerodlsensor/data",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String,Object>> zerodlsensorData(){
+        return  forecastService.getZeroDlSensors();
+    }
+    @RequestMapping(value = "/sensor/forecast/reepagesensor",method = RequestMethod.GET)
+    public ModelAndView reepagesensor(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/reepagesensor");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/reepagesensor/data",method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Map<String,String>> reepagesensorData(){
+        return  forecastService.getreepageSensors();
+    }
+    @RequestMapping(value = "/sensor/forecast/agingsensor",method = RequestMethod.GET)
+    public ModelAndView agingsensor(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/agingsensor");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/agingsensor/data",method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Map<String,String>> agingsensorData(){
+        return  forecastService.getAgingSensors();
+    }
+    @RequestMapping(value = "/sensor/forecast/singlephasefailuresensor",method = RequestMethod.GET)
+    public ModelAndView singlephasefailuresensor(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/singlephasefailuresensor");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/singlephasefailuresensor/data",method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Map<String,String>> singlephasefailuresensorData(){
+        return  forecastService.getSinglePhaseFailure();
+    }
+    @RequestMapping(value = "/sensor/forecast/multiphasefailuresensor",method = RequestMethod.GET)
+    public ModelAndView multiphasefailuresensor(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/multiphasefailuresensor");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/multiphasefailuresensor/data",method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Map<String,String>> multiphasefailuresensorData(){
+        return  forecastService.getMultiPhaseFailure();
     }
 }

@@ -10,8 +10,8 @@
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item >首页</el-breadcrumb-item>
                 <el-breadcrumb-item>避雷器</el-breadcrumb-item>
-                <el-breadcrumb-item>隐患检测</el-breadcrumb-item>
-                <el-breadcrumb-item>阀片老化</el-breadcrumb-item>
+                <el-breadcrumb-item>故障监测</el-breadcrumb-item>
+                <el-breadcrumb-item>单相击穿故障监测</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="col-lg-12 col-md-12 table-wrap" >
@@ -23,22 +23,24 @@
                         <el-button type="primary" @click="latestMetric">查询</el-button>
                     </el-form-item>
                     <el-form-item>
-                        <el-tag type="gray"> 泄漏电流缓增超过一定阈值</el-tag>
+                        <el-tag type="gray"> 泄漏电流突增后不恢复</el-tag>
 
                     </el-form-item>
                     <el-form-item>
-                        <el-tag type="warning"> 管芯温度与环境温度无关的正趋势</el-tag>
+                        <el-tag type="warning"> 管芯温度突增后不恢复</el-tag>
 
                     </el-form-item>
                     <el-form-item>
-                        <el-tag type="danger">放电次数0或少有（低于2次）</el-tag>
+                        <el-tag type="danger"> 有放电计数</el-tag>
                     </el-form-item>
-
+                    <el-form-item>
+                        <el-tag type="success"> 区域雷雨天气</el-tag>
+                    </el-form-item>
                 </el-form>
             </el-col>
             <el-table  :data="tbData"   v-loading.body="listLoading" border stripe highlight-current-row height="450"   style="width: 100%">
 
-                <el-table-column  prop="sid"  label="阀片传感器" width="500">  </el-table-column>
+                <el-table-column  prop="sid"  label="单项击穿传感器" width="500">  </el-table-column>
 
             </el-table>
 
@@ -67,7 +69,7 @@
 
                     var that=this;
                     that.listLoading=true;
-                    axios.get("/bileiqi/sensor/forecast/reepagesensor/data").then(function(resp){
+                    axios.get("/bileiqi/sensor/forecast/singlephasefailuresensor/data").then(function(resp){
                         that.tbData=resp.data
                         that.listLoading=false;
                     })

@@ -117,4 +117,21 @@ public class BileiqiServiceImpl implements IBileiqiService {
         });
         mappingRepository.delete(mappingList);
     }
+    //一天没有数据则标识为异常,uncommon =1
+    public List<Map<String,Object>> getSensorLatestMetrics(){
+        String sql=" select a.pole,a.ptype,a.stype,a.sid, max(sd.tlast) tlast ,max(sd.tlast) < date_sub(now(),interval 1 day) uncommon   from (  " +
+                "select pole,type ptype, '温度传感器' stype, bl_wd_sid sid  from t_bileiqi_sensors_mapping  " +
+                "UNION  " +
+                "select  pole,type ptype, '雷击计数器' stype,bl_lj_sid  sid from t_bileiqi_sensors_mapping  " +
+                "UNION  " +
+                "select  pole,type ptype,'电流传感器' stype, bl_dl_sid  sid from t_bileiqi_sensors_mapping  " +
+                "UNION  " +
+                "select  pole,type ptype, '环境温度传感器' stype, tq_wd_sid sid from t_bileiqi_sensors_mapping  " +
+                "UNION  " +
+                "select  pole,type ptype,'环境湿度传感器' stype, tq_sd_sid sid  from t_bileiqi_sensors_mapping  " +
+                ")a   join t_sensor_days sd  " +
+                "on a.sid =sd.sid   " +
+                "group by a.pole,a.ptype,a.stype,a.sid";
+        return  jdbcTemplate.query(sql,new ColumnMapRowMapper());
+    }
 }
