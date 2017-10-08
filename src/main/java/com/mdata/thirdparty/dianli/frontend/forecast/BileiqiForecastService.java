@@ -11,6 +11,7 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
@@ -402,36 +403,28 @@ public class BileiqiService {
     }
 
     //查询传感器是否异常,如果近一天没有数据则需要告警
-    public Set<Map<String,String>> getUnCommonSensor(){
-        String sql="select a.pole,a.ptype,a.stype,a.sid,avg(sd.savg) savg  from (\n" +
-                "select pole,type ptype, 'wd' stype, bl_wd_sid sid  from t_bileiqi_sensors_mapping\n" +
-                "UNION\n" +
-                "select  pole,type ptype, 'lj' stype,bl_lj_sid  sid from t_bileiqi_sensors_mapping\n" +
-                "UNION\n" +
-                "select  pole,type ptype,'dl' stype, bl_dl_sid  sid from t_bileiqi_sensors_mapping\n" +
-                "UNION\n" +
-                "select  pole,type ptype, 'twd' stype, tq_wd_sid sid from t_bileiqi_sensors_mapping\n" +
-                "UNION\n" +
-                "select  pole,type ptype,'tsd' stype, tq_sd_sid sid  from t_bileiqi_sensors_mapping\n" +
-                ")a left join t_sensor_days sd\n" +
-                "on a.sid =sd.sid \n" +
-                "and  sd.days > date_sub(now(),interval 1 day) group by a.pole,a.ptype,a.stype";
-        List<Map<String,String>> mapList=  jdbcTemplate.query(sql, new RowMapper<Map<String, String>>() {
-            @Override
-            public Map<String, String> mapRow(ResultSet rs, int i) throws SQLException {
-                Map<String, String> map= Maps.newHashMap();
-                String pole= rs.getString("pole");
-                String ptype=rs.getString("ptype");
-                String stype=rs.getString("stype");
-                String savg=rs.getString("savg");
-
-                return map;
-            }
-        });
+    public Set<Map<String,Object>> getUnCommonSensor(){
+        long delay= bileiqiUnCommonConfigBean.getDelay();
+        TimeUnit.Unit unit= bileiqiUnCommonConfigBean.getUnit();
+        TimeUnit timeUnit=new TimeUnit(delay,unit);
+        String sql="select a.pole,a.ptype,a.stype,a.sid,avg(sd.savg) savg  from (  " +
+                "select pole,type ptype, 'wd' stype, bl_wd_sid sid  from t_bileiqi_sensors_mapping  " +
+                "UNION  " +
+                "select  pole,type ptype, 'lj' stype,bl_lj_sid  sid from t_bileiqi_sensors_mapping  " +
+                "UNION  " +
+                "select  pole,type ptype,'dl' stype, bl_dl_sid  sid from t_bileiqi_sensors_mapping  " +
+                "UNION  " +
+                "select  pole,type ptype, 'twd' stype, tq_wd_sid sid from t_bileiqi_sensors_mapping  " +
+                "UNION  " +
+                "select  pole,type ptype,'tsd' stype, tq_sd_sid sid  from t_bileiqi_sensors_mapping  " +
+                ")a left join t_sensor_days sd  " +
+                "on a.sid =sd.sid   " +
+                "and  sd.days > date_sub(now(),interval "+timeUnit.toString()+") group by a.pole,a.ptype,a.stype";
+        List<Map<String,Object>> mapList=  jdbcTemplate.query(sql,  new ColumnMapRowMapper());
         if(CollectionUtils.isNotEmpty(mapList)){
-            Set<Map<String,String>> mapSet=Sets.newHashSet(Iterables.filter(mapList, new Predicate<Map<String, String>>() {
+            Set<Map<String,Object>> mapSet=Sets.newHashSet(Iterables.filter(mapList, new Predicate<Map<String, Object>>() {
                 @Override
-                public boolean apply(Map<String, String> stringStringMap) {
+                public boolean apply(Map<String, Object> stringStringMap) {
                     return stringStringMap.get("savg")==null;
                 }
             }));
@@ -441,4 +434,5 @@ public class BileiqiService {
         }
         return null;
     }
+
 }
