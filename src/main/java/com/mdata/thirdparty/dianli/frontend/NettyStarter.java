@@ -104,8 +104,9 @@ public class NettyStarter  implements  InitializingBean {
 
             // 以下代码在synchronized同步块外面是安全的
             future.sync();
-        } catch (Throwable t) {
-            throw new Exception("connects to  fails", t);
+        } catch (Exception t) {
+           t.printStackTrace();
+           // throw new Exception("connects to  fails", t);
         }
     }
 

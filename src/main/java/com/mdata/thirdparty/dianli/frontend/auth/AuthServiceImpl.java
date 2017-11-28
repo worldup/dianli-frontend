@@ -24,7 +24,8 @@ public class AuthServiceImpl implements  AuthService {
     @Override
     public List<Menu> getMenusByUserId(String userId) {
 
-        Menu menu= menuService.getMenuTreeByTenantId(getUserTenantId(userId));
+//        Menu menu= menuService.getMenuTreeByTenantId(getUserTenantId(userId));
+        Menu menu= menuService.getMenuTreeByUserNameAndTenantId(userId,getUserTenantId(userId));
         return menu.getChildren();
     }
 }

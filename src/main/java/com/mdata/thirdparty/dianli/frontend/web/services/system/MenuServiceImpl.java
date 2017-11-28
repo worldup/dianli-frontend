@@ -35,8 +35,38 @@ public class MenuServiceImpl  implements  IMenuService{
         return  Lists.newArrayList(repository.findByTenantId(tenantId));
     }
     @Override
+    public  List<com.mdata.thirdparty.dianli.frontend.web.model.base.Menu> getAllMenusByUserNameAndTenantId(String userName,Integer tenantId){
+
+        String sql="select distinct m.* from group_members gm ,group_authorities ga,t_menu  m\n" +
+                "where gm.group_id=ga.group_id and m.`resource_id`=ga.authority\n" +
+                "and gm.username=? and m.tenant_id=?";
+        final  List<Menu> menus= jdbcTemplate.query(sql,new Object[]{userName,tenantId},new BeanPropertyRowMapper<Menu>(Menu.class));
+        return Lists.transform(menus, new Function<Menu, com.mdata.thirdparty.dianli.frontend.web.model.base.Menu>() {
+            @Override
+            public com.mdata.thirdparty.dianli.frontend.web.model.base.Menu apply(Menu input) {
+                com.mdata.thirdparty.dianli.frontend.web.model.base.Menu menu=new com.mdata.thirdparty.dianli.frontend.web.model.base.Menu();
+                menu.setId(Integer.valueOf(input.getId()+""));
+                menu.setHref(input.getUrl());
+                menu.setParentId(Integer.valueOf(""+input.getPid()));
+                menu.setLabel(input.getName());
+                menu.setIconClass(input.getIconClass());
+                menu.setSort(input.getIdx());
+                menu.setTenantId(Integer.valueOf(""+input.getTenantId()));
+                menu.setResourceId(input.getResourceId());
+
+                return menu;
+            }
+        });
+    }
+
+    @Override
     public  com.mdata.thirdparty.dianli.frontend.web.model.base.Menu getMenuTreeByTenantId(Integer tenantId){
         List<com.mdata.thirdparty.dianli.frontend.web.model.base.Menu> menus=getAllMenusByTenantId(tenantId);
+        return TreeUtils.transMenuTree(menus,-1);
+    }
+    @Override
+    public com.mdata.thirdparty.dianli.frontend.web.model.base.Menu getMenuTreeByUserNameAndTenantId(String userName,Integer tenantId){
+        List<com.mdata.thirdparty.dianli.frontend.web.model.base.Menu> menus=getAllMenusByUserNameAndTenantId(userName,tenantId);
         return TreeUtils.transMenuTree(menus,-1);
     }
 
