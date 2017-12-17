@@ -1,11 +1,13 @@
 package com.mdata.thirdparty.dianli.frontend.web.controller;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.mdata.thirdparty.dianli.frontend.forecast.BileiqiForecastService;
 import com.mdata.thirdparty.dianli.frontend.web.model.BileiqiSensor;
 import com.mdata.thirdparty.dianli.frontend.web.model.BileiqiSensorMapping;
 import com.mdata.thirdparty.dianli.frontend.web.model.PageResult;
 import com.mdata.thirdparty.dianli.frontend.web.services.sensor.IBileiqiService;
+import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by administrator on 17/8/20.
@@ -144,6 +146,57 @@ public class BileiqiController {
         ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
         modelAndView.setViewName( "/bileiqi/forecast/uncommonsensor");
         return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/serverfailure",method = RequestMethod.GET)
+    public ModelAndView uncommonserver(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/serverfailure");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/networkfailure",method = RequestMethod.GET)
+    public ModelAndView networkfailure(HttpSession session){
+        ModelAndView modelAndView=modelAndViewUtils.newInstance(session);
+        modelAndView.setViewName( "/bileiqi/forecast/networkfailure");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/sensor/forecast/networkfailure/data",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String,String>> networkfailuredata(){
+        List<Map<String,Object>> uncommonSensors=   forecastService.getUnCommonSensor();
+        List<Map<String,String>> result=new ArrayList();
+        if(uncommonSensors!=null) {
+
+            Map<String, Integer> calMap = new HashMap();
+            for (Map<String, Object> map : uncommonSensors) {
+                String key = map.get("pole").toString();
+                if (calMap.containsKey(key)) {
+                    Integer val = calMap.get(key);
+                    calMap.put(key, ++val);
+                } else {
+                    calMap.put(key, 1);
+                }
+            }
+            for(Map.Entry<String,Integer> entry: calMap.entrySet()){
+                if(entry.getValue()>=14){
+                    Map<String,String> map=new HashMap();
+                    map.put("pole",entry.getKey());
+                    result.add(map);
+                }
+            }
+
+        }
+
+        return result;
+    }
+    @RequestMapping(value = "/sensor/forecast/serverfailure/data",method = RequestMethod.GET)
+    @ResponseBody
+    public boolean serverfailuredata(){
+        List<Map<String,Object>> uncommonSensors=   forecastService.getUnCommonSensor();
+        List<BileiqiSensorMapping> sensorMappings=forecastService.getBileiqiSensorMapping();
+        if(uncommonSensors!=null&&sensorMappings!=null&&uncommonSensors.size()==sensorMappings.size()){
+            return true;
+        }
+        return false;
     }
     @RequestMapping(value = "/sensor/forecast/uncommonsensor/data",method = RequestMethod.GET)
     @ResponseBody

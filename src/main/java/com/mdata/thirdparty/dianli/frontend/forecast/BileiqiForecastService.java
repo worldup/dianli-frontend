@@ -77,7 +77,8 @@ public class BileiqiForecastService {
             BigDecimal bd1= BigDecimal.valueOf(d1);
             BigDecimal bRangeRate=BigDecimal.valueOf(rangeRate);
             try{
-                double flag= bd2.subtract(bd1).divide(bd1,BigDecimal.ROUND_HALF_UP).abs().subtract(bRangeRate).doubleValue();
+               // double flag= bd2.subtract(bd1).divide(bd1,BigDecimal.ROUND_HALF_UP).abs().subtract(bRangeRate).doubleValue();
+                double flag= bd2.subtract(bd1).divide(bd1,BigDecimal.ROUND_HALF_UP).subtract(bRangeRate).doubleValue();
                 return flag>0;
             }catch (Exception e){
                 e.printStackTrace();
@@ -115,6 +116,15 @@ public class BileiqiForecastService {
     //获取异常管芯温度传感器
     public Set<String> getUnCommonWDSensors(){
         String sidTypeCol="bl_wd_sid";
+        Double rangeRate=bileiqiUnCommonConfigBean.getWd().getPercent();
+        long delay= bileiqiUnCommonConfigBean.getWd().getDelay();
+        TimeUnit.Unit unit= bileiqiUnCommonConfigBean.getWd().getUnit();
+        TimeUnit timeUnit=new TimeUnit(delay,unit);
+        return getUnCommonSensors(sidTypeCol,rangeRate,timeUnit);
+    }
+    //获取异常管芯温度传感器
+    public Set<String> getUnCommonTQWDSensors(){
+        String sidTypeCol="tq_wd_sid";
         Double rangeRate=bileiqiUnCommonConfigBean.getWd().getPercent();
         long delay= bileiqiUnCommonConfigBean.getWd().getDelay();
         TimeUnit.Unit unit= bileiqiUnCommonConfigBean.getWd().getUnit();
@@ -181,6 +191,7 @@ public class BileiqiForecastService {
         Set<String>  wdSensors=getUnCommonWDSensors();
         Set<String>  dlSensors=getUnCommonDLSensors();
         Set<String> ljSensors=getUnCommonLJSensors();
+        Set<String> tqSensors=getUnCommonTQWDSensors();
 
         if(CollectionUtils.isNotEmpty(wdSensors)&&CollectionUtils.isNotEmpty(dlSensors)&&CollectionUtils.isNotEmpty(ljSensors)){
           for(String wdSensor:wdSensors){
@@ -196,7 +207,7 @@ public class BileiqiForecastService {
                 putAndIncrease(tempMap,poleAndType);
             }
             for(Map.Entry<String,Integer> entry:tempMap.entrySet()){
-                if(entry.getValue()==3){
+                if(entry.getValue()==3 &&!tqSensors.contains(entry.getKey())){
                     Map<String,String> map=Maps.newHashMap();
                     map.put("sid",entry.getKey());
                     result.add(map);
@@ -383,7 +394,8 @@ public class BileiqiForecastService {
         }
         return true;
     }
-
+    //查询lora服务器日常，如果所有的传感器都没接收到数据，则服务器异常
+    //如果同一杆的所有传感器异常，则网络异常
     //查询传感器是否异常,如果近一天没有数据则需要告警
     public List<Map<String,Object>> getUnCommonSensor(){
         long delay= bileiqiUnCommonConfigBean.getDelay();
